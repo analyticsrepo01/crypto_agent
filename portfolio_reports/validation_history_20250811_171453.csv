@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250811_162714_8358,8,BALANCED,2025-08-11T17:13:46.542834,1,rerun,Validation failed. Critical issues: NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250811_162714_8358,8,BALANCED,2025-08-11T17:14:26.653210,2,proceed,AI decisions are technically sound and consistent.

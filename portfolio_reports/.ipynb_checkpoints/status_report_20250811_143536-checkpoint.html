@@ -1,0 +1,172 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Portfolio Status Report - 20250811_143536</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; margin: 20px; background-color: #f7f9fc; color: #333; }
+            .header { background: #2c3e50; color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+            .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
+            .metric-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
+            .metric-value { font-size: 2.2em; font-weight: 600; }
+            .metric-label { color: #555; margin-top: 8px; font-size: 1em; }
+            .positive { color: #27ae60; } .negative { color: #c0392b; } .neutral { color: #7f8c8d; }
+            .section { background: white; padding: 25px; border-radius: 12px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eef; }
+            th { background-color: #f7f9fc; font-weight: 600; }
+            h1, h2 { margin: 0; } h2 { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Portfolio Status Report</h1>
+            <p>Session: session_20250811_141635_6973 | Generated: 2025-08-11 14:35:38</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value neutral">$999,386.93</div>
+                <div class="metric-label">Total Equity</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value neutral">$+0.00</div>
+                <div class="metric-label">Unrealized P&L</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value neutral">$989,164.34</div>
+                <div class="metric-label">Cash Available</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Profitability Trend</h2>
+            <canvas id="pnlChart"></canvas>
+        </div>
+
+        <div class="section">
+            <h2>Current Holdings</h2>
+            <table>
+                <thead><tr><th>Symbol</th><th>Position (Shares)</th><th>Current Price</th><th>Market Value</th><th>Unrealized P&L</th></tr></thead>
+                <tbody>
+    
+                <tr>
+                    <td><strong>AAPL</strong></td>
+                    <td>9</td>
+                    <td>$226.89</td>
+                    <td>$2,042.01</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>ADBE</strong></td>
+                    <td>8</td>
+                    <td>$341.73</td>
+                    <td>$2,733.84</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>AMZN</strong></td>
+                    <td>9</td>
+                    <td>$221.73</td>
+                    <td>$1,995.57</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>CRM</strong></td>
+                    <td>6</td>
+                    <td>$239.94</td>
+                    <td>$1,439.64</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>GOOGL</strong></td>
+                    <td>9</td>
+                    <td>$199.81</td>
+                    <td>$1,798.29</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>META</strong></td>
+                    <td>6</td>
+                    <td>$770.93</td>
+                    <td>$4,625.58</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>MSFT</strong></td>
+                    <td>9</td>
+                    <td>$523.30</td>
+                    <td>$4,709.70</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>NFLX</strong></td>
+                    <td>12</td>
+                    <td>$1,213.10</td>
+                    <td>$14,557.20</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>NVDA</strong></td>
+                    <td>9</td>
+                    <td>$183.35</td>
+                    <td>$1,650.15</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>TSLA</strong></td>
+                    <td>2</td>
+                    <td>$341.05</td>
+                    <td>$682.10</td>
+                    <td class="neutral">$+0.00</td>
+                </tr>
+            
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('pnlChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["14:35:38"],
+                    datasets: [{
+                        label: 'Unrealized P&L ($)',
+                        data: [0.0],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+    </html>
+    

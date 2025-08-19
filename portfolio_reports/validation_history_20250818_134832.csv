@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_124342_9740,10,BALANCED,2025-08-18T13:47:45.280750,1,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-3.52). 
+session_20250818_124342_9740,10,BALANCED,2025-08-18T13:48:07.171559,2,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-3.52). 
+session_20250818_124342_9740,10,BALANCED,2025-08-18T13:48:26.306884,3,proceed,AI decisions are technically sound and consistent.

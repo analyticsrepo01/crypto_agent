@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-08-11T15:12:19.768528",
+  "portfolio_stocks": [
+    "AAPL",
+    "XOM",
+    "META",
+    "AMZN",
+    "NFLX",
+    "MSFT",
+    "NVDA",
+    "TSLA",
+    "JPM",
+    "ADBE"
+  ],
+  "news_providers": [
+    {
+      "code": "BRFG",
+      "name": "Briefing.com General Market Columns"
+    },
+    {
+      "code": "BRFUPDN",
+      "name": "Briefing.com Analyst Actions"
+    },
+    {
+      "code": "DJ-N",
+      "name": "Dow Jones Global Equity Trader"
+    },
+    {
+      "code": "DJ-RTA",
+      "name": "Dow Jones Top Stories Asia Pacific"
+    },
+    {
+      "code": "DJ-RTE",
+      "name": "Dow Jones Top Stories Europe"
+    },
+    {
+      "code": "DJ-RTG",
+      "name": "Dow Jones Top Stories Global"
+    },
+    {
+      "code": "DJ-RTPRO",
+      "name": "Dow Jones Top Stories Pro"
+    },
+    {
+      "code": "DJNL",
+      "name": "Dow Jones Newsletters"
+    },
+    {
+      "code": "FLY",
+      "name": "The Fly"
+    }
+  ],
+  "sentiment_summary": {
+    "positive_stocks": [],
+    "negative_stocks": [],
+    "neutral_stocks": [],
+    "total_articles": 0
+  },
+  "detailed_analysis": {}
+}

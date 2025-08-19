@@ -1,0 +1,311 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>AI Trading Report - 20250811_153200</title>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; background-color: #f9f9f9; }
+            .header { background: #4a69bd; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+            .metric-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+            .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+            .positive { color: #2ecc71; } .negative { color: #e74c3c; } .neutral { color: #7f8c8d; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background-color: #f2f2f2; }
+            .section { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .trade-card { background: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 10px 0; border-radius: 4px; }
+            .trade-buy { border-left-color: #28a745; }
+            .trade-sell { border-left-color: #dc3545; }
+            .trade-details { font-size: 0.9em; color: #666; margin-top: 8px; }
+            .priority-high { background-color: #fff3cd; }
+            .priority-medium { background-color: #d1ecf1; }
+            .priority-low { background-color: #d4edda; }
+            .validation-step { padding: 10px; margin: 5px 0; border-radius: 4px; }
+            .validation-proceed { background-color: #d4edda; border-left: 4px solid #28a745; }
+            .validation-rerun { background-color: #f8d7da; border-left: 4px solid #dc3545; }
+            .reasoning { font-style: italic; color: #495057; }
+            .order-status { font-weight: bold; }
+            .execution-time { color: #6c757d; font-size: 0.8em; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🤖 AI Portfolio Trading Report</h1>
+            <p>Session: session_20250811_152814_6340 | Cycle: 1 | Generated: 2025-08-11 15:32:00</p>
+            <p>Strategy Mode: 🔥 AGGRESSIVE</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card"><h3>Portfolio Value</h3><p class="neutral">$999,409.44</p></div>
+            <div class="metric-card"><h3>Total P&L</h3><p class="neutral">$+0.00</p></div>
+            <div class="metric-card"><h3>Total Trades</h3><p class="neutral">2</p></div>
+            <div class="metric-card"><h3>Cash Available</h3><p class="neutral">$982,834.01</p></div>
+            <div class="metric-card"><h3>Validation Attempts</h3><p class="neutral">2</p></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Current Holdings</h2>
+            <table>
+                <tr><th>Stock</th><th>Position</th><th>Price</th><th>P&L</th><th>Allocation</th><th>AI Action</th><th>Technical Score</th></tr>
+    <tr>
+            <td><strong>AAPL</strong></td>
+            <td>9</td>
+            <td>$227.48</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.2%</td>
+            <td>HOLD</td>
+            <td>9.0/10</td>
+        </tr><tr>
+            <td><strong>XOM</strong></td>
+            <td>0</td>
+            <td>$105.92</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>4.0/10</td>
+        </tr><tr>
+            <td><strong>META</strong></td>
+            <td>6</td>
+            <td>$769.52</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.5%</td>
+            <td>BUY</td>
+            <td>10.0/10</td>
+        </tr><tr>
+            <td><strong>AMZN</strong></td>
+            <td>9</td>
+            <td>$221.84</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.2%</td>
+            <td>HOLD</td>
+            <td>4.0/10</td>
+        </tr><tr>
+            <td><strong>NFLX</strong></td>
+            <td>12</td>
+            <td>$1215.63</td>
+            <td class='neutral'>$+0.00</td>
+            <td>1.5%</td>
+            <td>HOLD</td>
+            <td>7.0/10</td>
+        </tr><tr>
+            <td><strong>MSFT</strong></td>
+            <td>9</td>
+            <td>$525.23</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.5%</td>
+            <td>HOLD</td>
+            <td>6.5/10</td>
+        </tr><tr>
+            <td><strong>NVDA</strong></td>
+            <td>9</td>
+            <td>$183.19</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.2%</td>
+            <td>HOLD</td>
+            <td>9.5/10</td>
+        </tr><tr>
+            <td><strong>TSLA</strong></td>
+            <td>12</td>
+            <td>$344.06</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.1%</td>
+            <td>BUY</td>
+            <td>7.0/10</td>
+        </tr><tr>
+            <td><strong>JPM</strong></td>
+            <td>10</td>
+            <td>$289.91</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>BUY</td>
+            <td>8.5/10</td>
+        </tr><tr>
+            <td><strong>ADBE</strong></td>
+            <td>8</td>
+            <td>$338.07</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.3%</td>
+            <td>SELL</td>
+            <td>3.0/10</td>
+        </tr></table></div><div class='section'><h2>⚡ Executed Trades in This Cycle</h2>
+            <div class="trade-card trade-buy priority-high">
+                <h4>🟢 Trade #1: BUY 10 TSLA</h4>
+                <div class="trade-details">
+                    <p><strong>Price:</strong> $344.06 | <strong>Priority:</strong> HIGH | <strong>Order ID:</strong> 34</p>
+                    <p><strong>Status:</strong> <span class="order-status">Filled</span> | <strong>Filled:</strong> 10.0/10 shares</p>
+                    <p><strong>Avg Fill Price:</strong> $344.06</p>
+                    <p><strong>Estimated Cost:</strong> $3,440.60</p>
+                    <p class="reasoning"><strong>AI Reasoning:</strong> TSLA shows strong bullish momentum, evidenced by its 7.0/10 Technical Score (WEAK_BULLISH) and a very strong positive MACD Histogram (1.623). The AI Trend is BULLISH. While the RSI is extremely overbought (86.4) and indicates high risk, the aggressive trading strategy prioritizes current momentum and accepts higher risk for potential returns.</p>
+                    <p class="execution-time">Execution Time: 1.27s | Timestamp: 2025-08-11T15:28:32.327870</p>
+                </div>
+            </div>
+            
+            <div class="trade-card trade-buy priority-high">
+                <h4>🟢 Trade #2: BUY 10 JPM</h4>
+                <div class="trade-details">
+                    <p><strong>Price:</strong> $289.91 | <strong>Priority:</strong> HIGH | <strong>Order ID:</strong> 36</p>
+                    <p><strong>Status:</strong> <span class="order-status">Filled</span> | <strong>Filled:</strong> 10.0/10 shares</p>
+                    <p><strong>Avg Fill Price:</strong> $290.34</p>
+                    <p><strong>Estimated Cost:</strong> $2,899.10</p>
+                    <p class="reasoning"><strong>AI Reasoning:</strong> JPM demonstrates strong bullish indicators with an 8.5/10 Technical Score (STRONG_BULLISH), a HIGH confidence BULLISH AI Trend, and exclusively bullish key signals (3.5 bullish, 0 bearish). Healthy RSI and positive MACD Histogram confirm sustained buying interest.</p>
+                    <p class="execution-time">Execution Time: 1.24s | Timestamp: 2025-08-11T15:28:32.327870</p>
+                </div>
+            </div>
+            </div><div class='section'><h2>🕵️ Decision Validation Process</h2>
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #1: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-11T15:31:26.443094</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: NFLX: Major contradiction - SELL recommendation conflicts with bullish analysis; TSLA: Major contradiction - SELL recommendation conflicts with bullish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-proceed">
+                <h4>✅ Attempt #2: VALIDATION PASSED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-11T15:31:56.183734</p>
+                <p><strong>Reason:</strong> AI decisions are technically sound and consistent. Note: 1 minor warnings detected.</p>
+            </div>
+            
+        <div class="validation-step" style="background-color: #e9ecef; border-left: 4px solid #6c757d;">
+            <h4>🎯 Final Decision Logic</h4>
+            <p>AI decisions are technically sound and consistent. Note: 1 minor warnings detected.</p>
+        </div>
+        </div><div class='section'><h2>🧠 AI Recommendations Analysis</h2><table><tr><th>Symbol</th><th>Action</th><th>Priority</th><th>Technical Score</th><th>Reasoning</th><th>Confidence</th></tr><tr>
+                <td><strong>AAPL</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>MEDIUM</td>
+                <td>9.0/10</td>
+                <td class="reasoning">Despite a STRONG_BULLISH Technical Score of 9.0 and a BULLISH AI Trend, current position (9 shares) is too close to the max shares per stock (15) to execute a 10-share buy order without exceeding the limit.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>XOM</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>4.0/10</td>
+                <td class="reasoning">Although the Technical Score is 4/10 (at BUY threshold), the AI Trend is BEARISH, Key Signals are net bearish (4 bearish vs 3 bullish), and RSI is weak (44.5), indicating a lack of strong bullish momentum required for an aggressive buy.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>META</strong></td>
+                <td class="positive">BUY</td>
+                <td>HIGH</td>
+                <td>10.0/10</td>
+                <td class="reasoning">An exceptional 10/10 Technical Score (STRONG_BULLISH) is strongly confirmed by a HIGH confidence BULLISH AI trend and overwhelming bullish key signals (6.5 bullish, 0 bearish), indicating powerful upward momentum despite neutral volume and Bollinger.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>AMZN</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>4.0/10</td>
+                <td class="reasoning">Despite a Technical Score of 4/10 (at BUY threshold), the stock exhibits clear bearish momentum with a negative MACD Histogram (-0.175), a BEARISH AI Trend, and net bearish key signals (2 bearish vs 1 bullish), making it unsuitable for an aggressive buy.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>NFLX</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>MEDIUM</td>
+                <td>7.0/10</td>
+                <td class="reasoning">The stock's Technical Score of 7.0/10 (WEAK_BULLISH) and BULLISH AI Trend, along with a strong positive MACD Histogram (2.355), indicate continued bullish momentum. While RSI is extremely overbought (82.0), the aggressive mode prioritizes momentum, and a sell signal (score <= 6) is not present. Cannot buy more due to max shares per stock limit.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>MSFT</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>MEDIUM</td>
+                <td>6.5/10</td>
+                <td class="reasoning">With a 6.5/10 Technical Score (WEAK_BULLISH) and a BULLISH AI Trend, supported by healthy RSI and positive MACD Histogram, the stock shows positive momentum. However, current position (9 shares) prevents a 10-share buy order, and there are no strong sell signals.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>NVDA</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>HIGH</td>
+                <td>9.5/10</td>
+                <td class="reasoning">Exhibiting a STRONG_BULLISH 9.5/10 Technical Score, HIGH confidence BULLISH AI Trend, and strong bullish key signals (6.5 bullish, 2 bearish), NVDA is highly attractive. However, current position (9 shares) limits further buying without exceeding the max shares per stock.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>TSLA</strong></td>
+                <td class="positive">BUY</td>
+                <td>HIGH</td>
+                <td>7.0/10</td>
+                <td class="reasoning">TSLA shows strong bullish momentum, evidenced by its 7.0/10 Technical Score (WEAK_BULLISH) and a very strong positive MACD Histogram (1.623). The AI Trend is BULLISH. While the RSI is extremely overbought (86.4) and indicates high risk, the aggressive trading strategy prioritizes current momentum and accepts higher risk for potential returns.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>JPM</strong></td>
+                <td class="positive">BUY</td>
+                <td>HIGH</td>
+                <td>8.5/10</td>
+                <td class="reasoning">JPM demonstrates strong bullish indicators with an 8.5/10 Technical Score (STRONG_BULLISH), a HIGH confidence BULLISH AI Trend, and exclusively bullish key signals (3.5 bullish, 0 bearish). Healthy RSI and positive MACD Histogram confirm sustained buying interest.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>ADBE</strong></td>
+                <td class="negative">SELL</td>
+                <td>HIGH</td>
+                <td>3.0/10</td>
+                <td class="reasoning">The stock's Technical Score of 3/10 (WEAK_BEARISH) falls squarely within the aggressive sell criteria (score 6-). This bearish outlook is reinforced by a BEARISH AI Trend and net bearish key signals (4 bearish vs 2 bullish), warranting a decisive exit despite a positive MACD Histogram.</td>
+                <td>HIGH</td>
+            </tr></table></div><div class='section'><h2>📈 AI Trend Analysis</h2><table><tr><th>Symbol</th><th>Trend</th><th>Confidence</th><th>Risk Level</th><th>Technical Strength</th><th>Reasoning</th></tr><tr>
+                <td><strong>AAPL</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>HIGH</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">AAPL exhibits strong bullish momentum with price above key moving averages, bullish MACD crossover, and positive Bollinger Band positioning, despite overbought momentum indicators suggesting potential for a short-term pullback.</td>
+            </tr><tr>
+                <td><strong>XOM</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">Price is consistently below bearishly aligned moving averages (SMA20 < SMA50, EMA12 < EMA26) and the overall strength is "WEAK_BEARISH," indicating a prevailing downtrend. However, extremely oversold momentum (Williams %R) and a bullish MACD crossover suggest a potential for a short-term bounce or reversal attempt.</td>
+            </tr><tr>
+                <td><strong>META</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">Price is strongly positioned above key moving averages and the Bollinger Band middle line, reinforced by a bullish MACD crossover and a high overall technical score, indicating robust upward momentum.</td>
+            </tr><tr>
+                <td><strong>AMZN</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">MACD shows bearish momentum, and the price is positioned below short-term moving averages and the Bollinger Middle Band, indicating a weak bearish trend despite some mixed signals from other indicators.</td>
+            </tr><tr>
+                <td><strong>NFLX</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">NFLX is in a clear uptrend, supported by bullish moving average crossovers and strong MACD momentum. However, all major momentum indicators (RSI, Stochastic, Williams %R) are severely overbought, indicating a high probability of a short-term pullback or consolidation.</td>
+            </tr><tr>
+                <td><strong>MSFT</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">MSFT exhibits short-term bullish momentum with price above key moving averages and a positive MACD crossover, but overbought conditions on Stochastic and Williams %R indicate a potential pullback.</td>
+            </tr><tr>
+                <td><strong>NVDA</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">NVDA exhibits strong bullish momentum with price above all key moving averages and bullish MACD crossover, supported by its position above the Bollinger Bands middle line. While short-term momentum indicators like Stochastic and Williams %R signal overbought conditions, the overall trend remains robust.</td>
+            </tr><tr>
+                <td><strong>TSLA</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The stock is in a strong uptrend with bullish moving average alignments and MACD confirmation, but multiple momentum indicators (RSI, Stochastic, Williams %R) are severely overbought, suggesting a high risk of a short-term pullback.</td>
+            </tr><tr>
+                <td><strong>JPM</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">The stock exhibits strong bullish momentum, supported by a MACD crossover, price trading above the Bollinger Band middle line, and positive volume action.</td>
+            </tr><tr>
+                <td><strong>ADBE</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">The price is trading below key moving averages, exhibiting bearish crossovers (SMA20 < SMA50, EMA12 < EMA26). This, combined with a higher number of bearish signals detected compared to bullish ones, indicates a downward trend.</td>
+            </tr></table></div></body></html>

@@ -1,0 +1,5 @@
+symbol,action,quantity,price
+MSFT,SELL,10,521.45
+AAPL,BUY,10,229.73
+NFLX,BUY,10,1208.35
+TSLA,BUY,10,331.58

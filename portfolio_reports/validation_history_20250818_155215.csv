@@ -1,0 +1,7 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_134834_3361,11,BALANCED,2025-08-18T15:50:00.241971,1.0,rerun,Validation failed. Critical issues: AAPL: SELL recommendation would result in loss after fees (Net P&L: $-4.42). Warnings: 1
+session_20250818_134834_3361,11,BALANCED,2025-08-18T15:50:19.432764,2.0,rerun,Validation failed. Critical issues: AAPL: SELL recommendation would result in loss after fees (Net P&L: $-4.42). Warnings: 1
+session_20250818_134834_3361,11,BALANCED,2025-08-18T15:50:46.956458,3.0,rerun,Validation failed. Critical issues: AAPL: SELL recommendation would result in loss after fees (Net P&L: $-4.42). Warnings: 1
+session_20250818_134834_3361,11,BALANCED,2025-08-18T15:51:14.131516,4.0,rerun,Validation failed. Critical issues: AAPL: SELL recommendation would result in loss after fees (Net P&L: $-4.42). Warnings: 1
+session_20250818_134834_3361,11,BALANCED,2025-08-18T15:51:37.637046,5.0,rerun,Validation failed. Critical issues: AAPL: SELL recommendation would result in loss after fees (Net P&L: $-4.42). Warnings: 1
+session_20250818_134834_3361,11,BALANCED,,,proceed,Max retries.

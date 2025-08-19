@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250811_160852_3427,2,AGGRESSIVE,2025-08-11T16:19:05.294068,1,rerun,Validation failed. Critical issues: AAPL: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250811_160852_3427,2,AGGRESSIVE,2025-08-11T16:20:03.288833,2,proceed,AI decisions are technically sound and consistent.

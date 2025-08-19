@@ -1,0 +1,1198 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-08-19T09:22:51.959049",
+    "session_id": "session_20250819_092247_4570",
+    "cycle_number": 1,
+    "strategy_mode": "BALANCED",
+    "report_version": "2.0_enhanced"
+  },
+  "portfolio_summary": {
+    "total_portfolio_value": 10000.0,
+    "total_unrealized_pnl": 0.0,
+    "cash_available": 10000.0,
+    "total_trades": 0,
+    "validation_attempts": 0
+  },
+  "positions": {
+    "AAPL": 0,
+    "XOM": 0,
+    "META": 0,
+    "AMZN": 0,
+    "NFLX": 0,
+    "MSFT": 0,
+    "NVDA": 0,
+    "TSLA": 0,
+    "JPM": 0,
+    "ADBE": 0
+  },
+  "stock_prices": {
+    "AAPL": 0.0,
+    "XOM": 0.0,
+    "META": 0.0,
+    "AMZN": 0.0,
+    "NFLX": 0.0,
+    "MSFT": 0.0,
+    "NVDA": 0.0,
+    "TSLA": 0.0,
+    "JPM": 0.0,
+    "ADBE": 0.0
+  },
+  "stock_pnls": {
+    "AAPL": 0.0,
+    "XOM": 0.0,
+    "META": 0.0,
+    "AMZN": 0.0,
+    "NFLX": 0.0,
+    "MSFT": 0.0,
+    "NVDA": 0.0,
+    "TSLA": 0.0,
+    "JPM": 0.0,
+    "ADBE": 0.0
+  },
+  "portfolio_allocation": {
+    "AAPL": 0.0,
+    "XOM": 0.0,
+    "META": 0.0,
+    "AMZN": 0.0,
+    "NFLX": 0.0,
+    "MSFT": 0.0,
+    "NVDA": 0.0,
+    "TSLA": 0.0,
+    "JPM": 0.0,
+    "ADBE": 0.0
+  },
+  "ai_recommendations": {
+    "AAPL": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "XOM": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "META": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "AMZN": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "NFLX": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "MSFT": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "NVDA": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "TSLA": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "JPM": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    },
+    "ADBE": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No valid market data available",
+      "technical_score": 0,
+      "confidence": "LOW"
+    }
+  },
+  "ai_trend_analysis": {
+    "AAPL": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "XOM": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "META": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "AMZN": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "NFLX": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "MSFT": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "NVDA": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "TSLA": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "JPM": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "ADBE": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    }
+  },
+  "executed_trades_detailed": [],
+  "validation_process": {
+    "validation_history": [],
+    "final_decision_logic": "N/A",
+    "validation_feedback": "",
+    "total_attempts": 0
+  },
+  "technical_analysis_summary": {},
+  "execution_performance": {
+    "total_execution_time": 0,
+    "successful_trades": 0,
+    "failed_trades": 0,
+    "avg_execution_time": 0
+  },
+  "raw_state_data": {
+    "timestamp": "2025-08-19T09:22:47.080637",
+    "cycle_number": 1,
+    "portfolio_stocks": [
+      "AAPL",
+      "XOM",
+      "META",
+      "AMZN",
+      "NFLX",
+      "MSFT",
+      "NVDA",
+      "TSLA",
+      "JPM",
+      "ADBE"
+    ],
+    "stock_data": {
+      "AAPL": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "XOM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "META": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "AMZN": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "NFLX": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "MSFT": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "NVDA": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "TSLA": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "JPM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "ADBE": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      }
+    },
+    "stock_data_1h": {
+      "AAPL": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "XOM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "META": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "AMZN": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "NFLX": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "MSFT": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "NVDA": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "TSLA": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "JPM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "ADBE": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      }
+    },
+    "stock_prices": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "stock_smas": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "ai_trend_analysis": {
+      "AAPL": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "XOM": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "META": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "AMZN": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "NFLX": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "MSFT": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "NVDA": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "TSLA": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "JPM": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "ADBE": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      }
+    },
+    "positions": {
+      "AAPL": 0,
+      "XOM": 0,
+      "META": 0,
+      "AMZN": 0,
+      "NFLX": 0,
+      "MSFT": 0,
+      "NVDA": 0,
+      "TSLA": 0,
+      "JPM": 0,
+      "ADBE": 0
+    },
+    "stock_pnls": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "purchase_prices": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "total_portfolio_value": 10000.0,
+    "total_unrealized_pnl": 0.0,
+    "total_trades": 0,
+    "total_fees_paid": 0.0,
+    "cash_available": 10000.0,
+    "ai_recommendations": {
+      "AAPL": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "XOM": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "META": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "AMZN": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "NFLX": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "MSFT": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "NVDA": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "TSLA": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "JPM": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      },
+      "ADBE": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No valid market data available",
+        "technical_score": 0,
+        "confidence": "LOW"
+      }
+    },
+    "executed_trades": [],
+    "portfolio_allocation": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "session_start_time": "2025-08-19T09:22:47.043413",
+    "session_id": "session_20250819_092247_4570",
+    "cycle_history": [
+      {
+        "timestamp": "2025-08-19T09:22:47.080637",
+        "cycle_number": 1,
+        "portfolio_stocks": [
+          "AAPL",
+          "XOM",
+          "META",
+          "AMZN",
+          "NFLX",
+          "MSFT",
+          "NVDA",
+          "TSLA",
+          "JPM",
+          "ADBE"
+        ],
+        "stock_data": {
+          "AAPL": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "XOM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "META": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "AMZN": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "NFLX": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "MSFT": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "NVDA": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "TSLA": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "JPM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "ADBE": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          }
+        },
+        "stock_data_1h": {
+          "AAPL": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "XOM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "META": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "AMZN": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "NFLX": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "MSFT": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "NVDA": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "TSLA": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "JPM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "ADBE": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          }
+        },
+        "stock_prices": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "stock_smas": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "ai_trend_analysis": {
+          "AAPL": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "XOM": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "META": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "AMZN": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "NFLX": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "MSFT": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "NVDA": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "TSLA": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "JPM": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "ADBE": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          }
+        },
+        "positions": {
+          "AAPL": 0,
+          "XOM": 0,
+          "META": 0,
+          "AMZN": 0,
+          "NFLX": 0,
+          "MSFT": 0,
+          "NVDA": 0,
+          "TSLA": 0,
+          "JPM": 0,
+          "ADBE": 0
+        },
+        "stock_pnls": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "purchase_prices": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "total_portfolio_value": 10000.0,
+        "total_unrealized_pnl": 0.0,
+        "total_trades": 0,
+        "total_fees_paid": 0.0,
+        "cash_available": 10000.0,
+        "ai_recommendations": {
+          "AAPL": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "XOM": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "META": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "AMZN": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "NFLX": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "MSFT": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "NVDA": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "TSLA": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "JPM": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          },
+          "ADBE": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No valid market data available",
+            "technical_score": 0,
+            "confidence": "LOW"
+          }
+        },
+        "executed_trades": [],
+        "portfolio_allocation": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "session_start_time": "2025-08-19T09:22:47.043413",
+        "session_id": "session_20250819_092247_4570",
+        "validation_attempts": 0,
+        "validation_history": [],
+        "final_decision_logic": "N/A",
+        "validation_feedback": "",
+        "aggressive_mode": false,
+        "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-19\n\ud83d\udd22 Today's Trades: 11\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 10, Sells: 1\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 1 NFLX @ $1238.89\n  \u2022 BUY 1 AAPL @ $231.65\n  \u2022 BUY 1 AAPL @ $231.65\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 AAPL: 4 trades (last: BUY)\n  \u2022 XOM: 4 trades (last: BUY)\n  \u2022 NFLX: 3 trades (last: BUY)",
+        "sp500_data": {
+          "success": true,
+          "price": 6449.14990234375,
+          "change_pct": -0.010076318078549858,
+          "open": 6445.02001953125,
+          "high": 6455.35009765625,
+          "low": 6437.7001953125,
+          "volume": "4162290000",
+          "previous_close": 6449.7998046875,
+          "timestamp": "2025-08-19T09:22:48.001240"
+        },
+        "benchmark_comparison": {
+          "error": "Insufficient data for comparison"
+        },
+        "news_sentiment": {
+          "AAPL": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "XOM": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "META": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "AMZN": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "NFLX": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "MSFT": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "NVDA": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "TSLA": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "JPM": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "ADBE": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          }
+        },
+        "price_peaks": {},
+        "buy_validation_result": {
+          "decision": "proceed",
+          "reason": "No buy actions"
+        },
+        "sell_validation_result": {
+          "decision": "proceed",
+          "reason": "No sell actions"
+        },
+        "buy_validation_attempts": 0,
+        "sell_validation_attempts": 0
+      }
+    ],
+    "validation_attempts": 0,
+    "validation_history": [],
+    "final_decision_logic": "N/A",
+    "validation_feedback": "",
+    "aggressive_mode": false,
+    "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-19\n\ud83d\udd22 Today's Trades: 11\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 10, Sells: 1\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 1 NFLX @ $1238.89\n  \u2022 BUY 1 AAPL @ $231.65\n  \u2022 BUY 1 AAPL @ $231.65\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 AAPL: 4 trades (last: BUY)\n  \u2022 XOM: 4 trades (last: BUY)\n  \u2022 NFLX: 3 trades (last: BUY)",
+    "sp500_data": {
+      "success": true,
+      "price": 6449.14990234375,
+      "change_pct": -0.010076318078549858,
+      "open": 6445.02001953125,
+      "high": 6455.35009765625,
+      "low": 6437.7001953125,
+      "volume": "4162290000",
+      "previous_close": 6449.7998046875,
+      "timestamp": "2025-08-19T09:22:48.001240"
+    },
+    "benchmark_comparison": {
+      "error": "Insufficient data for comparison"
+    },
+    "news_sentiment": {
+      "AAPL": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "XOM": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "META": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "AMZN": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "NFLX": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "MSFT": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "NVDA": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "TSLA": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "JPM": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      },
+      "ADBE": {
+        "article_count": 0,
+        "sentiment_label": "DISABLED",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2699\ufe0f",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "IBKR news disabled by configuration",
+        "disabled": true
+      }
+    },
+    "price_peaks": {},
+    "buy_validation_result": {
+      "decision": "proceed",
+      "reason": "No buy actions"
+    },
+    "sell_validation_result": {
+      "decision": "proceed",
+      "reason": "No sell actions"
+    },
+    "buy_validation_attempts": 0,
+    "sell_validation_attempts": 0
+  }
+}

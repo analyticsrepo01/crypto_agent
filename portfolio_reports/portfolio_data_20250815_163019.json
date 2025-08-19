@@ -1,0 +1,1418 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-08-15T16:30:19.870741",
+    "session_id": "session_20250815_162852_6346",
+    "cycle_number": 1,
+    "strategy_mode": "BALANCED",
+    "report_version": "2.0_enhanced"
+  },
+  "portfolio_summary": {
+    "total_portfolio_value": 984.7,
+    "total_unrealized_pnl": 0.0,
+    "cash_available": 232.31,
+    "total_trades": 0,
+    "validation_attempts": 1
+  },
+  "positions": {
+    "AAPL": 1,
+    "XOM": 0,
+    "META": 0,
+    "AMZN": 0,
+    "NFLX": 0,
+    "MSFT": 0,
+    "NVDA": 0,
+    "TSLA": 0,
+    "JPM": 0,
+    "ADBE": 1
+  },
+  "stock_prices": {
+    "AAPL": 230.8,
+    "XOM": 0.0,
+    "META": 789.75,
+    "AMZN": 230.05,
+    "NFLX": 1236.13,
+    "MSFT": 524.03,
+    "NVDA": 179.01,
+    "TSLA": 327.94,
+    "JPM": 0.0,
+    "ADBE": 355.92
+  },
+  "stock_pnls": {
+    "AAPL": 0.0,
+    "XOM": 0.0,
+    "META": 0.0,
+    "AMZN": 0.0,
+    "NFLX": 0.0,
+    "MSFT": 0.0,
+    "NVDA": 0.0,
+    "TSLA": 0.0,
+    "JPM": 0.0,
+    "ADBE": 0.0
+  },
+  "portfolio_allocation": {
+    "AAPL": 23.438610744389155,
+    "XOM": 0.0,
+    "META": 0.0,
+    "AMZN": 0.0,
+    "NFLX": 0.0,
+    "MSFT": 0.0,
+    "NVDA": 0.0,
+    "TSLA": 0.0,
+    "JPM": 0.0,
+    "ADBE": 36.14501878744795
+  },
+  "ai_recommendations": {
+    "AAPL": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (4/10 WEAK_BEARISH) does not meet the 6+ requirement for a high-priority BUY, nor the 4- for a high-priority SELL. News sentiment is NEUTRAL (-0.20), which is at the threshold for avoiding BUYs on negative news. The AI trend is BEARISH. Given the mixed technical signals, borderline negative news, and balanced trading mode's focus on capital preservation, there is no strong alignment for a trade.",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "META": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (5.5/10 NEUTRAL) does not meet the 6+ requirement for a high-priority BUY. While news sentiment is POSITIVE (0.60) and would support a BUY, the technicals are too neutral (RSI 45.6, MACD Hist slightly negative, NEUTRAL AI trend with LOW confidence). This falls under \"Weak Technical + Positive News = MEDIUM priority BUY consideration\", but the balanced mode requires stronger technical alignment and multiple confirming indicators for an actionable trade.",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "AMZN": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (2.5/10 WEAK_BEARISH) is strongly bearish, meeting the 4- requirement for a high-priority SELL. RSI is oversold (23.5) and MACD is bearish, supported by a BEARISH AI trend (MEDIUM conf, HIGH risk). News sentiment is NEUTRAL (-0.20), which aligns with considering a SELL or avoiding a BUY. However, the portfolio currently holds 0 shares of AMZN, preventing a SELL order. No BUY action is warranted due to the weak technicals and negative news.",
+      "technical_score": 5.0,
+      "confidence": "HIGH"
+    },
+    "NFLX": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish, meeting the 4- requirement for a high-priority SELL. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NFLX, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "MSFT": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (10/10 STRONG_BULLISH) is exceptionally strong, well above the 6+ requirement for a high-priority BUY. All key technicals (RSI 57.8, MACD Hist 0.074, BULLISH AI trend with HIGH confidence and LOW risk) confirm the bullish outlook. News sentiment is also very strong POSITIVE (1.20), perfectly aligning for a \"HIGH confidence BUY\". However, the current price of $524.03 per share exceeds the available cash ($232.31), making a purchase impossible under current constraints.",
+      "technical_score": 5.0,
+      "confidence": "HIGH"
+    },
+    "NVDA": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NVDA, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "TSLA": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (4.5/10 NEUTRAL) is not strong enough for a BUY (6+) or a high-priority SELL (4-). While RSI is extremely oversold (19.5) and MACD is very bearish, the AI trend is BEARISH with HIGH risk. No news sentiment is available. The mixed and high-risk technical signals do not align with the capital preservation focus of the balanced trading mode. Furthermore, the portfolio holds 0 shares, preventing a SELL.",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "ADBE": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "Technical score (7.5/10 WEAK_BULLISH) is above the 6+ requirement for a high-priority BUY, supported by bullish RSI (61.6) and bullish key signals. No news sentiment is available, so decision relies on technicals. However, the AI trend has HIGH risk, which is a consideration for the balanced mode. More critically, the current price of $355.92 per share exceeds the available cash ($232.31), preventing the purchase of an additional share. The technicals do not suggest a SELL (score 7.5, not 4-).",
+      "technical_score": 5.0,
+      "confidence": "MEDIUM"
+    },
+    "XOM": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No clear signal from analysis",
+      "technical_score": 5.0,
+      "confidence": "LOW"
+    },
+    "JPM": {
+      "action": "HOLD",
+      "priority": "LOW",
+      "reasoning": "No clear signal from analysis",
+      "technical_score": 5.0,
+      "confidence": "LOW"
+    }
+  },
+  "ai_trend_analysis": {
+    "AAPL": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "The price is trading below bearishly aligned moving averages, indicating a prevailing downtrend confirmed by a weak bearish technical strength score. However, oversold momentum indicators and a bullish MACD crossover suggest a potential for a short-term rebound against the current trend.",
+      "risk_level": "MEDIUM",
+      "technical_score": 4,
+      "technical_strength": "WEAK_BEARISH",
+      "signal_count": 6
+    },
+    "XOM": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "META": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "While the price remains above key moving averages (SMA20, SMA50, EMA12, EMA26) and the Bollinger Band middle line indicating an underlying upward trend, the bearish MACD crossover and negative volume action signal weakening momentum and a potential for consolidation or reversal.",
+      "risk_level": "MEDIUM",
+      "technical_score": 5.5,
+      "technical_strength": "NEUTRAL",
+      "signal_count": 6
+    },
+    "AMZN": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "Price is trading below all key moving averages with bearish crossovers, and MACD shows a bearish signal, indicating a dominant downtrend. However, momentum indicators (RSI, Stochastic, Williams %R) are deeply oversold, suggesting a potential for a short-term bounce from current levels.",
+      "risk_level": "HIGH",
+      "technical_score": 2.5,
+      "technical_strength": "WEAK_BEARISH",
+      "signal_count": 8
+    },
+    "NFLX": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "The trend is bearish due to the MACD line being below its signal with a negative histogram and a bearish EMA crossover (EMA12 < EMA26), despite a balanced RSI and a cited bullish volume signal. The overall technical score of 3/10 confirms a weak bearish sentiment.",
+      "risk_level": "MEDIUM",
+      "technical_score": 3,
+      "technical_strength": "WEAK_BEARISH",
+      "signal_count": 4
+    },
+    "MSFT": {
+      "trend": "BULLISH",
+      "confidence": "HIGH",
+      "reasoning": "All key moving averages are in bullish alignment, price is above the Bollinger Middle Band, and MACD shows strong positive momentum, indicating a clear uptrend. Momentum indicators confirm strength without being overbought, and no bearish signals are present.",
+      "risk_level": "LOW",
+      "technical_score": 10,
+      "technical_strength": "STRONG_BULLISH",
+      "signal_count": 6
+    },
+    "NVDA": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "Price is trading below key moving averages in bearish alignment (SMA20 < SMA50, EMA12 < EMA26), supported by a low technical score and high volume on negative price movement, indicating a persistent downtrend despite a short-term bullish MACD crossover.",
+      "risk_level": "MEDIUM",
+      "technical_score": 3,
+      "technical_strength": "WEAK_BEARISH",
+      "signal_count": 5
+    },
+    "TSLA": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "The stock is in a confirmed downtrend with price below all key moving averages and bearish MACD signals. However, deeply oversold momentum indicators suggest a strong potential for a short-term rebound, while high volatility adds to the risk.",
+      "risk_level": "HIGH",
+      "technical_score": 4.5,
+      "technical_strength": "NEUTRAL",
+      "signal_count": 8
+    },
+    "JPM": {
+      "trend": "NEUTRAL",
+      "confidence": "LOW",
+      "reasoning": "Insufficient data",
+      "risk_level": "HIGH"
+    },
+    "ADBE": {
+      "trend": "BULLISH",
+      "confidence": "MEDIUM",
+      "reasoning": "ADBE displays strong short-term bullish momentum with price above all key moving averages and a bullish MACD cross. However, momentum oscillators such as Stochastic and Williams %R are significantly overbought, indicating a high probability of a near-term correction or consolidation.",
+      "risk_level": "HIGH",
+      "technical_score": 7.5,
+      "technical_strength": "WEAK_BULLISH",
+      "signal_count": 7
+    }
+  },
+  "executed_trades_detailed": [],
+  "validation_process": {
+    "validation_history": [
+      {
+        "timestamp": "2025-08-15T16:29:51.805047",
+        "attempt": 1,
+        "decision": "proceed",
+        "reason": "AI decisions are technically sound and consistent."
+      }
+    ],
+    "final_decision_logic": "AI decisions are technically sound and consistent.",
+    "validation_feedback": "",
+    "total_attempts": 1
+  },
+  "technical_analysis_summary": {
+    "AAPL": {
+      "current_price": 230.8,
+      "rsi": 40.636042402827066,
+      "sma_20": 231.05750000000003,
+      "sma_50": 232.0152,
+      "macd_histogram": 0.04186492685946441,
+      "volume_ratio": -1.0,
+      "daily_change_pct": -0.06494912318682713,
+      "volatility_20": 0.2089541626913461
+    },
+    "META": {
+      "current_price": 789.75,
+      "rsi": 45.55555555555572,
+      "sma_20": 789.714,
+      "sma_50": 788.0096000000001,
+      "macd_histogram": -0.039106513079487204,
+      "volume_ratio": -1.0,
+      "daily_change_pct": -0.07212268448224136,
+      "volatility_20": 1.5548409971234016
+    },
+    "AMZN": {
+      "current_price": 230.05,
+      "rsi": 23.4756097560974,
+      "sma_20": 230.9145,
+      "sma_50": 231.47259999999997,
+      "macd_histogram": -0.08397667914992274,
+      "volume_ratio": -1.0,
+      "daily_change_pct": -0.0043466921672567615,
+      "volatility_20": 0.6209794894478065
+    },
+    "NFLX": {
+      "current_price": 1236.13,
+      "rsi": 47.43888242142067,
+      "sma_20": 1236.3285,
+      "sma_50": 1235.5544,
+      "macd_histogram": -0.15732151075279396,
+      "volume_ratio": -1.0,
+      "daily_change_pct": 0.04613292757941045,
+      "volatility_20": 1.8539098797260578
+    },
+    "MSFT": {
+      "current_price": 524.03,
+      "rsi": 57.796610169491515,
+      "sma_20": 523.1775,
+      "sma_50": 522.5563999999999,
+      "macd_histogram": 0.0743175435561067,
+      "volume_ratio": -1.0,
+      "daily_change_pct": 0.03245141831786338,
+      "volatility_20": 0.9352729688781645
+    },
+    "NVDA": {
+      "current_price": 179.01,
+      "rsi": 40.6557377049178,
+      "sma_20": 179.217,
+      "sma_50": 180.1546,
+      "macd_histogram": 0.05203191772410948,
+      "volume_ratio": -1.0,
+      "daily_change_pct": -0.011171312070608407,
+      "volatility_20": 0.26574819898512614
+    },
+    "TSLA": {
+      "current_price": 327.94,
+      "rsi": 19.53385127635913,
+      "sma_20": 331.021,
+      "sma_50": 332.76,
+      "macd_histogram": -0.39159423667848436,
+      "volume_ratio": -1.0,
+      "daily_change_pct": 0.06407713666737239,
+      "volatility_20": 2.177617964658459
+    },
+    "ADBE": {
+      "current_price": 355.92,
+      "rsi": 61.58940397351027,
+      "sma_20": 354.721,
+      "sma_50": 352.6582,
+      "macd_histogram": 0.011859341039036186,
+      "volume_ratio": -1.0,
+      "daily_change_pct": -0.03931921586249125,
+      "volatility_20": 0.7185870639143901
+    }
+  },
+  "execution_performance": {
+    "total_execution_time": 0,
+    "successful_trades": 0,
+    "failed_trades": 0,
+    "avg_execution_time": 0
+  },
+  "raw_state_data": {
+    "timestamp": "2025-08-15T16:29:02.651449",
+    "cycle_number": 1,
+    "portfolio_stocks": [
+      "AAPL",
+      "XOM",
+      "META",
+      "AMZN",
+      "NFLX",
+      "MSFT",
+      "NVDA",
+      "TSLA",
+      "JPM",
+      "ADBE"
+    ],
+    "stock_data": {
+      "AAPL": {
+        "current_price": 230.8,
+        "previous_close": 230.95,
+        "sma_20": 231.05750000000003,
+        "sma_50": 232.0152,
+        "ema_12": 231.06951731082006,
+        "ema_26": 231.32865176022523,
+        "rsi": 40.636042402827066,
+        "williams_r": -80.85106382978647,
+        "atr": 0.3328571428571467,
+        "current_volume": -1.0,
+        "daily_change_pct": -0.06494912318682713,
+        "volatility_20": 0.2089541626913461,
+        "macd": -0.25913444940516683,
+        "macd_signal": -0.30099937626463125,
+        "macd_histogram": 0.04186492685946441,
+        "bb_upper": 231.47540832538272,
+        "bb_middle": 231.05750000000003,
+        "bb_lower": 230.63959167461735,
+        "stoch_k": 19.14893617021354,
+        "stoch_d": 34.75177304964512,
+        "volume_ma": -1.0,
+        "obv": 10.0,
+        "valid": true
+      },
+      "XOM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "META": {
+        "current_price": 789.75,
+        "previous_close": 790.32,
+        "sma_20": 789.714,
+        "sma_50": 788.0096000000001,
+        "ema_12": 789.5070512335489,
+        "ema_26": 789.3512497838644,
+        "rsi": 45.55555555555572,
+        "williams_r": -32.29927007299226,
+        "atr": 1.4078571428571454,
+        "current_volume": -1.0,
+        "daily_change_pct": -0.07212268448224136,
+        "volatility_20": 1.5548409971234016,
+        "macd": 0.155801449684418,
+        "macd_signal": 0.1949079627639052,
+        "macd_histogram": -0.039106513079487204,
+        "bb_upper": 792.8236819942468,
+        "bb_middle": 789.714,
+        "bb_lower": 786.6043180057533,
+        "stoch_k": 67.70072992700774,
+        "stoch_d": 71.14495230371239,
+        "volume_ma": -1.0,
+        "obv": 8.0,
+        "valid": true
+      },
+      "AMZN": {
+        "current_price": 230.05,
+        "previous_close": 230.06,
+        "sma_20": 230.9145,
+        "sma_50": 231.47259999999997,
+        "ema_12": 230.50632554140017,
+        "ema_26": 230.94926126658928,
+        "rsi": 23.4756097560974,
+        "williams_r": -88.63636363636358,
+        "atr": 0.3992857142857125,
+        "current_volume": -1.0,
+        "daily_change_pct": -0.0043466921672567615,
+        "volatility_20": 0.6209794894478065,
+        "macd": -0.44293572518910196,
+        "macd_signal": -0.3589590460391792,
+        "macd_histogram": -0.08397667914992274,
+        "bb_upper": 232.1564589788956,
+        "bb_middle": 230.9145,
+        "bb_lower": 229.6725410211044,
+        "stoch_k": 11.363636363636424,
+        "stoch_d": 9.780985207525758,
+        "volume_ma": -1.0,
+        "obv": -3.0,
+        "valid": true
+      },
+      "NFLX": {
+        "current_price": 1236.13,
+        "previous_close": 1235.56,
+        "sma_20": 1236.3285,
+        "sma_50": 1235.5544,
+        "ema_12": 1236.2306268704576,
+        "ema_26": 1236.4120919553343,
+        "rsi": 47.43888242142067,
+        "williams_r": -57.39247311827891,
+        "atr": 1.9264285714285896,
+        "current_volume": -1.0,
+        "daily_change_pct": 0.04613292757941045,
+        "volatility_20": 1.8539098797260578,
+        "macd": -0.18146508487666324,
+        "macd_signal": -0.024143574123869287,
+        "macd_histogram": -0.15732151075279396,
+        "bb_upper": 1240.0363197594522,
+        "bb_middle": 1236.3285,
+        "bb_lower": 1232.620680240548,
+        "stoch_k": 42.6075268817211,
+        "stoch_d": 36.648745519712264,
+        "volume_ma": -1.0,
+        "obv": 14.0,
+        "valid": true
+      },
+      "MSFT": {
+        "current_price": 524.03,
+        "previous_close": 523.86,
+        "sma_20": 523.1775,
+        "sma_50": 522.5563999999999,
+        "ema_12": 523.7303103403027,
+        "ema_26": 523.2799304097746,
+        "rsi": 57.796610169491515,
+        "williams_r": -29.893238434164203,
+        "atr": 0.6814285714285769,
+        "current_volume": -1.0,
+        "daily_change_pct": 0.03245141831786338,
+        "volatility_20": 0.9352729688781645,
+        "macd": 0.4503799305281291,
+        "macd_signal": 0.3760623869720224,
+        "macd_histogram": 0.0743175435561067,
+        "bb_upper": 525.0480459377563,
+        "bb_middle": 523.1775,
+        "bb_lower": 521.3069540622437,
+        "stoch_k": 70.1067615658358,
+        "stoch_d": 67.25978647686912,
+        "volume_ma": -1.0,
+        "obv": 18.0,
+        "valid": true
+      },
+      "NVDA": {
+        "current_price": 179.01,
+        "previous_close": 179.03,
+        "sma_20": 179.217,
+        "sma_50": 180.1546,
+        "ema_12": 179.216015971955,
+        "ema_26": 179.45332310991066,
+        "rsi": 40.6557377049178,
+        "williams_r": -52.71317829457449,
+        "atr": 0.3607142857142845,
+        "current_volume": -1.0,
+        "daily_change_pct": -0.011171312070608407,
+        "volatility_20": 0.26574819898512614,
+        "macd": -0.2373071379556677,
+        "macd_signal": -0.2893390556797772,
+        "macd_histogram": 0.05203191772410948,
+        "bb_upper": 179.74849639797026,
+        "bb_middle": 179.217,
+        "bb_lower": 178.68550360202977,
+        "stoch_k": 47.2868217054255,
+        "stoch_d": 50.811293509651485,
+        "volume_ma": -1.0,
+        "obv": 9.0,
+        "valid": true
+      },
+      "TSLA": {
+        "current_price": 327.94,
+        "previous_close": 327.73,
+        "sma_20": 331.021,
+        "sma_50": 332.76,
+        "ema_12": 329.46141399835045,
+        "ema_26": 330.8882537526968,
+        "rsi": 19.53385127635913,
+        "williams_r": -86.53846153846126,
+        "atr": 1.1685714285714377,
+        "current_volume": -1.0,
+        "daily_change_pct": 0.06407713666737239,
+        "volatility_20": 2.177617964658459,
+        "macd": -1.4268397543463607,
+        "macd_signal": -1.0352455176678763,
+        "macd_histogram": -0.39159423667848436,
+        "bb_upper": 335.3762359293169,
+        "bb_middle": 331.021,
+        "bb_lower": 326.6657640706831,
+        "stoch_k": 13.461538461538735,
+        "stoch_d": 11.982248520710556,
+        "volume_ma": -1.0,
+        "obv": -8.0,
+        "valid": true
+      },
+      "JPM": {
+        "valid": false,
+        "current_price": 0.0,
+        "sma_20": 0.0
+      },
+      "ADBE": {
+        "current_price": 355.92,
+        "previous_close": 356.06,
+        "sma_20": 354.721,
+        "sma_50": 352.6582,
+        "ema_12": 355.1680674885487,
+        "ema_26": 354.3952091709318,
+        "rsi": 61.58940397351027,
+        "williams_r": -12.340425531913525,
+        "atr": 0.5507142857142883,
+        "current_volume": -1.0,
+        "daily_change_pct": -0.03931921586249125,
+        "volatility_20": 0.7185870639143901,
+        "macd": 0.7728583176168513,
+        "macd_signal": 0.7609989765778151,
+        "macd_histogram": 0.011859341039036186,
+        "bb_upper": 356.1581741278288,
+        "bb_middle": 354.721,
+        "bb_lower": 353.28382587217124,
+        "stoch_k": 87.65957446808648,
+        "stoch_d": 89.88289625597979,
+        "volume_ma": -1.0,
+        "obv": -14.0,
+        "valid": true
+      }
+    },
+    "stock_prices": {
+      "AAPL": 230.8,
+      "XOM": 0.0,
+      "META": 789.75,
+      "AMZN": 230.05,
+      "NFLX": 1236.13,
+      "MSFT": 524.03,
+      "NVDA": 179.01,
+      "TSLA": 327.94,
+      "JPM": 0.0,
+      "ADBE": 355.92
+    },
+    "stock_smas": {
+      "AAPL": 231.05750000000003,
+      "XOM": 0.0,
+      "META": 789.714,
+      "AMZN": 230.9145,
+      "NFLX": 1236.3285,
+      "MSFT": 523.1775,
+      "NVDA": 179.217,
+      "TSLA": 331.021,
+      "JPM": 0.0,
+      "ADBE": 354.721
+    },
+    "ai_trend_analysis": {
+      "AAPL": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "The price is trading below bearishly aligned moving averages, indicating a prevailing downtrend confirmed by a weak bearish technical strength score. However, oversold momentum indicators and a bullish MACD crossover suggest a potential for a short-term rebound against the current trend.",
+        "risk_level": "MEDIUM",
+        "technical_score": 4,
+        "technical_strength": "WEAK_BEARISH",
+        "signal_count": 6
+      },
+      "XOM": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "META": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "While the price remains above key moving averages (SMA20, SMA50, EMA12, EMA26) and the Bollinger Band middle line indicating an underlying upward trend, the bearish MACD crossover and negative volume action signal weakening momentum and a potential for consolidation or reversal.",
+        "risk_level": "MEDIUM",
+        "technical_score": 5.5,
+        "technical_strength": "NEUTRAL",
+        "signal_count": 6
+      },
+      "AMZN": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "Price is trading below all key moving averages with bearish crossovers, and MACD shows a bearish signal, indicating a dominant downtrend. However, momentum indicators (RSI, Stochastic, Williams %R) are deeply oversold, suggesting a potential for a short-term bounce from current levels.",
+        "risk_level": "HIGH",
+        "technical_score": 2.5,
+        "technical_strength": "WEAK_BEARISH",
+        "signal_count": 8
+      },
+      "NFLX": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "The trend is bearish due to the MACD line being below its signal with a negative histogram and a bearish EMA crossover (EMA12 < EMA26), despite a balanced RSI and a cited bullish volume signal. The overall technical score of 3/10 confirms a weak bearish sentiment.",
+        "risk_level": "MEDIUM",
+        "technical_score": 3,
+        "technical_strength": "WEAK_BEARISH",
+        "signal_count": 4
+      },
+      "MSFT": {
+        "trend": "BULLISH",
+        "confidence": "HIGH",
+        "reasoning": "All key moving averages are in bullish alignment, price is above the Bollinger Middle Band, and MACD shows strong positive momentum, indicating a clear uptrend. Momentum indicators confirm strength without being overbought, and no bearish signals are present.",
+        "risk_level": "LOW",
+        "technical_score": 10,
+        "technical_strength": "STRONG_BULLISH",
+        "signal_count": 6
+      },
+      "NVDA": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "Price is trading below key moving averages in bearish alignment (SMA20 < SMA50, EMA12 < EMA26), supported by a low technical score and high volume on negative price movement, indicating a persistent downtrend despite a short-term bullish MACD crossover.",
+        "risk_level": "MEDIUM",
+        "technical_score": 3,
+        "technical_strength": "WEAK_BEARISH",
+        "signal_count": 5
+      },
+      "TSLA": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "The stock is in a confirmed downtrend with price below all key moving averages and bearish MACD signals. However, deeply oversold momentum indicators suggest a strong potential for a short-term rebound, while high volatility adds to the risk.",
+        "risk_level": "HIGH",
+        "technical_score": 4.5,
+        "technical_strength": "NEUTRAL",
+        "signal_count": 8
+      },
+      "JPM": {
+        "trend": "NEUTRAL",
+        "confidence": "LOW",
+        "reasoning": "Insufficient data",
+        "risk_level": "HIGH"
+      },
+      "ADBE": {
+        "trend": "BULLISH",
+        "confidence": "MEDIUM",
+        "reasoning": "ADBE displays strong short-term bullish momentum with price above all key moving averages and a bullish MACD cross. However, momentum oscillators such as Stochastic and Williams %R are significantly overbought, indicating a high probability of a near-term correction or consolidation.",
+        "risk_level": "HIGH",
+        "technical_score": 7.5,
+        "technical_strength": "WEAK_BULLISH",
+        "signal_count": 7
+      }
+    },
+    "positions": {
+      "AAPL": 1,
+      "XOM": 0,
+      "META": 0,
+      "AMZN": 0,
+      "NFLX": 0,
+      "MSFT": 0,
+      "NVDA": 0,
+      "TSLA": 0,
+      "JPM": 0,
+      "ADBE": 1
+    },
+    "stock_pnls": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "purchase_prices": {
+      "AAPL": 0.0,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 0.0
+    },
+    "total_portfolio_value": 984.7,
+    "total_unrealized_pnl": 0.0,
+    "total_trades": 0,
+    "total_fees_paid": 0.0,
+    "cash_available": 232.31,
+    "ai_recommendations": {
+      "AAPL": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (4/10 WEAK_BEARISH) does not meet the 6+ requirement for a high-priority BUY, nor the 4- for a high-priority SELL. News sentiment is NEUTRAL (-0.20), which is at the threshold for avoiding BUYs on negative news. The AI trend is BEARISH. Given the mixed technical signals, borderline negative news, and balanced trading mode's focus on capital preservation, there is no strong alignment for a trade.",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "META": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (5.5/10 NEUTRAL) does not meet the 6+ requirement for a high-priority BUY. While news sentiment is POSITIVE (0.60) and would support a BUY, the technicals are too neutral (RSI 45.6, MACD Hist slightly negative, NEUTRAL AI trend with LOW confidence). This falls under \"Weak Technical + Positive News = MEDIUM priority BUY consideration\", but the balanced mode requires stronger technical alignment and multiple confirming indicators for an actionable trade.",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "AMZN": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (2.5/10 WEAK_BEARISH) is strongly bearish, meeting the 4- requirement for a high-priority SELL. RSI is oversold (23.5) and MACD is bearish, supported by a BEARISH AI trend (MEDIUM conf, HIGH risk). News sentiment is NEUTRAL (-0.20), which aligns with considering a SELL or avoiding a BUY. However, the portfolio currently holds 0 shares of AMZN, preventing a SELL order. No BUY action is warranted due to the weak technicals and negative news.",
+        "technical_score": 5.0,
+        "confidence": "HIGH"
+      },
+      "NFLX": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish, meeting the 4- requirement for a high-priority SELL. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NFLX, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "MSFT": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (10/10 STRONG_BULLISH) is exceptionally strong, well above the 6+ requirement for a high-priority BUY. All key technicals (RSI 57.8, MACD Hist 0.074, BULLISH AI trend with HIGH confidence and LOW risk) confirm the bullish outlook. News sentiment is also very strong POSITIVE (1.20), perfectly aligning for a \"HIGH confidence BUY\". However, the current price of $524.03 per share exceeds the available cash ($232.31), making a purchase impossible under current constraints.",
+        "technical_score": 5.0,
+        "confidence": "HIGH"
+      },
+      "NVDA": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NVDA, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "TSLA": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (4.5/10 NEUTRAL) is not strong enough for a BUY (6+) or a high-priority SELL (4-). While RSI is extremely oversold (19.5) and MACD is very bearish, the AI trend is BEARISH with HIGH risk. No news sentiment is available. The mixed and high-risk technical signals do not align with the capital preservation focus of the balanced trading mode. Furthermore, the portfolio holds 0 shares, preventing a SELL.",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "ADBE": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "Technical score (7.5/10 WEAK_BULLISH) is above the 6+ requirement for a high-priority BUY, supported by bullish RSI (61.6) and bullish key signals. No news sentiment is available, so decision relies on technicals. However, the AI trend has HIGH risk, which is a consideration for the balanced mode. More critically, the current price of $355.92 per share exceeds the available cash ($232.31), preventing the purchase of an additional share. The technicals do not suggest a SELL (score 7.5, not 4-).",
+        "technical_score": 5.0,
+        "confidence": "MEDIUM"
+      },
+      "XOM": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No clear signal from analysis",
+        "technical_score": 5.0,
+        "confidence": "LOW"
+      },
+      "JPM": {
+        "action": "HOLD",
+        "priority": "LOW",
+        "reasoning": "No clear signal from analysis",
+        "technical_score": 5.0,
+        "confidence": "LOW"
+      }
+    },
+    "executed_trades": [],
+    "portfolio_allocation": {
+      "AAPL": 23.438610744389155,
+      "XOM": 0.0,
+      "META": 0.0,
+      "AMZN": 0.0,
+      "NFLX": 0.0,
+      "MSFT": 0.0,
+      "NVDA": 0.0,
+      "TSLA": 0.0,
+      "JPM": 0.0,
+      "ADBE": 36.14501878744795
+    },
+    "session_start_time": "2025-08-15T16:28:52.470530",
+    "session_id": "session_20250815_162852_6346",
+    "cycle_history": [
+      {
+        "timestamp": "2025-08-15T16:29:02.651449",
+        "cycle_number": 1,
+        "portfolio_stocks": [
+          "AAPL",
+          "XOM",
+          "META",
+          "AMZN",
+          "NFLX",
+          "MSFT",
+          "NVDA",
+          "TSLA",
+          "JPM",
+          "ADBE"
+        ],
+        "stock_data": {
+          "AAPL": {
+            "current_price": 230.8,
+            "previous_close": 230.95,
+            "sma_20": 231.05750000000003,
+            "sma_50": 232.0152,
+            "ema_12": 231.06951731082006,
+            "ema_26": 231.32865176022523,
+            "rsi": 40.636042402827066,
+            "williams_r": -80.85106382978647,
+            "atr": 0.3328571428571467,
+            "current_volume": -1.0,
+            "daily_change_pct": -0.06494912318682713,
+            "volatility_20": 0.2089541626913461,
+            "macd": -0.25913444940516683,
+            "macd_signal": -0.30099937626463125,
+            "macd_histogram": 0.04186492685946441,
+            "bb_upper": 231.47540832538272,
+            "bb_middle": 231.05750000000003,
+            "bb_lower": 230.63959167461735,
+            "stoch_k": 19.14893617021354,
+            "stoch_d": 34.75177304964512,
+            "volume_ma": -1.0,
+            "obv": 10.0,
+            "valid": true
+          },
+          "XOM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "META": {
+            "current_price": 789.75,
+            "previous_close": 790.32,
+            "sma_20": 789.714,
+            "sma_50": 788.0096000000001,
+            "ema_12": 789.5070512335489,
+            "ema_26": 789.3512497838644,
+            "rsi": 45.55555555555572,
+            "williams_r": -32.29927007299226,
+            "atr": 1.4078571428571454,
+            "current_volume": -1.0,
+            "daily_change_pct": -0.07212268448224136,
+            "volatility_20": 1.5548409971234016,
+            "macd": 0.155801449684418,
+            "macd_signal": 0.1949079627639052,
+            "macd_histogram": -0.039106513079487204,
+            "bb_upper": 792.8236819942468,
+            "bb_middle": 789.714,
+            "bb_lower": 786.6043180057533,
+            "stoch_k": 67.70072992700774,
+            "stoch_d": 71.14495230371239,
+            "volume_ma": -1.0,
+            "obv": 8.0,
+            "valid": true
+          },
+          "AMZN": {
+            "current_price": 230.05,
+            "previous_close": 230.06,
+            "sma_20": 230.9145,
+            "sma_50": 231.47259999999997,
+            "ema_12": 230.50632554140017,
+            "ema_26": 230.94926126658928,
+            "rsi": 23.4756097560974,
+            "williams_r": -88.63636363636358,
+            "atr": 0.3992857142857125,
+            "current_volume": -1.0,
+            "daily_change_pct": -0.0043466921672567615,
+            "volatility_20": 0.6209794894478065,
+            "macd": -0.44293572518910196,
+            "macd_signal": -0.3589590460391792,
+            "macd_histogram": -0.08397667914992274,
+            "bb_upper": 232.1564589788956,
+            "bb_middle": 230.9145,
+            "bb_lower": 229.6725410211044,
+            "stoch_k": 11.363636363636424,
+            "stoch_d": 9.780985207525758,
+            "volume_ma": -1.0,
+            "obv": -3.0,
+            "valid": true
+          },
+          "NFLX": {
+            "current_price": 1236.13,
+            "previous_close": 1235.56,
+            "sma_20": 1236.3285,
+            "sma_50": 1235.5544,
+            "ema_12": 1236.2306268704576,
+            "ema_26": 1236.4120919553343,
+            "rsi": 47.43888242142067,
+            "williams_r": -57.39247311827891,
+            "atr": 1.9264285714285896,
+            "current_volume": -1.0,
+            "daily_change_pct": 0.04613292757941045,
+            "volatility_20": 1.8539098797260578,
+            "macd": -0.18146508487666324,
+            "macd_signal": -0.024143574123869287,
+            "macd_histogram": -0.15732151075279396,
+            "bb_upper": 1240.0363197594522,
+            "bb_middle": 1236.3285,
+            "bb_lower": 1232.620680240548,
+            "stoch_k": 42.6075268817211,
+            "stoch_d": 36.648745519712264,
+            "volume_ma": -1.0,
+            "obv": 14.0,
+            "valid": true
+          },
+          "MSFT": {
+            "current_price": 524.03,
+            "previous_close": 523.86,
+            "sma_20": 523.1775,
+            "sma_50": 522.5563999999999,
+            "ema_12": 523.7303103403027,
+            "ema_26": 523.2799304097746,
+            "rsi": 57.796610169491515,
+            "williams_r": -29.893238434164203,
+            "atr": 0.6814285714285769,
+            "current_volume": -1.0,
+            "daily_change_pct": 0.03245141831786338,
+            "volatility_20": 0.9352729688781645,
+            "macd": 0.4503799305281291,
+            "macd_signal": 0.3760623869720224,
+            "macd_histogram": 0.0743175435561067,
+            "bb_upper": 525.0480459377563,
+            "bb_middle": 523.1775,
+            "bb_lower": 521.3069540622437,
+            "stoch_k": 70.1067615658358,
+            "stoch_d": 67.25978647686912,
+            "volume_ma": -1.0,
+            "obv": 18.0,
+            "valid": true
+          },
+          "NVDA": {
+            "current_price": 179.01,
+            "previous_close": 179.03,
+            "sma_20": 179.217,
+            "sma_50": 180.1546,
+            "ema_12": 179.216015971955,
+            "ema_26": 179.45332310991066,
+            "rsi": 40.6557377049178,
+            "williams_r": -52.71317829457449,
+            "atr": 0.3607142857142845,
+            "current_volume": -1.0,
+            "daily_change_pct": -0.011171312070608407,
+            "volatility_20": 0.26574819898512614,
+            "macd": -0.2373071379556677,
+            "macd_signal": -0.2893390556797772,
+            "macd_histogram": 0.05203191772410948,
+            "bb_upper": 179.74849639797026,
+            "bb_middle": 179.217,
+            "bb_lower": 178.68550360202977,
+            "stoch_k": 47.2868217054255,
+            "stoch_d": 50.811293509651485,
+            "volume_ma": -1.0,
+            "obv": 9.0,
+            "valid": true
+          },
+          "TSLA": {
+            "current_price": 327.94,
+            "previous_close": 327.73,
+            "sma_20": 331.021,
+            "sma_50": 332.76,
+            "ema_12": 329.46141399835045,
+            "ema_26": 330.8882537526968,
+            "rsi": 19.53385127635913,
+            "williams_r": -86.53846153846126,
+            "atr": 1.1685714285714377,
+            "current_volume": -1.0,
+            "daily_change_pct": 0.06407713666737239,
+            "volatility_20": 2.177617964658459,
+            "macd": -1.4268397543463607,
+            "macd_signal": -1.0352455176678763,
+            "macd_histogram": -0.39159423667848436,
+            "bb_upper": 335.3762359293169,
+            "bb_middle": 331.021,
+            "bb_lower": 326.6657640706831,
+            "stoch_k": 13.461538461538735,
+            "stoch_d": 11.982248520710556,
+            "volume_ma": -1.0,
+            "obv": -8.0,
+            "valid": true
+          },
+          "JPM": {
+            "valid": false,
+            "current_price": 0.0,
+            "sma_20": 0.0
+          },
+          "ADBE": {
+            "current_price": 355.92,
+            "previous_close": 356.06,
+            "sma_20": 354.721,
+            "sma_50": 352.6582,
+            "ema_12": 355.1680674885487,
+            "ema_26": 354.3952091709318,
+            "rsi": 61.58940397351027,
+            "williams_r": -12.340425531913525,
+            "atr": 0.5507142857142883,
+            "current_volume": -1.0,
+            "daily_change_pct": -0.03931921586249125,
+            "volatility_20": 0.7185870639143901,
+            "macd": 0.7728583176168513,
+            "macd_signal": 0.7609989765778151,
+            "macd_histogram": 0.011859341039036186,
+            "bb_upper": 356.1581741278288,
+            "bb_middle": 354.721,
+            "bb_lower": 353.28382587217124,
+            "stoch_k": 87.65957446808648,
+            "stoch_d": 89.88289625597979,
+            "volume_ma": -1.0,
+            "obv": -14.0,
+            "valid": true
+          }
+        },
+        "stock_prices": {
+          "AAPL": 230.8,
+          "XOM": 0.0,
+          "META": 789.75,
+          "AMZN": 230.05,
+          "NFLX": 1236.13,
+          "MSFT": 524.03,
+          "NVDA": 179.01,
+          "TSLA": 327.94,
+          "JPM": 0.0,
+          "ADBE": 355.92
+        },
+        "stock_smas": {
+          "AAPL": 231.05750000000003,
+          "XOM": 0.0,
+          "META": 789.714,
+          "AMZN": 230.9145,
+          "NFLX": 1236.3285,
+          "MSFT": 523.1775,
+          "NVDA": 179.217,
+          "TSLA": 331.021,
+          "JPM": 0.0,
+          "ADBE": 354.721
+        },
+        "ai_trend_analysis": {
+          "AAPL": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "The price is trading below bearishly aligned moving averages, indicating a prevailing downtrend confirmed by a weak bearish technical strength score. However, oversold momentum indicators and a bullish MACD crossover suggest a potential for a short-term rebound against the current trend.",
+            "risk_level": "MEDIUM",
+            "technical_score": 4,
+            "technical_strength": "WEAK_BEARISH",
+            "signal_count": 6
+          },
+          "XOM": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "META": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "While the price remains above key moving averages (SMA20, SMA50, EMA12, EMA26) and the Bollinger Band middle line indicating an underlying upward trend, the bearish MACD crossover and negative volume action signal weakening momentum and a potential for consolidation or reversal.",
+            "risk_level": "MEDIUM",
+            "technical_score": 5.5,
+            "technical_strength": "NEUTRAL",
+            "signal_count": 6
+          },
+          "AMZN": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "Price is trading below all key moving averages with bearish crossovers, and MACD shows a bearish signal, indicating a dominant downtrend. However, momentum indicators (RSI, Stochastic, Williams %R) are deeply oversold, suggesting a potential for a short-term bounce from current levels.",
+            "risk_level": "HIGH",
+            "technical_score": 2.5,
+            "technical_strength": "WEAK_BEARISH",
+            "signal_count": 8
+          },
+          "NFLX": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "The trend is bearish due to the MACD line being below its signal with a negative histogram and a bearish EMA crossover (EMA12 < EMA26), despite a balanced RSI and a cited bullish volume signal. The overall technical score of 3/10 confirms a weak bearish sentiment.",
+            "risk_level": "MEDIUM",
+            "technical_score": 3,
+            "technical_strength": "WEAK_BEARISH",
+            "signal_count": 4
+          },
+          "MSFT": {
+            "trend": "BULLISH",
+            "confidence": "HIGH",
+            "reasoning": "All key moving averages are in bullish alignment, price is above the Bollinger Middle Band, and MACD shows strong positive momentum, indicating a clear uptrend. Momentum indicators confirm strength without being overbought, and no bearish signals are present.",
+            "risk_level": "LOW",
+            "technical_score": 10,
+            "technical_strength": "STRONG_BULLISH",
+            "signal_count": 6
+          },
+          "NVDA": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "Price is trading below key moving averages in bearish alignment (SMA20 < SMA50, EMA12 < EMA26), supported by a low technical score and high volume on negative price movement, indicating a persistent downtrend despite a short-term bullish MACD crossover.",
+            "risk_level": "MEDIUM",
+            "technical_score": 3,
+            "technical_strength": "WEAK_BEARISH",
+            "signal_count": 5
+          },
+          "TSLA": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "The stock is in a confirmed downtrend with price below all key moving averages and bearish MACD signals. However, deeply oversold momentum indicators suggest a strong potential for a short-term rebound, while high volatility adds to the risk.",
+            "risk_level": "HIGH",
+            "technical_score": 4.5,
+            "technical_strength": "NEUTRAL",
+            "signal_count": 8
+          },
+          "JPM": {
+            "trend": "NEUTRAL",
+            "confidence": "LOW",
+            "reasoning": "Insufficient data",
+            "risk_level": "HIGH"
+          },
+          "ADBE": {
+            "trend": "BULLISH",
+            "confidence": "MEDIUM",
+            "reasoning": "ADBE displays strong short-term bullish momentum with price above all key moving averages and a bullish MACD cross. However, momentum oscillators such as Stochastic and Williams %R are significantly overbought, indicating a high probability of a near-term correction or consolidation.",
+            "risk_level": "HIGH",
+            "technical_score": 7.5,
+            "technical_strength": "WEAK_BULLISH",
+            "signal_count": 7
+          }
+        },
+        "positions": {
+          "AAPL": 1,
+          "XOM": 0,
+          "META": 0,
+          "AMZN": 0,
+          "NFLX": 0,
+          "MSFT": 0,
+          "NVDA": 0,
+          "TSLA": 0,
+          "JPM": 0,
+          "ADBE": 1
+        },
+        "stock_pnls": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "purchase_prices": {
+          "AAPL": 0.0,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 0.0
+        },
+        "total_portfolio_value": 984.7,
+        "total_unrealized_pnl": 0.0,
+        "total_trades": 0,
+        "total_fees_paid": 0.0,
+        "cash_available": 232.31,
+        "ai_recommendations": {
+          "AAPL": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (4/10 WEAK_BEARISH) does not meet the 6+ requirement for a high-priority BUY, nor the 4- for a high-priority SELL. News sentiment is NEUTRAL (-0.20), which is at the threshold for avoiding BUYs on negative news. The AI trend is BEARISH. Given the mixed technical signals, borderline negative news, and balanced trading mode's focus on capital preservation, there is no strong alignment for a trade.",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "META": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (5.5/10 NEUTRAL) does not meet the 6+ requirement for a high-priority BUY. While news sentiment is POSITIVE (0.60) and would support a BUY, the technicals are too neutral (RSI 45.6, MACD Hist slightly negative, NEUTRAL AI trend with LOW confidence). This falls under \"Weak Technical + Positive News = MEDIUM priority BUY consideration\", but the balanced mode requires stronger technical alignment and multiple confirming indicators for an actionable trade.",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "AMZN": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (2.5/10 WEAK_BEARISH) is strongly bearish, meeting the 4- requirement for a high-priority SELL. RSI is oversold (23.5) and MACD is bearish, supported by a BEARISH AI trend (MEDIUM conf, HIGH risk). News sentiment is NEUTRAL (-0.20), which aligns with considering a SELL or avoiding a BUY. However, the portfolio currently holds 0 shares of AMZN, preventing a SELL order. No BUY action is warranted due to the weak technicals and negative news.",
+            "technical_score": 5.0,
+            "confidence": "HIGH"
+          },
+          "NFLX": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish, meeting the 4- requirement for a high-priority SELL. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NFLX, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "MSFT": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (10/10 STRONG_BULLISH) is exceptionally strong, well above the 6+ requirement for a high-priority BUY. All key technicals (RSI 57.8, MACD Hist 0.074, BULLISH AI trend with HIGH confidence and LOW risk) confirm the bullish outlook. News sentiment is also very strong POSITIVE (1.20), perfectly aligning for a \"HIGH confidence BUY\". However, the current price of $524.03 per share exceeds the available cash ($232.31), making a purchase impossible under current constraints.",
+            "technical_score": 5.0,
+            "confidence": "HIGH"
+          },
+          "NVDA": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (3/10 WEAK_BEARISH) is bearish. AI trend is BEARISH. With no news sentiment data, analysis relies purely on technicals. However, the portfolio currently holds 0 shares of NVDA, preventing a SELL order. No BUY action is warranted due to the weak technicals.",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "TSLA": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (4.5/10 NEUTRAL) is not strong enough for a BUY (6+) or a high-priority SELL (4-). While RSI is extremely oversold (19.5) and MACD is very bearish, the AI trend is BEARISH with HIGH risk. No news sentiment is available. The mixed and high-risk technical signals do not align with the capital preservation focus of the balanced trading mode. Furthermore, the portfolio holds 0 shares, preventing a SELL.",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "ADBE": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "Technical score (7.5/10 WEAK_BULLISH) is above the 6+ requirement for a high-priority BUY, supported by bullish RSI (61.6) and bullish key signals. No news sentiment is available, so decision relies on technicals. However, the AI trend has HIGH risk, which is a consideration for the balanced mode. More critically, the current price of $355.92 per share exceeds the available cash ($232.31), preventing the purchase of an additional share. The technicals do not suggest a SELL (score 7.5, not 4-).",
+            "technical_score": 5.0,
+            "confidence": "MEDIUM"
+          },
+          "XOM": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No clear signal from analysis",
+            "technical_score": 5.0,
+            "confidence": "LOW"
+          },
+          "JPM": {
+            "action": "HOLD",
+            "priority": "LOW",
+            "reasoning": "No clear signal from analysis",
+            "technical_score": 5.0,
+            "confidence": "LOW"
+          }
+        },
+        "executed_trades": [],
+        "portfolio_allocation": {
+          "AAPL": 23.438610744389155,
+          "XOM": 0.0,
+          "META": 0.0,
+          "AMZN": 0.0,
+          "NFLX": 0.0,
+          "MSFT": 0.0,
+          "NVDA": 0.0,
+          "TSLA": 0.0,
+          "JPM": 0.0,
+          "ADBE": 36.14501878744795
+        },
+        "session_start_time": "2025-08-15T16:28:52.470530",
+        "session_id": "session_20250815_162852_6346",
+        "validation_attempts": 1,
+        "validation_history": [
+          {
+            "timestamp": "2025-08-15T16:29:51.805047",
+            "attempt": 1,
+            "decision": "proceed",
+            "reason": "AI decisions are technically sound and consistent."
+          }
+        ],
+        "final_decision_logic": "AI decisions are technically sound and consistent.",
+        "validation_feedback": "",
+        "aggressive_mode": false,
+        "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-15\n\ud83d\udd22 Today's Trades: 2\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 1, Sells: 1\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 10 AAPL @ $150.00\n  \u2022 SELL 5 MSFT @ $300.00\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 AAPL: 1 trades (last: BUY)",
+        "sp500_data": {
+          "success": false
+        },
+        "benchmark_comparison": {},
+        "news_sentiment": {
+          "AAPL": {
+            "article_count": 8,
+            "sentiment_label": "NEUTRAL",
+            "sentiment_score": -0.2,
+            "sentiment_emoji": "\u2696\ufe0f",
+            "latest_headlines": [
+              "Apple trades slightly lower despite robust iPhone sales and less-than-expected tariff impact",
+              "Apple heads lower despite MarQ upside, as tariff impact expected to be sizeable in JunQ",
+              "Apple heads higher despite slight iPhone shortfall and weak China; guidance was reassuring"
+            ],
+            "has_news": true,
+            "summary": "NEUTRAL sentiment from 8 articles"
+          },
+          "META": {
+            "article_count": 8,
+            "sentiment_label": "POSITIVE",
+            "sentiment_score": 0.6,
+            "sentiment_emoji": "\ud83d\udcc8",
+            "latest_headlines": [
+              "Meta Platforms' Q2 earnings soar on AI-Driven ad growth as it also tightens capex guidance",
+              "Meta acquires Play AI to supercharge voice-driven interactions across apps and wearables",
+              "Meta Platforms looks to bolster AI dominance with potential investment in Scale AI"
+            ],
+            "has_news": true,
+            "summary": "POSITIVE sentiment from 8 articles"
+          },
+          "AMZN": {
+            "article_count": 8,
+            "sentiment_label": "NEUTRAL",
+            "sentiment_score": -0.2,
+            "sentiment_emoji": "\u2696\ufe0f",
+            "latest_headlines": [
+              "Amazon pulls back despite upside; AWS was a bit lackluster compared to Azure and Google Cloud",
+              "Amazon Prime Day is likely to set investor expectations heading into back-to-school season",
+              "Amazon not seeing tariff impact yet, stock lower as Q2 operating income seen as a bit light"
+            ],
+            "has_news": true,
+            "summary": "NEUTRAL sentiment from 8 articles"
+          },
+          "NFLX": {
+            "article_count": 0,
+            "sentiment_label": "NO_DATA",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2753",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "No recent news found"
+          },
+          "MSFT": {
+            "article_count": 8,
+            "sentiment_label": "POSITIVE",
+            "sentiment_score": 1.2,
+            "sentiment_emoji": "\ud83d\udcc8",
+            "latest_headlines": [
+              "Microsoft surprises investors with another big upside quarter, Azure was the star of the show",
+              "Microsoft surges higher on strong Azure results, tops $70 bln in revs for first time",
+              "Microsoft slips on reports of canceled data center leases; spurs minor AI demand concerns"
+            ],
+            "has_news": true,
+            "summary": "POSITIVE sentiment from 8 articles"
+          }
+        }
+      }
+    ],
+    "validation_attempts": 1,
+    "validation_history": [
+      {
+        "timestamp": "2025-08-15T16:29:51.805047",
+        "attempt": 1,
+        "decision": "proceed",
+        "reason": "AI decisions are technically sound and consistent."
+      }
+    ],
+    "final_decision_logic": "AI decisions are technically sound and consistent.",
+    "validation_feedback": "",
+    "aggressive_mode": false,
+    "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-15\n\ud83d\udd22 Today's Trades: 2\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 1, Sells: 1\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 10 AAPL @ $150.00\n  \u2022 SELL 5 MSFT @ $300.00\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 AAPL: 1 trades (last: BUY)",
+    "sp500_data": {
+      "success": false
+    },
+    "benchmark_comparison": {},
+    "news_sentiment": {
+      "AAPL": {
+        "article_count": 8,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_score": -0.2,
+        "sentiment_emoji": "\u2696\ufe0f",
+        "latest_headlines": [
+          "Apple trades slightly lower despite robust iPhone sales and less-than-expected tariff impact",
+          "Apple heads lower despite MarQ upside, as tariff impact expected to be sizeable in JunQ",
+          "Apple heads higher despite slight iPhone shortfall and weak China; guidance was reassuring"
+        ],
+        "has_news": true,
+        "summary": "NEUTRAL sentiment from 8 articles"
+      },
+      "META": {
+        "article_count": 8,
+        "sentiment_label": "POSITIVE",
+        "sentiment_score": 0.6,
+        "sentiment_emoji": "\ud83d\udcc8",
+        "latest_headlines": [
+          "Meta Platforms' Q2 earnings soar on AI-Driven ad growth as it also tightens capex guidance",
+          "Meta acquires Play AI to supercharge voice-driven interactions across apps and wearables",
+          "Meta Platforms looks to bolster AI dominance with potential investment in Scale AI"
+        ],
+        "has_news": true,
+        "summary": "POSITIVE sentiment from 8 articles"
+      },
+      "AMZN": {
+        "article_count": 8,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_score": -0.2,
+        "sentiment_emoji": "\u2696\ufe0f",
+        "latest_headlines": [
+          "Amazon pulls back despite upside; AWS was a bit lackluster compared to Azure and Google Cloud",
+          "Amazon Prime Day is likely to set investor expectations heading into back-to-school season",
+          "Amazon not seeing tariff impact yet, stock lower as Q2 operating income seen as a bit light"
+        ],
+        "has_news": true,
+        "summary": "NEUTRAL sentiment from 8 articles"
+      },
+      "NFLX": {
+        "article_count": 0,
+        "sentiment_label": "NO_DATA",
+        "sentiment_score": 0,
+        "sentiment_emoji": "\u2753",
+        "latest_headlines": [],
+        "has_news": false,
+        "summary": "No recent news found"
+      },
+      "MSFT": {
+        "article_count": 8,
+        "sentiment_label": "POSITIVE",
+        "sentiment_score": 1.2,
+        "sentiment_emoji": "\ud83d\udcc8",
+        "latest_headlines": [
+          "Microsoft surprises investors with another big upside quarter, Azure was the star of the show",
+          "Microsoft surges higher on strong Azure results, tops $70 bln in revs for first time",
+          "Microsoft slips on reports of canceled data center leases; spurs minor AI demand concerns"
+        ],
+        "has_news": true,
+        "summary": "POSITIVE sentiment from 8 articles"
+      }
+    }
+  }
+}

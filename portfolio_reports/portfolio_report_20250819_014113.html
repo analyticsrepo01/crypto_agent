@@ -1,0 +1,632 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>AI Trading Report - 20250819_014113</title>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; background-color: #f9f9f9; }
+            .header { background: #4a69bd; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+            .metric-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+            .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+            .positive { color: #2ecc71; } .negative { color: #e74c3c; } .neutral { color: #7f8c8d; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background-color: #f2f2f2; }
+            .section { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .trade-card { background: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 10px 0; border-radius: 4px; }
+            .trade-buy { border-left-color: #28a745; }
+            .trade-sell { border-left-color: #dc3545; }
+            .trade-details { font-size: 0.9em; color: #666; margin-top: 8px; }
+            .priority-high { background-color: #fff3cd; }
+            .priority-medium { background-color: #d1ecf1; }
+            .priority-low { background-color: #d4edda; }
+            .validation-step { padding: 10px; margin: 5px 0; border-radius: 4px; }
+            .validation-proceed { background-color: #d4edda; border-left: 4px solid #28a745; }
+            .validation-rerun { background-color: #f8d7da; border-left: 4px solid #dc3545; }
+            .reasoning { font-style: italic; color: #495057; }
+            .order-status { font-weight: bold; }
+            .execution-time { color: #6c757d; font-size: 0.8em; }
+            
+            /* NEWS SECTION STYLES */
+            .news-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+            .news-header { text-align: center; margin-bottom: 20px; }
+            .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+            .news-card { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; backdrop-filter: blur(10px); }
+            .news-symbol { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
+            .sentiment-positive { color: #2ecc71; font-weight: bold; }
+            .sentiment-negative { color: #e74c3c; font-weight: bold; }
+            .sentiment-neutral { color: #95a5a6; font-weight: bold; }
+            .news-headline { background: rgba(255,255,255,0.05); padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; }
+            .news-stats { font-size: 0.8em; color: #ecf0f1; margin-top: 10px; }
+            .no-news { text-align: center; color: #bdc3c7; font-style: italic; }
+            .news-summary { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+            .sentiment-indicator { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px; }
+            .sentiment-positive-bg { background-color: #2ecc71; color: white; }
+            .sentiment-negative-bg { background-color: #e74c3c; color: white; }
+            .sentiment-neutral-bg { background-color: #95a5a6; color: white; }
+            
+            /* PROFITABILITY SECTION STYLES */
+            .profitability-section { background: linear-gradient(135deg, #26a69a 0%, #4caf50 100%); color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+            .profitability-header { text-align: center; margin-bottom: 20px; }
+            .profitability-summary { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+            .profitability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+            .profit-metric { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; text-align: center; }
+            .profit-metric h4 { margin: 0 0 8px 0; font-size: 0.9em; opacity: 0.8; }
+            .profit-metric p { margin: 0; font-size: 1.1em; font-weight: bold; }
+            .profitability-table { background: rgba(255,255,255,0.95); color: #333; border-radius: 8px; overflow: hidden; }
+            .profitability-table table { margin: 0; }
+            .profitability-table th { background-color: rgba(76, 175, 80, 0.1); color: #2e7d32; }
+            .profit-positive { color: #2ecc71; font-weight: bold; }
+            .profit-negative { color: #e74c3c; font-weight: bold; }
+            .profit-neutral { color: #95a5a6; font-weight: bold; }
+            .position-size { font-weight: bold; color: #34495e; }
+            .avg-cost { color: #5d6d7e; }
+            .current-price { color: #2c3e50; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🤖 AI Portfolio Trading Report</h1>
+            <p>Session: session_20250819_011634_2127 | Cycle: 5 | Generated: 2025-08-19 01:41:13</p>
+            <p>Strategy Mode: ⚖️ BALANCED</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card"><h3>Portfolio Value</h3><p class="neutral">$9,998.65</p></div>
+            <div class="metric-card"><h3>Total P&L</h3><p class="negative">$-1.35</p></div>
+            <div class="metric-card"><h3>Total Trades</h3><p class="neutral">2</p></div>
+            <div class="metric-card"><h3>Cash Available</h3><p class="neutral">$8,653.27</p></div>
+            <div class="metric-card"><h3>Validation Attempts</h3><p class="neutral">0</p></div>
+            
+            <div class="metric-card"><h3>📈 S&P 500</h3><p class="neutral">$6449.15</p></div>
+            <div class="metric-card"><h3>S&P Change</h3><p class="negative">-0.01%</p></div>
+        
+            <div class="metric-card"><h3>Portfolio Return</h3><p class="neutral">+0.00%</p></div>
+            <div class="metric-card"><h3>⚖️ Alpha</h3><p class="neutral">+0.00%</p></div>
+            <div class="metric-card"><h3>🏆 Status</h3><p class="neutral">MATCHING</p></div>
+            
+        </div>
+        
+        <div class="section">
+            <h2>📊 Current Holdings</h2>
+            <table>
+                <tr><th>Stock</th><th>Position</th><th>Price</th><th>P&L</th><th>Allocation</th><th>AI Action</th><th>Technical Score</th><th>News Sentiment</th></tr>
+    <tr>
+            <td><strong>AAPL</strong></td>
+            <td>0</td>
+            <td>$231.65</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>7.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>XOM</strong></td>
+            <td>1</td>
+            <td>$106.49</td>
+            <td class='negative'>$-0.11</td>
+            <td>1.1%</td>
+            <td>HOLD</td>
+            <td>5.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>META</strong></td>
+            <td>0</td>
+            <td>$785.40</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>4.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>AMZN</strong></td>
+            <td>0</td>
+            <td>$231.06</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>NFLX</strong></td>
+            <td>1</td>
+            <td>$1238.89</td>
+            <td class='negative'>$-1.24</td>
+            <td>12.4%</td>
+            <td>HOLD</td>
+            <td>6.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>MSFT</strong></td>
+            <td>0</td>
+            <td>$520.14</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>NVDA</strong></td>
+            <td>0</td>
+            <td>$180.44</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>TSLA</strong></td>
+            <td>0</td>
+            <td>$330.60</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>JPM</strong></td>
+            <td>0</td>
+            <td>$290.49</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr><tr>
+            <td><strong>ADBE</strong></td>
+            <td>0</td>
+            <td>$354.91</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>4.0/10</td>
+            <td class='sentiment-neutral'>⚙️ DISABLED</td>
+        </tr></table></div><div class='section'><h2>⚡ Executed Trades in This Cycle</h2><p>No trades executed in this cycle.</p></div><div class='section'><h2>🕵️ Decision Validation Process</h2><p>No validation performed in this cycle.</p></div><div class='section'><h2>🧠 AI Recommendations Analysis</h2><table><tr><th>Symbol</th><th>Action</th><th>Priority</th><th>Technical Score</th><th>Reasoning</th><th>Confidence</th></tr><tr>
+                <td><strong>AAPL</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>7.0/10</td>
+                <td class="reasoning">While the 5-minute timeframe shows a strong bullish trend with price above key moving averages (SMA 20, SMA 50) and a bullish MACD alignment, several momentum indicators (RSI at 67.2, Williams %R at -16.0, Stochastic K at 84.0) are indicating overbought conditions. This suggests an increased risk of a short-term pullback, which is not ideal for initiating a new position under a Balanced Trading Mode that prioritizes capital preservation. Critically, there is no 1-hour timeframe data available. The 'CRITICAL DUAL TIMEFRAME INSTRUCTION' explicitly states that "High confidence only when both timeframes agree" and directs to "Weight 1-hour trends MORE heavily than 5-minute for direction." The absence of this vital medium-term confirmation prevents a high-confidence trade decision and goes against the demand for multiple confirming indicators across *both* timeframes. Given the overbought short-term conditions and the lack of medium-term trend confirmation, deferring entry is the most prudent action to align with the strategy's focus on capital preservation and steady growth, waiting for either a healthier entry point or broader trend alignment.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>XOM</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>MEDIUM</td>
+                <td>5.0/10</td>
+                <td class="reasoning">The current position is unprofitable (Net P&L after fees: $-2.29), and the loss is not significant enough (less than 2%) to trigger an emergency stop-loss. Therefore, according to the mandatory fee-aware sell rules, a SELL recommendation is not permissible.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>META</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>4.0/10</td>
+                <td class="reasoning">The 5-minute timeframe analysis shows a clear bearish trend, with the current price ($785.40) trading below both the SMA 20 ($786.84) and SMA 50 ($787.59), and MACD indicating negative momentum (MACD Line -0.392, Signal -0.211, Histogram -0.181). The AI trend analysis also confirms a BEARISH trend with MEDIUM confidence. However, short-term oscillators (Stochastic K at 18.2 and Williams %R at -81.8) are in deeply oversold territory, suggesting potential for a short-term bounce or exhaustion of the current downward move. Critically, there is NO 1-HOUR TIMEFRAME DATA available. In Balanced Trading Mode, dual-timeframe analysis is paramount, and high confidence trades require alignment across timeframes. The absence of medium-term data prevents proper trend confirmation and makes high-priority directional trades unsuitable. Initiating a new SELL position into oversold short-term conditions, despite a bearish trend, without the critical medium-term confirmation, does not align with the capital preservation focus of Balanced Trading Mode, which demands multiple confirming indicators and strong technical alignment. Volatility is low, which is favorable for trading, but the lack of complete data and conflicting short-term signals for a new entry outweigh this. No news data is available to influence the decision. Therefore, it is prudent to HOLD and await more complete data or clearer technical alignment.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>AMZN</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">The 5-minute timeframe for AMZN shows a clear bullish trend with price above bullishly aligned SMAs and a positive MACD. However, this is significantly contradicted by momentum indicators, with RSI (79.3), Williams %R (-26.1), and Stochastic K (73.9) all being in the overbought zone, strongly suggesting a potential for a short-term pullback. The AI trend analysis confirms this outlook, noting a "strong uptrend" but also that "momentum indicators are significantly overbought, suggesting a potential for a short-term pullback" and assigns a "HIGH" risk level. Critically, the 1-hour timeframe data is unavailable, which prevents the essential dual-timeframe analysis and confirmation required by the BALANCED TRADING MODE for higher confidence trades. The strategy specifically mandates weighting 1-hour trends more heavily and requires timeframe alignment for high confidence. Furthermore, the extremely high volume ratio indicates high current volatility, which the strategy advises to "Avoid trades during high volatility periods." Given the conflicting signals from momentum indicators, the high risk, high volatility, and the absence of crucial medium-term trend confirmation, a BUY trade does not meet the "technical scores 6+" requirement for a high-priority BUY and violates the capital preservation and risk management principles of the BALANCED mode. With no current position, a SELL is not applicable. Therefore, the most prudent action is to HOLD and wait for clearer, confirmed signals, ideally with multi-timeframe alignment and a cooldown in momentum.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>NFLX</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>HIGH</td>
+                <td>6.0/10</td>
+                <td class="reasoning">The current NFLX position is unprofitable, with a net P&L of $-3.42, which is below the required profit threshold for selling and not near a 2% stop-loss trigger. Per the "CRITICAL FEE-AWARE SELL RULES," a sell is explicitly unadvisable at this price point to prevent realizing a loss. While the 5-minute technicals show a bullish trend with positive MACD and SMA crossovers, confirmed by AI analysis as 'BULLISH' with 'HIGH' confidence, the RSI is overbought (72.9), indicating a potential short-term pullback. Furthermore, the absence of 1-hour timeframe data prevents medium-term trend confirmation, which is crucial for high-priority trades in Balanced Trading Mode, and the AI itself notes "Dual Timeframe: False" and "Timeframe Alignment: N/A". The extreme volume ratio (150104.00x average) also suggests a period of potential high volatility. The balanced trading mode prioritizes capital preservation and requires strong technical alignment across multiple indicators and timeframes, which is not fully met for a new BUY, and the current position is not eligible for a SELL. Therefore, holding the existing position is the prudent action, awaiting price recovery and clearer medium-term trend confirmation.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>MSFT</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">MSFT is exhibiting a clear bearish trend, with the price trading below both the SMA 20 and SMA 50, and a bearish MACD configuration. The AI trend analysis confirms a "BEARISH" trend with "MEDIUM" confidence and "HIGH" risk. However, momentum indicators such as RSI (11.9), Williams %R (-75.5), and Stochastic K (24.5) are all in extremely oversold territory, suggesting a potential for a short-term bounce. The volume ratio is exceptionally high, indicating significant activity, and overall volatility is elevated (ATR: 0.901, 20-day Volatility: 1.222). According to the 'BALANCED TRADING MODE', trades should be avoided during high volatility periods and require strong technical alignment with multiple confirming indicators. In this case, there's a conflict between the strong bearish trend and the oversold momentum, creating a lack of clear directional conviction. Without 1-hour timeframe data for trend confirmation and given the high volatility and conflicting short-term signals, initiating a new position (either buy or sell) is not aligned with capital preservation and steady growth. A 'HOLD' recommendation is prudent to await clearer technical alignment or a reduction in volatility.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>NVDA</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">NVDA's 5-minute chart shows severely overbought conditions across multiple key indicators, including RSI (81.1), Williams %R (-16.4), and Stochastic K (83.6), indicating a high probability of an imminent short-term correction or consolidation. While SMA 20 is above SMA 50 and MACD is positive (mildly bullish underlying), the strong overbought signals take precedence for capital preservation. Crucially, there is no 1-hour timeframe data available, which prevents assessing the medium-term trend and confirming alignment across timeframes. The AI trend analysis further highlights a NEUTRAL trend with LOW confidence and HIGH risk, explicitly stating a likely short-term correction. According to the Balanced Trading Mode, high-priority BUYs require a technical score of 6+ and multiple confirming indicators, which are not present here due to conflicting signals and the absence of medium-term data. Initiating a BUY in this scenario would be contrary to capital preservation and the demand for strong technical alignment and dual timeframe confirmation.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>TSLA</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>MEDIUM</td>
+                <td>3.0/10</td>
+                <td class="reasoning">The 1-hour timeframe data is unavailable, which significantly limits the ability to confirm a medium-term trend and prevents a high-confidence trade as per the "CRITICAL DUAL TIMEFRAME INSTRUCTION." While 5-minute data shows some underlying bullish momentum with MACD and SMAs, multiple key short-term indicators (RSI: 74.6, Williams %R: -3.3, Stochastic K: 96.7) are severely overbought. The AI Trend Analysis explicitly identifies a BEARISH trend with MEDIUM Confidence and HIGH Risk, reasoning that the stock is "severely overbought, suggesting a high probability of a near-term pullback despite some underlying bullish moving average and MACD signals." Given the balanced trading mode's emphasis on capital preservation, requiring technical scores 6+ for BUY, and avoiding trades during high volatility (20-day volatility is 0.539), entering a long position in an overbought, high-risk, and potentially reversing environment is contrary to the strategy. There is no news data to factor in. Therefore, a HOLD is recommended to await clearer directional signals and a resolution of the overbought condition, especially given the lack of medium-term trend confirmation.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>JPM</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">Missing critical 1-hour timeframe data prevents comprehensive dual timeframe analysis and confirmation of a robust trend, which is essential for high-confidence trades in a balanced trading mode. While 5-minute momentum indicators (RSI at 25.1, Williams %R at -77.4, Stochastic K at 22.6) are heavily oversold, suggesting a potential short-term bounce, the underlying short-term trend indicators (price below SMA 20 and SMA 50, bearish MACD crossover) remain bearish. This creates conflicting signals and lacks the strong technical alignment and multiple confirming indicators required for a high-priority BUY. The AI trend analysis further confirms a NEUTRAL trend with LOW confidence and MEDIUM risk, reinforcing the need for caution and capital preservation. The technical score is well below the 6+ threshold for a BUY.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>ADBE</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>4.0/10</td>
+                <td class="reasoning">The 5-minute timeframe shows a bearish trend with price below key moving averages (SMA 20 & 50) and a bearish MACD. The AI trend analysis confirms a BEARISH outlook. However, momentum indicators (RSI 22.7, Williams %R -81.1, Stochastic K 18.9) are deeply oversold, suggesting a high probability of a short-term bounce. Crucially, there is NO 1-HOUR TIMEFRAME DATA available, which prevents confirmation of the medium-term trend and prohibits a high-confidence trade as per balanced trading mode rules. The conflicting signals (bearish trend vs. deeply oversold conditions indicating potential bounce) and the lack of dual-timeframe alignment do not meet the "strong technical alignment" or "multiple confirming indicators" criteria for a high-priority BUY (requires score 6+) or a confident SELL (score 4- during oversold conditions is risky due to potential for immediate bounce). Given the BALANCED TRADING MODE's focus on capital preservation and avoiding trades during potentially volatile periods (such as a bounce from oversold levels), holding is the most prudent action.</td>
+                <td>LOW</td>
+            </tr></table></div><div class='section'><h2>📈 AI Trend Analysis</h2><table><tr><th>Symbol</th><th>Trend</th><th>Confidence</th><th>Risk Level</th><th>Technical Strength</th><th>Reasoning</th></tr><tr>
+                <td><strong>AAPL</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">AAPL exhibits strong bullish momentum with price trading above all key moving averages in bullish alignment, confirmed by a bullish MACD cross and a high overall technical score. While momentum indicators show overbought conditions, the underlying trend remains robust.</td>
+            </tr><tr>
+                <td><strong>XOM</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>NEUTRAL</td>
+                <td class="reasoning">The stock exhibits a bearish underlying trend, confirmed by moving average crossovers and MACD momentum, but is in deeply oversold territory across multiple oscillation indicators (RSI, Stochastic, Williams %R, Bollinger Bands), strongly suggesting an imminent rebound potential.</td>
+            </tr><tr>
+                <td><strong>META</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BEARISH</td>
+                <td class="reasoning">Price is trading below key bearishly aligned moving averages and MACD shows negative momentum, despite oversold conditions indicated by Stochastic and Williams %R.</td>
+            </tr><tr>
+                <td><strong>AMZN</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">Price is in a strong uptrend with bullish moving average alignments and MACD signals, but momentum indicators are significantly overbought, suggesting a potential for a short-term pullback.</td>
+            </tr><tr>
+                <td><strong>NFLX</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>HIGH</td>
+                <td>MEDIUM</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">The price exhibits a strong bullish trend with positive moving average crossovers, bullish MACD, and position above the Bollinger Band middle line. The overbought RSI, however, indicates potential for a short-term pullback.</td>
+            </tr><tr>
+                <td><strong>MSFT</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>STRONG_BEARISH</td>
+                <td class="reasoning">The price is in a clear downtrend, trading below all key moving averages with bearish MACD signals. Despite this, momentum indicators (RSI, Stochastic) are extremely oversold, suggesting a potential short-term bounce.</td>
+            </tr><tr>
+                <td><strong>NVDA</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>LOW</td>
+                <td>HIGH</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The underlying trend is bullish based on moving average alignments and MACD, but the stock is severely overbought according to RSI, Williams %R, and Bollinger Bands, indicating a high probability of a short-term correction or consolidation.</td>
+            </tr><tr>
+                <td><strong>TSLA</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">Multiple momentum indicators (RSI, Williams %R, Stochastic K) and the price position relative to Bollinger Bands indicate the stock is severely overbought, suggesting a high probability of a near-term pullback despite some underlying bullish moving average and MACD signals.</td>
+            </tr><tr>
+                <td><strong>JPM</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>LOW</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">The stock exhibits a weak bearish trend with price below key moving averages and a bearish MACD crossover. However, momentum indicators like RSI, Williams %R, and Stochastic are heavily oversold, suggesting a potential short-term bounce or exhaustion of bearish momentum. The conflicting signals and significant missing data for advanced indicators limit the overall confidence in a strong directional assessment.</td>
+            </tr><tr>
+                <td><strong>ADBE</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">The stock is in a short-term downtrend with price below key moving averages and a bearish MACD. However, deeply oversold momentum indicators (RSI, Stochastic, Williams %R) suggest a potential for a short-term bounce.</td>
+            </tr></table></div>
+        <div class="section">
+            <h2>📊 Trading History</h2>
+            <p class="error">⚠️ Unable to load trading history: 'NoneType' object has no attribute 'get_daily_context'</p>
+            <p>This may be because the memory system is not yet initialized or no trades have been stored.</p>
+        </div>
+        
+    <div class="profitability-section">
+        <div class="profitability-header">
+            <h2>💰 Portfolio Profitability Analysis</h2>
+        </div>
+        
+        <div class="profitability-summary">
+            <h3>📈 Overall Status: <span class="profit-positive">PROFITABLE</span></h3>
+            <p><strong>Total P&L:</strong> <span class="profit-positive">$+2,447.56 (+33.10%)</span></p>
+        </div>
+        
+        <div class="profitability-grid">
+            <div class="profit-metric">
+                <h4>💵 Total Investment</h4>
+                <p>$7,394.39</p>
+            </div>
+            <div class="profit-metric">
+                <h4>💎 Current Value</h4>
+                <p>$9,838.42</p>
+            </div>
+            <div class="profit-metric">
+                <h4>✅ Realized P&L</h4>
+                <p class="profit-positive">$+3.53</p>
+            </div>
+            <div class="profit-metric">
+                <h4>📊 Unrealized P&L</h4>
+                <p class="profit-positive">$+2,444.03</p>
+            </div>
+            <div class="profit-metric">
+                <h4>🎯 Total Return</h4>
+                <p class="profit-positive">+33.10%</p>
+            </div>
+        </div>
+        
+        <div class="profitability-table">
+            <table>
+                <tr>
+                    <th>Stock</th>
+                    <th>Position</th>
+                    <th>Avg Cost</th>
+                    <th>Current Price</th>
+                    <th>Total Invested</th>
+                    <th>Current Value</th>
+                    <th>Unrealized P&L</th>
+                    <th>Return %</th>
+                    <th>Status</th>
+                </tr>
+    
+                <tr>
+                    <td><strong>AAPL</strong></td>
+                    <td class="position-size">33</td>
+                    <td class="avg-cost">$157.40</td>
+                    <td class="current-price">$231.65</td>
+                    <td>$5,194.36</td>
+                    <td>$7,644.45</td>
+                    <td class="profit-positive">$+2,450.09</td>
+                    <td class="profit-positive">+47.2%</td>
+                    <td>📈</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>XOM</strong></td>
+                    <td class="position-size">2</td>
+                    <td class="avg-cost">$106.49</td>
+                    <td class="current-price">$106.49</td>
+                    <td>$212.98</td>
+                    <td>$212.98</td>
+                    <td class="profit-neutral">$+0.00</td>
+                    <td class="profit-neutral">+0.0%</td>
+                    <td>⚖️</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>META</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>AMZN</strong></td>
+                    <td class="position-size">1</td>
+                    <td class="avg-cost">$230.27</td>
+                    <td class="current-price">$231.06</td>
+                    <td>$230.27</td>
+                    <td>$231.06</td>
+                    <td class="profit-positive">$+0.79</td>
+                    <td class="profit-positive">+0.3%</td>
+                    <td>📈</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>NFLX</strong></td>
+                    <td class="position-size">1</td>
+                    <td class="avg-cost">$1238.89</td>
+                    <td class="current-price">$1238.89</td>
+                    <td>$1,238.89</td>
+                    <td>$1,238.89</td>
+                    <td class="profit-neutral">$+0.00</td>
+                    <td class="profit-neutral">+0.0%</td>
+                    <td>⚖️</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>MSFT</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>NVDA</strong></td>
+                    <td class="position-size">1</td>
+                    <td class="avg-cost">$182.25</td>
+                    <td class="current-price">$180.44</td>
+                    <td>$182.25</td>
+                    <td>$180.44</td>
+                    <td class="profit-negative">$-1.81</td>
+                    <td class="profit-negative">-1.0%</td>
+                    <td>📉</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>TSLA</strong></td>
+                    <td class="position-size">1</td>
+                    <td class="avg-cost">$335.64</td>
+                    <td class="current-price">$330.60</td>
+                    <td>$335.64</td>
+                    <td>$330.60</td>
+                    <td class="profit-negative">$-5.04</td>
+                    <td class="profit-negative">-1.5%</td>
+                    <td>📉</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>JPM</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>ADBE</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$354.91</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+            </table>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #ecf0f1; font-size: 0.9em;">
+            <p>💡 Profitability calculated from trade history • Last updated: 2025-08-19 01:41:13</p>
+        </div>
+    </div>
+    
+    <div class="news-section">
+        <div class="news-header">
+            <h2>📰 News Sentiment Analysis</h2>
+            <div class="news-summary">
+                <h3>❓ Portfolio News Overview</h3>
+                <p><strong>Overall Sentiment:</strong> 
+                   <span class="sentiment-indicator sentiment-neutral-bg">NO_DATA</span>
+                   (Score: +0.00)</p>
+                <p><strong>Total Articles:</strong> 0 across 0 stocks</p>
+                <p><strong>Sentiment Breakdown:</strong> 
+                   📈 0 Positive | 
+                   📉 0 Negative | 
+                   ⚖️ 0 Neutral | 
+                   ❓ 0 No Data</p>
+            </div>
+        </div>
+        
+        <div class="news-grid">
+    
+        <div class="news-card">
+            <div class="news-symbol">AAPL ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">XOM ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">META ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">AMZN ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">NFLX ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">MSFT ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">NVDA ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">TSLA ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">JPM ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">ADBE ⚙️</div>
+            <p class="sentiment-neutral">
+                <strong>DISABLED</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #ecf0f1; font-size: 0.9em;">
+            <p>📊 News sentiment analysis helps inform trading decisions by analyzing market sentiment from recent headlines.</p>
+            <p>🔄 Data refreshed automatically during market hours | ⏰ Last updated: 01:41:13</p>
+        </div>
+    </div>
+    </body></html>

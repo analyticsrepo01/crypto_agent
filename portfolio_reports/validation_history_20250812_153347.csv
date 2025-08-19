@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250812_151815_7704,3,BALANCED,2025-08-12T15:32:38.990843,1,rerun,Validation failed. Critical issues: JPM: High-priority SELL with high AI risk and low technical confidence. 
+session_20250812_151815_7704,3,BALANCED,2025-08-12T15:33:15.101625,2,proceed,AI decisions are technically sound and consistent.

@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_121726_2262,1,BALANCED,2025-08-18T12:18:37.594541,1,rerun,Validation failed. Critical issues: TSLA: Major contradiction - SELL recommendation conflicts with bullish analysis; TSLA: High-priority SELL with strong technical indicators (score: 10/10); TSLA: SELL recommendation would result in loss after fees (Net P&L: $-1.13). 
+session_20250818_121726_2262,1,BALANCED,2025-08-18T12:19:02.902386,2,proceed,AI decisions are technically sound and consistent.

@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_124342_9740,6,BALANCED,2025-08-18T13:17:21.030723,1,rerun,Validation failed. Critical issues: ADBE: Major contradiction - SELL recommendation conflicts with bullish analysis; ADBE: SELL recommendation would result in loss after fees (Net P&L: $-2.44); ADBE: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_124342_9740,6,BALANCED,2025-08-18T13:17:45.607318,2,rerun,Validation failed. Critical issues: ADBE: Major contradiction - SELL recommendation conflicts with bullish analysis; ADBE: SELL recommendation would result in loss after fees (Net P&L: $-2.44). 
+session_20250818_124342_9740,6,BALANCED,2025-08-18T13:18:11.198646,3,proceed,AI decisions are technically sound and consistent.

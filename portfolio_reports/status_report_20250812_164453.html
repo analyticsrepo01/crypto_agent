@@ -1,0 +1,92 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Portfolio Status Report - 20250812_164453</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; margin: 20px; background-color: #f7f9fc; color: #333; }
+            .header { background: #2c3e50; color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+            .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
+            .metric-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
+            .metric-value { font-size: 2.2em; font-weight: 600; }
+            .metric-label { color: #555; margin-top: 8px; font-size: 1em; }
+            .positive { color: #27ae60; } .negative { color: #c0392b; } .neutral { color: #7f8c8d; }
+            .section { background: white; padding: 25px; border-radius: 12px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+            th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eef; }
+            th { background-color: #f7f9fc; font-weight: 600; }
+            h1, h2 { margin: 0; } h2 { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Portfolio Status Report</h1>
+            <p>Session: session_20250812_164237_6046 | Generated: 2025-08-12 16:44:55</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value neutral">$0.00</div>
+                <div class="metric-label">Total Equity</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value neutral">$+0.00</div>
+                <div class="metric-label">Unrealized P&L</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value neutral">$0.00</div>
+                <div class="metric-label">Cash Available</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Profitability Trend</h2>
+            <canvas id="pnlChart"></canvas>
+        </div>
+
+        <div class="section">
+            <h2>Current Holdings</h2>
+            <table>
+                <thead><tr><th>Symbol</th><th>Position (Shares)</th><th>Current Price</th><th>Market Value</th><th>Unrealized P&L</th></tr></thead>
+                <tbody>
+    
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const ctx = document.getElementById('pnlChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["14:38:57", "14:44:19", "14:49:16", "14:52:32", "15:32:01", "15:37:36", "15:43:34", "15:47:04", "16:05:35", "16:12:55", "16:20:31", "16:27:04", "16:30:47", "16:36:21", "16:42:08", "16:48:08", "16:56:06", "17:01:47", "17:08:09", "17:14:53", "17:20:57", "17:26:57", "17:32:55", "17:39:07", "17:45:05", "17:50:39", "17:56:26", "18:03:15", "18:09:20", "18:15:16", "18:22:20", "18:28:12", "18:33:54", "18:39:45", "18:45:45", "18:53:25", "18:59:11", "19:04:54", "19:10:54", "19:16:47", "19:22:48", "19:28:43", "19:34:25", "19:40:22", "19:46:30", "19:52:18", "19:58:00", "13:44:25", "13:50:14", "13:54:29", "14:00:47", "14:06:40", "14:10:28", "14:14:20", "14:19:15", "14:26:50", "14:32:16", "14:37:56", "14:41:40", "14:47:24", "14:53:13", "15:06:42", "15:12:30", "15:18:05", "15:22:21", "15:27:52", "15:33:47", "15:39:36", "16:00:04", "16:06:17", "16:15:15", "16:21:07", "16:25:50", "16:34:24", "16:44:55"],
+                    datasets: [{
+                        label: 'Unrealized P&L ($)',
+                        data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+    </html>
+    

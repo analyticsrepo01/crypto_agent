@@ -1,0 +1,17 @@
+ib-insync
+langgraph-checkpoint-sqlite
+
+langgraph
+nest-asyncio
+ib-insync
+ipython
+pandas
+langchain
+langchain-openai
+yfinance
+jinja2
+requests
+beautifulsoup4
+matplotlib
+pygraphviz
+yfinance

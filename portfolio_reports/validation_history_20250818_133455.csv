@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_124342_9740,8,BALANCED,2025-08-18T13:33:51.843510,1,rerun,Validation failed. Critical issues: AMZN: Major contradiction - SELL recommendation conflicts with bullish analysis; AMZN: High-priority SELL with strong technical indicators (score: 9/10); AMZN: SELL recommendation would result in loss after fees (Net P&L: $-2.19). 
+session_20250818_124342_9740,8,BALANCED,2025-08-18T13:34:18.741599,2,rerun,Validation failed. Critical issues: AMZN: Major contradiction - SELL recommendation conflicts with bullish analysis; AMZN: High-priority SELL with strong technical indicators (score: 9/10); AMZN: SELL recommendation would result in loss after fees (Net P&L: $-2.19). 
+session_20250818_124342_9740,8,BALANCED,2025-08-18T13:34:46.578374,3,proceed,AI decisions are technically sound and consistent.

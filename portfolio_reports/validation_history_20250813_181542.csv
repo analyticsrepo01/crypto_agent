@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250813_180125_7144,2,BALANCED,2025-08-13T18:14:26.641682,1,rerun,Validation failed. Critical issues: AAPL: High-priority SELL with high AI risk and low technical confidence. 
+session_20250813_180125_7144,2,BALANCED,2025-08-13T18:15:13.512494,2,proceed,AI decisions are technically sound and consistent.

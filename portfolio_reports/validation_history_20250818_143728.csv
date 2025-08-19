@@ -1,0 +1,7 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_134834_3361,5,BALANCED,2025-08-18T14:35:18.823119,1.0,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-2.89); NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_134834_3361,5,BALANCED,2025-08-18T14:35:45.240789,2.0,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-2.89); NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_134834_3361,5,BALANCED,2025-08-18T14:36:10.365149,3.0,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-2.89); NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_134834_3361,5,BALANCED,2025-08-18T14:36:30.507849,4.0,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-2.89); NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_134834_3361,5,BALANCED,2025-08-18T14:37:03.357785,5.0,rerun,Validation failed. Critical issues: NVDA: SELL recommendation would result in loss after fees (Net P&L: $-2.89); NVDA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250818_134834_3361,5,BALANCED,,,proceed,Max retries.

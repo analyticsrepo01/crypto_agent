@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250814_145226_3812,1,BALANCED,2025-08-14T14:53:37.530852,1,rerun,Validation failed. Critical issues: AMZN: High-priority SELL with high AI risk and low technical confidence; TSLA: High-priority SELL with high AI risk and low technical confidence. Warnings: 1
+session_20250814_145226_3812,1,BALANCED,2025-08-14T14:54:20.604160,2,proceed,AI decisions are technically sound and consistent.

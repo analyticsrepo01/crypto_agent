@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250811_160852_3427,3,AGGRESSIVE,2025-08-11T16:25:49.687076,1,rerun,Validation failed. Critical issues: TSLA: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250811_160852_3427,3,AGGRESSIVE,2025-08-11T16:26:34.609959,2,proceed,AI decisions are technically sound and consistent. Note: 1 minor warnings detected.

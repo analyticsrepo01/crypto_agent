@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_134834_3361,3,BALANCED,2025-08-18T14:12:27.516675,1,rerun,Validation failed. Critical issues: NVDA: Major contradiction - SELL recommendation conflicts with bullish analysis; NVDA: High-priority SELL with strong technical indicators (score: 8.5/10); NVDA: SELL recommendation would result in loss after fees (Net P&L: $-3.15). 
+session_20250818_134834_3361,3,BALANCED,2025-08-18T14:12:48.405248,2,proceed,AI decisions are technically sound and consistent.

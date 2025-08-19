@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250814_134622_5576,10,BALANCED,2025-08-14T14:51:00.896967,1,rerun,Validation failed. Critical issues: TSLA: High-priority SELL with high AI risk and low technical confidence. 
+session_20250814_134622_5576,10,BALANCED,2025-08-14T14:51:46.958875,2,proceed,AI decisions are technically sound and consistent.

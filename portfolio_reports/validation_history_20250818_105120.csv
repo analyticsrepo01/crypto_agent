@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_104849_2285,1,BALANCED,2025-08-18T10:50:21.092835,1.0,rerun,Validation failed. Critical issues: TSLA: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250818_104849_2285,1,BALANCED,2025-08-18T10:50:57.127849,2.0,rerun,Validation failed. Critical issues: TSLA: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250818_104849_2285,1,BALANCED,,,proceed,Max retries.

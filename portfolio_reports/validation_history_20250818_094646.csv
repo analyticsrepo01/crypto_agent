@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250818_093728_3660,2,BALANCED,2025-08-18T09:45:27.609164,1.0,rerun,Validation failed. Critical issues: AAPL: Major contradiction - SELL recommendation conflicts with bullish analysis; AAPL: High-priority SELL with strong technical indicators (score: 8.0/10). Warnings: 1
+session_20250818_093728_3660,2,BALANCED,2025-08-18T09:45:55.821134,2.0,rerun,Validation failed. Critical issues: AAPL: Major contradiction - SELL recommendation conflicts with bullish analysis; AAPL: High-priority SELL with strong technical indicators (score: 8.0/10). 
+session_20250818_093728_3660,2,BALANCED,,,proceed,Max retries.

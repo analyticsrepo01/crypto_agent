@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250815_144412_6575,3,BALANCED,2025-08-15T14:58:10.338757,1,rerun,Validation failed. Critical issues: ADBE: High-priority SELL with high AI risk and low technical confidence. 
+session_20250815_144412_6575,3,BALANCED,2025-08-15T14:58:37.627312,2,proceed,AI decisions are technically sound and consistent.
