@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250821_011837_7606,14,AGGRESSIVE,2025-08-21T02:45:18.166107,1,rerun,Validation failed. Critical issues: BTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. Warnings: 1
+session_20250821_011837_7606,14,AGGRESSIVE,2025-08-21T02:45:38.692364,2,proceed,AI decisions are technically sound and consistent.

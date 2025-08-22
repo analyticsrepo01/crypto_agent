@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250819_235240_1250,9,BALANCED,2025-08-20T00:49:37.534628,1,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis; LTCUSD: High-priority BUY with poor technical indicators (score: 1/10). 
+session_20250819_235240_1250,9,BALANCED,2025-08-20T00:50:06.360662,2,proceed,AI decisions are technically sound and consistent.

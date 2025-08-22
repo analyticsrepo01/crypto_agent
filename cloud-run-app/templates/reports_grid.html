@@ -1,0 +1,26 @@
+{% if reports %}
+    <div class="reports-grid">
+        {% for report in reports %}
+            <div class="report-card">
+                <h3>{{ report.display_name }}</h3>
+                <div class="report-meta">
+                    <span class="report-type">{{ report.type }}</span>
+                    <span>{{ report.date }}</span>
+                </div>
+                <div class="report-meta">
+                    <span>Updated: {{ report.updated }}</span>
+                    <span>Size: {{ (report.size / 1024) | round(1) }} KB</span>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="{{ report.url }}" target="_blank">View Report</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="no-reports">
+        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ddd;">📊</div>
+        <h3>No reports found</h3>
+        <p>Try adjusting your filters or check back later for new reports.</p>
+    </div>
+{% endif %}

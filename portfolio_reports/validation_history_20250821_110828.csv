@@ -1,0 +1,2 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250821_101142_3154,9,AGGRESSIVE,2025-08-21T11:08:08.506367,1,proceed,AI decisions are technically sound and consistent. Note: 1 minor warnings detected.

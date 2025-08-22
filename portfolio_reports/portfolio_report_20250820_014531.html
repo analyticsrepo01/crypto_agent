@@ -1,0 +1,590 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>AI Trading Report - 20250820_014531</title>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; background-color: #f9f9f9; }
+            .header { background: #4a69bd; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+            .metric-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+            .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+            .positive { color: #2ecc71; } .negative { color: #e74c3c; } .neutral { color: #7f8c8d; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background-color: #f2f2f2; }
+            .section { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .trade-card { background: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 10px 0; border-radius: 4px; }
+            .trade-buy { border-left-color: #28a745; }
+            .trade-sell { border-left-color: #dc3545; }
+            .trade-details { font-size: 0.9em; color: #666; margin-top: 8px; }
+            .priority-high { background-color: #fff3cd; }
+            .priority-medium { background-color: #d1ecf1; }
+            .priority-low { background-color: #d4edda; }
+            .validation-step { padding: 10px; margin: 5px 0; border-radius: 4px; }
+            .validation-proceed { background-color: #d4edda; border-left: 4px solid #28a745; }
+            .validation-rerun { background-color: #f8d7da; border-left: 4px solid #dc3545; }
+            .reasoning { font-style: italic; color: #495057; }
+            .order-status { font-weight: bold; }
+            .execution-time { color: #6c757d; font-size: 0.8em; }
+            
+            /* NEWS SECTION STYLES */
+            .news-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+            .news-header { text-align: center; margin-bottom: 20px; }
+            .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+            .news-card { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; backdrop-filter: blur(10px); }
+            .news-symbol { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
+            .sentiment-positive { color: #2ecc71; font-weight: bold; }
+            .sentiment-negative { color: #e74c3c; font-weight: bold; }
+            .sentiment-neutral { color: #95a5a6; font-weight: bold; }
+            .news-headline { background: rgba(255,255,255,0.05); padding: 8px; margin: 5px 0; border-radius: 4px; font-size: 0.9em; }
+            .news-stats { font-size: 0.8em; color: #ecf0f1; margin-top: 10px; }
+            .no-news { text-align: center; color: #bdc3c7; font-style: italic; }
+            .news-summary { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+            .sentiment-indicator { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 8px; }
+            .sentiment-positive-bg { background-color: #2ecc71; color: white; }
+            .sentiment-negative-bg { background-color: #e74c3c; color: white; }
+            .sentiment-neutral-bg { background-color: #95a5a6; color: white; }
+            
+            /* PROFITABILITY SECTION STYLES */
+            .profitability-section { background: linear-gradient(135deg, #26a69a 0%, #4caf50 100%); color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+            .profitability-header { text-align: center; margin-bottom: 20px; }
+            .profitability-summary { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+            .profitability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+            .profit-metric { background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; text-align: center; }
+            .profit-metric h4 { margin: 0 0 8px 0; font-size: 0.9em; opacity: 0.8; }
+            .profit-metric p { margin: 0; font-size: 1.1em; font-weight: bold; }
+            .profitability-table { background: rgba(255,255,255,0.95); color: #333; border-radius: 8px; overflow: hidden; }
+            .profitability-table table { margin: 0; }
+            .profitability-table th { background-color: rgba(76, 175, 80, 0.1); color: #2e7d32; }
+            .profit-positive { color: #2ecc71; font-weight: bold; }
+            .profit-negative { color: #e74c3c; font-weight: bold; }
+            .profit-neutral { color: #95a5a6; font-weight: bold; }
+            .position-size { font-weight: bold; color: #34495e; }
+            .avg-cost { color: #5d6d7e; }
+            .current-price { color: #2c3e50; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🤖 AI Portfolio Trading Report</h1>
+            <p>Session: session_20250820_013440_6979 | Cycle: 2 | Generated: 2025-08-20 01:45:31</p>
+            <p>Strategy Mode: ⚖️ BALANCED</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card"><h3>Portfolio Value</h3><p class="neutral">$0.00</p></div>
+            <div class="metric-card"><h3>Total P&L</h3><p class="neutral">$+0.00</p></div>
+            <div class="metric-card"><h3>Total Trades</h3><p class="neutral">2</p></div>
+            <div class="metric-card"><h3>Cash Available</h3><p class="neutral">$999.88</p></div>
+            <div class="metric-card"><h3>Validation Attempts</h3><p class="neutral">5</p></div>
+            
+            <div class="metric-card"><h3>📈 S&P 500</h3><p class="neutral">Unavailable</p></div>
+        
+        </div>
+        
+        <div class="section">
+            <h2>📊 Current Holdings</h2>
+            <table>
+                <tr><th>Stock</th><th>Position</th><th>Price</th><th>P&L</th><th>Allocation</th><th>AI Action</th><th>Technical Score</th><th>News Sentiment</th></tr>
+    <tr>
+            <td><strong>BTCUSD</strong></td>
+            <td>0.0</td>
+            <td>$107807.83</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>ETHUSD</strong></td>
+            <td>0.0</td>
+            <td>$2482.93</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>3.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>LINKUSD</strong></td>
+            <td>0.0</td>
+            <td>$18.82</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>5.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>LTCUSD</strong></td>
+            <td>0.001</td>
+            <td>$120.30</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>BUY</td>
+            <td>6.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>BCHUSD</strong></td>
+            <td>0.0</td>
+            <td>$577.66</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>2.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>ZECUSD</strong></td>
+            <td>0.0</td>
+            <td>$38.47</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>2.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>BATUSD</strong></td>
+            <td>0.0</td>
+            <td>$0.15</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>1.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr><tr>
+            <td><strong>OXTUSD</strong></td>
+            <td>0.0</td>
+            <td>$0.07</td>
+            <td class='neutral'>$+0.00</td>
+            <td>0.0%</td>
+            <td>HOLD</td>
+            <td>1.0/10</td>
+            <td class='sentiment-neutral'>📰 NEUTRAL</td>
+        </tr></table></div><div class='section'><h2>⚡ Executed Trades in This Cycle</h2>
+            <div class="trade-card trade-buy priority-high">
+                <h4>🟢 Trade #1: BUY 0.001 LTCUSD</h4>
+                <div class="trade-details">
+                    <p><strong>Price:</strong> $120.30 | <strong>Priority:</strong> HIGH | <strong>Order ID:</strong> sim_1755668725</p>
+                    <p><strong>Status:</strong> <span class="order-status">Submitted</span> | <strong>Filled:</strong> 0.001/0.001 shares</p>
+                    
+                    <p><strong>Estimated Cost:</strong> $0.12</p>
+                    <p class="reasoning"><strong>AI Reasoning:</strong> The 5-minute timeframe for LTCUSD indicates extremely oversold conditions, with Stochastic K at 0.0 and Williams %R at -100.0. In crypto markets, such extreme readings are strong signals for an impending bullish reversal or bounce, aligning with the crypto-adjusted rule that extreme RSI values are more significant. Although MACD shows bearish momentum and the price is currently below SMA 20 and SMA 50, the AI trend analysis highlights these oversold indicators as critical, suggesting a high potential for a reversal despite the short-term bearish trend. The high volume observed could also indicate a capitulation phase. As no news data is available, the decision relies purely on the strength of these technical reversal signals. The trade adheres to portfolio constraints and cash reserves.</p>
+                    <p class="execution-time">Execution Time: 0.00s | Timestamp: 2025-08-20T01:42:02.108117</p>
+                </div>
+            </div>
+            </div><div class='section'><h2>🕵️ Decision Validation Process</h2>
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #1: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-20T01:42:51.043576</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #2: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-20T01:43:31.712519</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #3: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-20T01:44:02.401514</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #4: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-20T01:44:28.664066</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-rerun">
+                <h4>🔄 Attempt #5: VALIDATION FAILED - RERUN REQUIRED</h4>
+                <p><strong>Timestamp:</strong> 2025-08-20T01:44:58.670102</p>
+                <p><strong>Reason:</strong> Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. </p>
+            </div>
+            
+            <div class="validation-step validation-proceed">
+                <h4>✅ Attempt #0: VALIDATION PASSED</h4>
+                <p><strong>Timestamp:</strong> N/A</p>
+                <p><strong>Reason:</strong> Max retries.</p>
+            </div>
+            
+        <div class="validation-step" style="background-color: #e9ecef; border-left: 4px solid #6c757d;">
+            <h4>🎯 Final Decision Logic</h4>
+            <p>Forced proceed after max validation retries.</p>
+        </div>
+        </div><div class='section'><h2>🧠 AI Recommendations Analysis</h2><table><tr><th>Symbol</th><th>Action</th><th>Priority</th><th>Technical Score</th><th>Reasoning</th><th>Confidence</th></tr><tr>
+                <td><strong>BTCUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">The analysis of the 5-minute timeframe for BTCUSD presents conflicting signals that do not support initiating a new BUY position at this time. While the current price sits above the bullish-aligned SMA 20 and SMA 50, providing a short-term bullish bias, momentum indicators tell a different story. Both Stochastic K (84.6) and Williams %R (-15.4) are firmly in overbought territory, which, in crypto, are stronger signals indicating a potential for price pullback or consolidation. Furthermore, the MACD shows a bearish crossover (MACD Line 1.909 < MACD Signal 3.847) with a negative histogram, suggesting weakening momentum. The AI trend analysis correctly identifies the market as NEUTRAL with MEDIUM confidence due to these conflicting signals. With no 1-hour data available for broader trend confirmation and short-term momentum pointing towards a potential reversal, it is prudent to await clearer, more aligned signals or a more favorable entry point before committing to a BUY. There is no news data to influence the decision.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>ETHUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>3.0/10</td>
+                <td class="reasoning">While 5-minute timeframe indicators like MACD's positive crossover and price positioning above SMAs suggest short-term bullish momentum, the absence of crucial 1-hour timeframe data prevents medium-term trend confirmation, which is weighted more heavily for directional decisions. Furthermore, the AI's analysis flags critical concerns including "LOW" confidence and "HIGH" risk for the bullish trend, citing an "ADX 0.0" (indicating no discernible trend strength) and "negative volume flow (OBV)" which contradicts price action and suggests underlying weakness or data inconsistencies. These significant gaps and contradictory signals from key trend health indicators prevent a high-confidence or high-priority trade, as the technical alignment is not sufficiently strong to meet the crypto-adjusted threshold of 5+ for a BUY.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>LINKUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>5.0/10</td>
+                <td class="reasoning">All provided technical indicators (RSI, MACD, SMAs, Williams %R, Stochastic K, ATR, 20-day Volatility) are either 'nan' or '0.000'. The current price is $18.82, and the previous close is also $18.82, with a daily change of +0.00%. This indicates a completely flat market with no price movement or volatility. The AI trend analysis explicitly confirms this, stating "The majority of raw technical indicators... are perfectly flat or zero, indicating no price movement or volatility. This fundamental data suggests a strong neutral market." While current volume is high, the Volume MA is 0 and ATR/Volatility are 0, rendering the volume figure meaningless without price action. There is no 1-hour data available, forcing reliance solely on the 5-minute timeframe, which shows no discernible trend or signal. Trading in a market with zero movement is not feasible as there's no potential for profit, and trading fees would instantly result in a loss. Therefore, no buy or sell action can be taken based on the current static data.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>LTCUSD</strong></td>
+                <td class="positive">BUY</td>
+                <td>HIGH</td>
+                <td>6.0/10</td>
+                <td class="reasoning">The 5-minute timeframe for LTCUSD indicates extremely oversold conditions, with Stochastic K at 0.0 and Williams %R at -100.0. In crypto markets, such extreme readings are strong signals for an impending bullish reversal or bounce, aligning with the crypto-adjusted rule that extreme RSI values are more significant. Although MACD shows bearish momentum and the price is currently below SMA 20 and SMA 50, the AI trend analysis highlights these oversold indicators as critical, suggesting a high potential for a reversal despite the short-term bearish trend. The high volume observed could also indicate a capitulation phase. As no news data is available, the decision relies purely on the strength of these technical reversal signals. The trade adheres to portfolio constraints and cash reserves.</td>
+                <td>MEDIUM</td>
+            </tr><tr>
+                <td><strong>BCHUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>2.0/10</td>
+                <td class="reasoning">A BUY recommendation cannot be made due to significant technical data deficiencies and conflicting signals. Critical technical indicators (RSI, MACD, Williams %R, Stochastic) are unavailable or show zero values (nan/0.000), making a reliable assessment of momentum and overbought/oversold conditions impossible. Furthermore, essential 1-hour timeframe data for trend confirmation is missing, violating the dual-timeframe strategy. Although the 5-minute timeframe shows the price above SMAs and the AI identifies a 'BULLISH' trend, the AI also explicitly states the asset is "in an overbought state above the upper Bollinger Band, indicating potential for a near-term pullback," and labels the "Risk Level: HIGH." These strong cautionary signals, combined with the lack of reliable confirming indicators, mean the technical setup does not meet the crypto-adjusted threshold of 5+ for a high-priority BUY.</td>
+                <td>LOW</td>
+            </tr><tr>
+                <td><strong>ZECUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>2.0/10</td>
+                <td class="reasoning">The analysis for ZECUSD is severely hampered by a critical lack of comprehensive and reliable data. Numerous key technical indicators, including RSI, Williams %R, Stochastic K, ATR, and 20-day Volatility, are either missing (nan) or report zero values (0.000). While the price is slightly above the SMA 20 and SMA 50, indicating weak short-term bullish momentum, these signals alone are insufficient for a BUY decision. The MACD histogram, line, and signal are all reported as 0.000, providing an ambiguous or extremely weak momentum signal. Crucially, there is no 1-hour timeframe data available, preventing any medium-term trend confirmation, which is a core requirement for robust analysis. The AI's own analysis points to a "BULLISH" trend but with "LOW Confidence" and a "HIGH Risk Level," citing the "critical absence of reliable momentum and volatility data." Given these significant data deficiencies and the inability to confirm true momentum or volatility, the technical score falls well below the 5+ threshold required for a high-priority BUY in Balanced Crypto Trading Mode. News sentiment is also unavailable. Entering a position under such uncertain conditions would be excessively risky and does not align with the requirement for strong technical alignment. Therefore, the prudent action is to HOLD, meaning to avoid opening a new position until more complete and reliable data becomes available.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>BATUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>1.0/10</td>
+                <td class="reasoning">The price of BATUSD is completely stagnant with a 0.00% daily change, indicating extreme consolidation. All 5-minute technical indicators (RSI, Williams %R, Stochastic K) are 'nan' or flat at zero (MACD, SMAs), providing no discernible momentum or trend signals. Volatility measures (ATR, 20-day Volatility) are also zero, confirming a total lack of market movement. The absence of 1-hour timeframe data prevents any medium-term trend confirmation, forcing reliance solely on the 5-minute data which shows no actionable signals. The AI trend analysis also confirms a NEUTRAL trend with HIGH confidence due to the stagnant price and flat indicators. Given the complete lack of any directional technical signals and zero volatility, there is no basis for a buy or sell recommendation at this time.</td>
+                <td>HIGH</td>
+            </tr><tr>
+                <td><strong>OXTUSD</strong></td>
+                <td class="neutral">HOLD</td>
+                <td>LOW</td>
+                <td>1.0/10</td>
+                <td class="reasoning">The price of OXTUSD is completely static at $0.07 with a 0.00% daily change, indicating no price movement whatsoever. All critical short-term technical indicators (RSI, MACD, Williams %R, Stochastic) are either unavailable (nan) or show zero values, confirming a complete absence of momentum or trend. Both the SMA 20 and SMA 50 converge precisely at the current price, further emphasizing the lack of movement. Crucially, the 1-hour timeframe data is entirely missing, preventing any medium-term trend confirmation, which is weighted more heavily in the analysis. Volatility indicators (ATR, 20-day volatility) are zero, and while current volume is high, the volume moving average is zero, suggesting a potential lack of historical liquidity or an anomaly in data presentation, making the asset untradeable in its current state. Without any price action, discernible trend, or reliable technical signals across timeframes, and missing critical medium-term data, it is impossible to generate a valid trade recommendation.</td>
+                <td>LOW</td>
+            </tr></table></div><div class='section'><h2>📈 AI Trend Analysis</h2><table><tr><th>Symbol</th><th>Trend</th><th>Confidence</th><th>Risk Level</th><th>Technical Strength</th><th>Reasoning</th></tr><tr>
+                <td><strong>BTCUSD</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>MEDIUM</td>
+                <td>MEDIUM</td>
+                <td>NEUTRAL</td>
+                <td class="reasoning">While price sits above bullish-aligned moving averages and the Bollinger Band middle line supported by high volume, overbought momentum indicators (Stochastic, Williams %R) and a bearish MACD crossover strongly suggest a potential pullback or consolidation. The overall technical score indicates a neutral market with conflicting signals.</td>
+            </tr><tr>
+                <td><strong>ETHUSD</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>LOW</td>
+                <td>HIGH</td>
+                <td>STRONG_BULLISH</td>
+                <td class="reasoning">Price shows bullish momentum with MACD positive crossover and positioning above moving averages and the Bollinger Band middle. However, the absence of trend strength (ADX 0.0) and negative volume flow (OBV) contradict these signals, suggesting underlying weakness or data inconsistencies.</td>
+            </tr><tr>
+                <td><strong>LINKUSD</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>LOW</td>
+                <td>MEDIUM</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The majority of raw technical indicators, including all Moving Averages, MACD components, Bollinger Bands, ATR, Standard Deviation, and ADX, are perfectly flat or zero, indicating no price movement or volatility. This fundamental data suggests a strong neutral market. However, the explicitly provided "Key Signals Detected" and "WEAK_BULLISH" strength contradict these raw values, creating significant internal inconsistency in the analysis.</td>
+            </tr><tr>
+                <td><strong>LTCUSD</strong></td>
+                <td class="negative">BEARISH</td>
+                <td>LOW</td>
+                <td>HIGH</td>
+                <td>WEAK_BEARISH</td>
+                <td class="reasoning">The price is currently below key moving averages and MACD indicates bearish momentum, reinforced by high volume on negative price movement. However, critically, Stochastic and Williams %R are signaling extremely oversold conditions, suggesting a high potential for a bullish reversal or bounce.</td>
+            </tr><tr>
+                <td><strong>BCHUSD</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>MEDIUM</td>
+                <td>HIGH</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The price exhibits bullish momentum, trading above key moving averages with high volume on a positive daily change, but is in an overbought state above the upper Bollinger Band, indicating potential for a near-term pullback.</td>
+            </tr><tr>
+                <td><strong>ZECUSD</strong></td>
+                <td class="positive">BULLISH</td>
+                <td>LOW</td>
+                <td>HIGH</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The asset exhibits weak bullish momentum with price above moving averages and a reported bullish MACD signal, supported by high volume on positive price movement. However, an overbought condition (price above upper Bollinger Band) and the critical absence of reliable momentum and volatility data from numerous indicators introduce significant uncertainty.</td>
+            </tr><tr>
+                <td><strong>BATUSD</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>HIGH</td>
+                <td>LOW</td>
+                <td>WEAK_BULLISH</td>
+                <td class="reasoning">The price is completely stagnant with 0.00% daily change. All moving averages, momentum indicators (MACD, ADX), and volatility measures (ATR, Standard Deviation, Bollinger Bands) are flat or zero, indicating extreme consolidation and no discernible trend.</td>
+            </tr><tr>
+                <td><strong>OXTUSD</strong></td>
+                <td class="neutral">NEUTRAL</td>
+                <td>LOW</td>
+                <td>MEDIUM</td>
+                <td>NEUTRAL</td>
+                <td class="reasoning">The price is completely static with 0.00% daily change, and all moving averages converge at the current price. Volatility indicators (ATR, Standard Deviation, Bollinger Bands) are zero, confirming a complete lack of price movement or trend, while critical momentum indicators (RSI, Stochastic) are unavailable.</td>
+            </tr></table></div>
+        <div class="section">
+            <h2>📊 Trading History</h2>
+            <p class="error">⚠️ Unable to load trading history: 'NoneType' object has no attribute 'get_daily_context'</p>
+            <p>This may be because the memory system is not yet initialized or no trades have been stored.</p>
+        </div>
+        
+    <div class="profitability-section">
+        <div class="profitability-header">
+            <h2>💰 Portfolio Profitability Analysis</h2>
+        </div>
+        
+        <div class="profitability-summary">
+            <h3>⚖️ Overall Status: <span class="profit-neutral">BREAKEVEN</span></h3>
+            <p><strong>Total P&L:</strong> <span class="profit-neutral">$+0.00 (+0.00%)</span></p>
+        </div>
+        
+        <div class="profitability-grid">
+            <div class="profit-metric">
+                <h4>💵 Total Investment</h4>
+                <p>$0.24</p>
+            </div>
+            <div class="profit-metric">
+                <h4>💎 Current Value</h4>
+                <p>$0.24</p>
+            </div>
+            <div class="profit-metric">
+                <h4>✅ Realized P&L</h4>
+                <p class="profit-neutral">$+0.00</p>
+            </div>
+            <div class="profit-metric">
+                <h4>📊 Unrealized P&L</h4>
+                <p class="profit-neutral">$+0.00</p>
+            </div>
+            <div class="profit-metric">
+                <h4>🎯 Total Return</h4>
+                <p class="profit-neutral">+0.00%</p>
+            </div>
+        </div>
+        
+        <div class="profitability-table">
+            <table>
+                <tr>
+                    <th>Stock</th>
+                    <th>Position</th>
+                    <th>Avg Cost</th>
+                    <th>Current Price</th>
+                    <th>Total Invested</th>
+                    <th>Current Value</th>
+                    <th>Unrealized P&L</th>
+                    <th>Return %</th>
+                    <th>Status</th>
+                </tr>
+    
+                <tr>
+                    <td><strong>BTCUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>ETHUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>LINKUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>LTCUSD</strong></td>
+                    <td class="position-size">0.002</td>
+                    <td class="avg-cost">$120.30</td>
+                    <td class="current-price">$120.30</td>
+                    <td>$0.24</td>
+                    <td>$0.24</td>
+                    <td class="profit-neutral">$+0.00</td>
+                    <td class="profit-neutral">+0.0%</td>
+                    <td>⚖️</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>BCHUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>ZECUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>BATUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+                <tr>
+                    <td><strong>OXTUSD</strong></td>
+                    <td class="position-size">0</td>
+                    <td class="avg-cost">-</td>
+                    <td class="current-price">$0.00</td>
+                    <td>$0.00</td>
+                    <td>$0.00</td>
+                    <td class="profit-neutral">$0.00</td>
+                    <td class="profit-neutral">0.0%</td>
+                    <td>-</td>
+                </tr>
+            
+            </table>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #ecf0f1; font-size: 0.9em;">
+            <p>💡 Profitability calculated from trade history • Last updated: 2025-08-20 01:45:31</p>
+        </div>
+    </div>
+    
+    <div class="news-section">
+        <div class="news-header">
+            <h2>📰 News Sentiment Analysis</h2>
+            <div class="news-summary">
+                <h3>❓ Portfolio News Overview</h3>
+                <p><strong>Overall Sentiment:</strong> 
+                   <span class="sentiment-indicator sentiment-neutral-bg">NO_DATA</span>
+                   (Score: +0.00)</p>
+                <p><strong>Total Articles:</strong> 0 across 0 stocks</p>
+                <p><strong>Sentiment Breakdown:</strong> 
+                   📈 0 Positive | 
+                   📉 0 Negative | 
+                   ⚖️ 0 Neutral | 
+                   ❓ 0 No Data</p>
+            </div>
+        </div>
+        
+        <div class="news-grid">
+    
+        <div class="news-card">
+            <div class="news-symbol">BTCUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">ETHUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">LINKUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">LTCUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">BCHUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">ZECUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">BATUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        <div class="news-card">
+            <div class="news-symbol">OXTUSD 📰</div>
+            <p class="sentiment-neutral">
+                <strong>NEUTRAL</strong> 
+                
+            </p>
+            <div class="news-stats">
+                📰 0 articles analyzed
+            </div>
+        <div class="news-headline">No recent headlines available</div></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #ecf0f1; font-size: 0.9em;">
+            <p>📊 News sentiment analysis helps inform trading decisions by analyzing market sentiment from recent headlines.</p>
+            <p>🔄 Data refreshed automatically during market hours | ⏰ Last updated: 01:45:31</p>
+        </div>
+    </div>
+    </body></html>

@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250819_235240_1250,6,BALANCED,2025-08-20T00:28:25.028381,1,rerun,Validation failed. Critical issues: LTCUSD: High-priority BUY with high AI risk and low technical confidence. 
+session_20250819_235240_1250,6,BALANCED,2025-08-20T00:28:57.976877,2,rerun,Validation failed. Critical issues: LTCUSD: High-priority BUY with high AI risk and low technical confidence. Warnings: 1
+session_20250819_235240_1250,6,BALANCED,2025-08-20T00:29:31.167113,3,proceed,AI decisions are technically sound and consistent.
