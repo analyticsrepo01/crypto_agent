@@ -1,0 +1,5 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250821_101142_3154,14,AGGRESSIVE,2025-08-21T11:42:16.431813,1,rerun,Validation failed. Critical issues: BTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250821_101142_3154,14,AGGRESSIVE,2025-08-21T11:42:40.653091,2,rerun,Validation failed. Critical issues: BTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250821_101142_3154,14,AGGRESSIVE,2025-08-21T11:43:22.238062,3,rerun,Validation failed. Critical issues: BTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis; LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. Warnings: 2
+session_20250821_101142_3154,14,AGGRESSIVE,2025-08-21T11:43:59.403340,4,proceed,AI decisions are technically sound and consistent.

@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250820_102017_8161,4,AGGRESSIVE,2025-08-20T10:41:48.218143,1,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. Warnings: 1
+session_20250820_102017_8161,4,AGGRESSIVE,2025-08-20T10:42:08.733241,2,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. Warnings: 1
+session_20250820_102017_8161,4,AGGRESSIVE,2025-08-20T10:42:44.698274,3,proceed,AI decisions are technically sound and consistent.

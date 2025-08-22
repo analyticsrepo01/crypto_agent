@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Trading Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stat-card.positive .stat-value {
+            color: #28a745;
+        }
+
+        .stat-card.negative .stat-value {
+            color: #dc3545;
+        }
+
+        .tabs {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: #f8f9fa;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button.active {
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .tab-button:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .filters {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-clear {
+            background: #6c757d;
+        }
+
+        .btn-clear:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .report-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .report-type {
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .report-card a {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .report-card a:hover {
+            background: #5a6fd8;
+        }
+
+        .no-reports {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-reports i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .ai-logic-content {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .ai-logic-content h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .indicator-section {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .indicator-section h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .indicator-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .indicator-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .indicator-list li:last-child {
+            border-bottom: none;
+        }
+
+        .indicator-formula {
+            font-family: 'Courier New', monospace;
+            background: #f1f3f4;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Market Analysis Styles */
+        .market-analysis-section {
+            max-width: 100%;
+        }
+
+        .market-status {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .status-indicator.positive {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-indicator.negative {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .market-description {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .market-description h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .market-description p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-features {
+            margin-top: 1.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .feature-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .market-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #f5c6cb;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .market-description {
+                padding: 1rem;
+            }
+            
+            .status-indicator {
+                font-size: 1rem;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Portfolio Trading Dashboard</h1>
+        <div class="user-info">
+            <div class="user-avatar">{{ user_name[0].upper() if user_name else 'U' }}</div>
+            <div>
+                <div style="font-weight: 600;">{{ user_name or 'User' }}</div>
+                <div style="font-size: 0.8rem; color: #666;">{{ user_email or 'user@example.com' }}</div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📊 Total Reports</h3>
+                <div class="stat-value">{{ portfolio_stats.total_reports }}</div>
+                <div class="stat-label">Available reports</div>
+            </div>
+            <div class="stat-card">
+                <h3>📅 Latest Report</h3>
+                <div class="stat-value">{{ portfolio_stats.latest_date }}</div>
+                <div class="stat-label">Most recent data</div>
+            </div>
+            <div class="stat-card">
+                <h3>📈 Portfolio Reports</h3>
+                <div class="stat-value">{{ portfolio_stats.report_types.portfolio or 0 }}</div>
+                <div class="stat-label">Portfolio analyses</div>
+            </div>
+            <div class="stat-card">
+                <h3>⚡ Performance Reports</h3>
+                <div class="stat-value">{{ portfolio_stats.report_types.performance or 0 }}</div>
+                <div class="stat-label">Performance summaries</div>
+            </div>
+            <div class="stat-card {{ 'positive' if market_stats.market_sentiment == 'Bullish' else 'negative' if market_stats.market_sentiment == 'Bearish' else '' }}">
+                <h3>🌍 Market Sentiment</h3>
+                <div class="stat-value">{{ market_stats.market_sentiment or 'Unknown' }}</div>
+                <div class="stat-label">Latest market analysis</div>
+            </div>
+            <div class="stat-card">
+                <h3>💹 Portfolio Health</h3>
+                <div class="stat-value">{{ market_stats.portfolio_health or 0 }}%</div>
+                <div class="stat-label">Positive performers</div>
+            </div>
+        </div>
+        
+        <!-- Tabs Container -->
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button {{ 'active' if active_tab == 'portfolio' else '' }}" onclick="switchTab('portfolio')">
+                    📊 Portfolio Reports
+                </button>
+                <button class="tab-button {{ 'active' if active_tab == 'performance' else '' }}" onclick="switchTab('performance')">
+                    📈 Performance Reports
+                </button>
+                <button class="tab-button {{ 'active' if active_tab == 'market' else '' }}" onclick="switchTab('market')">
+                    🌍 Market Analysis
+                </button>
+                <button class="tab-button {{ 'active' if active_tab == 'ai_logic' else '' }}" onclick="switchTab('ai_logic')">
+                    🤖 AI Algorithm Logic
+                </button>
+            </div>
+
+            <div class="tab-content">
+                <!-- Portfolio Reports Tab -->
+                <div id="portfolio-tab" class="tab-pane {{ 'active' if active_tab == 'portfolio' else '' }}">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="report_date">Filter by Date:</label>
+                            <input type="date" id="report_date" name="report_date" value="{{ filter_date }}">
+                        </div>
+                        <div class="filter-group">
+                            <label for="report_type">Report Type:</label>
+                            <select id="report_type" name="report_type">
+                                <option value="all" {{ 'selected' if report_type == 'all' else '' }}>All Reports</option>
+                                <option value="portfolio" {{ 'selected' if report_type == 'portfolio' else '' }}>Portfolio Only</option>
+                                <option value="performance" {{ 'selected' if report_type == 'performance' else '' }}>Performance Only</option>
+                                <option value="trading" {{ 'selected' if report_type == 'trading' else '' }}>Trading Only</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <div>
+                                <button type="button" class="btn" onclick="applyFilters()">Apply Filters</button>
+                                <button type="button" class="btn btn-clear" onclick="clearFilters()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reports-container">
+                        {% if active_tab == 'portfolio' %}
+                            {% include 'reports_grid.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Performance Reports Tab -->
+                <div id="performance-tab" class="tab-pane {{ 'active' if active_tab == 'performance' else '' }}">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="perf_report_date">Filter by Date:</label>
+                            <input type="date" id="perf_report_date" name="report_date" value="{{ filter_date }}">
+                        </div>
+                        <div class="filter-group">
+                            <label>&nbsp;</label>
+                            <div>
+                                <button type="button" class="btn" onclick="applyPerformanceFilters()">Apply Filters</button>
+                                <button type="button" class="btn btn-clear" onclick="clearPerformanceFilters()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="performance-reports-container">
+                        {% if active_tab == 'performance' %}
+                            {% include 'reports_grid.html' %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Market Analysis Tab -->
+                <div id="market-tab" class="tab-pane {{ 'active' if active_tab == 'market' else '' }}">
+                    <div class="market-analysis-section">
+                        <!-- Market Data Status -->
+                        <div class="market-status">
+                            {% if market_stats.market_data_available %}
+                                <div class="status-indicator positive">
+                                    ✅ Market data available for {{ market_stats.latest_market_date }}
+                                </div>
+                            {% else %}
+                                <div class="status-indicator negative">
+                                    ⚠️ No recent market data found
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Market Analysis Filters -->
+                        <div class="filters">
+                            <div class="filter-group">
+                                <label for="market_report_date">Filter by Date:</label>
+                                <input type="date" id="market_report_date" name="report_date" value="{{ filter_date }}">
+                            </div>
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <div>
+                                    <button type="button" class="btn" onclick="applyMarketFilters()">Apply Filters</button>
+                                    <button type="button" class="btn btn-clear" onclick="clearMarketFilters()">Clear</button>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label>&nbsp;</label>
+                                <div>
+                                    <button type="button" class="btn btn-success" onclick="generateMarketReport()">
+                                        📊 Generate Today's Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Market Analysis Description -->
+                        <div class="market-description">
+                            <h3>🌍 Daily Market Analysis</h3>
+                            <p>
+                                Our market analysis reports provide comprehensive insights comparing your portfolio 
+                                against major benchmarks (S&P 500, NASDAQ-100, etc.), sector performance analysis, 
+                                market sentiment indicators, and key market news. Reports are generated daily at 
+                                midnight EST using data from Yahoo Finance, Alpha Vantage, and other professional sources.
+                            </p>
+                            <div class="analysis-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <strong>📊 Portfolio vs Benchmarks</strong>
+                                        <p>Compare your portfolio performance against major market indices</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <strong>🏭 Sector Breakdown</strong>
+                                        <p>Analyze performance by sector with detailed metrics</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <strong>📈 Market Sentiment</strong>
+                                        <p>Track VIX, treasury yields, dollar strength, and fear/greed indicators</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <strong>📰 Market Context</strong>
+                                        <p>Latest market news with sentiment analysis and key themes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Market Reports Container -->
+                        <div id="market-reports-container">
+                            {% if active_tab == 'market' %}
+                                {% if reports %}
+                                    <div class="reports-grid">
+                                        {% for report in reports %}
+                                            <div class="report-card">
+                                                <h3>{{ report.display_name }}</h3>
+                                                <div class="report-meta">
+                                                    <span class="report-type">{{ report.type }}</span>
+                                                    <span>{{ report.date }}</span>
+                                                </div>
+                                                <div class="report-meta">
+                                                    <span>Updated: {{ report.updated }}</span>
+                                                    <span>Size: {{ (report.size / 1024) | round(1) }} KB</span>
+                                                </div>
+                                                <div style="margin-top: 1rem;">
+                                                    <a href="{{ report.url }}" target="_blank">View Analysis</a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="no-reports">
+                                        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ddd;">🌍</div>
+                                        <h3>No market analysis reports found</h3>
+                                        <p>Market analysis reports are generated daily at midnight EST.</p>
+                                        <p>Try generating today's report manually or check back tomorrow.</p>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Algorithm Logic Tab -->
+                <div id="ai_logic-tab" class="tab-pane {{ 'active' if active_tab == 'ai_logic' else '' }}">
+                    <div class="ai-logic-content">
+                        <h3>🤖 AI Trading Algorithm Logic</h3>
+                        <p style="margin-bottom: 2rem; color: #666; font-style: italic;">
+                            This section outlines the technical indicators and logic used by our AI trading algorithm for portfolio optimization.
+                        </p>
+
+                        <div class="indicator-section">
+                            <h4>📊 Moving Averages</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Simple Moving Average (SMA-20):</strong> Average price over 20 periods
+                                    <div class="indicator-formula">SMA = (P1 + P2 + ... + Pn) / n</div>
+                                    <em>Used for trend identification and support/resistance levels</em>
+                                </li>
+                                <li><strong>Simple Moving Average (SMA-50):</strong> Average price over 50 periods
+                                    <div class="indicator-formula">SMA-50 = (P1 + P2 + ... + P50) / 50</div>
+                                    <em>Used for longer-term trend analysis and major trend confirmation</em>
+                                </li>
+                                <li><strong>Exponential Moving Average (EMA-12 & EMA-26):</strong> Weighted average giving more importance to recent prices
+                                    <div class="indicator-formula">EMA = (Price × α) + (Previous EMA × (1 - α))</div>
+                                    <em>More responsive to recent price changes, used in MACD calculation</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section">
+                            <h4>📈 Momentum Indicators</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Relative Strength Index (RSI):</strong> Measures overbought/oversold conditions
+                                    <div class="indicator-formula">RSI = 100 - (100 / (1 + RS)) where RS = Avg Gain / Avg Loss</div>
+                                    <em>RSI > 70: Overbought (Sell Signal), RSI < 30: Oversold (Buy Signal)</em>
+                                </li>
+                                <li><strong>Stochastic Oscillator (%K & %D):</strong> Compares closing price to price range
+                                    <div class="indicator-formula">%K = ((Close - Lowest Low) / (Highest High - Lowest Low)) × 100</div>
+                                    <em>%K > 80: Overbought, %K < 20: Oversold, %D is 3-period MA of %K</em>
+                                </li>
+                                <li><strong>Williams %R:</strong> Similar to Stochastic but inverted scale
+                                    <div class="indicator-formula">%R = ((Highest High - Close) / (Highest High - Lowest Low)) × -100</div>
+                                    <em>Values between -20 and 0: Overbought, Values between -100 and -80: Oversold</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section">
+                            <h4>🔄 Trend Indicators</h4>
+                            <ul class="indicator-list">
+                                <li><strong>MACD (Moving Average Convergence Divergence):</strong> Trend following momentum indicator
+                                    <div class="indicator-formula">MACD Line = EMA(12) - EMA(26)<br>Signal Line = EMA(9) of MACD<br>Histogram = MACD - Signal</div>
+                                    <em>MACD > Signal: Bullish, MACD < Signal: Bearish, Histogram shows momentum strength</em>
+                                </li>
+                                <li><strong>MACD Signal Crossovers:</strong> Key trading signals
+                                    <div class="indicator-formula">Buy: MACD crosses above Signal Line<br>Sell: MACD crosses below Signal Line</div>
+                                    <em>Confirmed by histogram changing from negative to positive (buy) or positive to negative (sell)</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section">
+                            <h4>📊 Volatility Indicators</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Bollinger Bands:</strong> Volatility bands around moving average
+                                    <div class="indicator-formula">Upper Band = SMA(20) + (2 × StdDev)<br>Middle Band = SMA(20)<br>Lower Band = SMA(20) - (2 × StdDev)</div>
+                                    <em>Price near Upper Band: Potentially overbought, Price near Lower Band: Potentially oversold</em>
+                                </li>
+                                <li><strong>Average True Range (ATR):</strong> Measures market volatility
+                                    <div class="indicator-formula">TR = max[(High-Low), abs(High-PrevClose), abs(Low-PrevClose)]<br>ATR = MA of TR over 14 periods</div>
+                                    <em>Higher ATR indicates higher volatility, used for position sizing and stop-loss placement</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section">
+                            <h4>📊 Volume Indicators</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Volume Moving Average:</strong> Average volume over specified periods
+                                    <div class="indicator-formula">Volume MA = (V1 + V2 + ... + Vn) / n</div>
+                                    <em>High volume confirms price movements, low volume suggests weak conviction</em>
+                                </li>
+                                <li><strong>On-Balance Volume (OBV):</strong> Cumulative volume indicator
+                                    <div class="indicator-formula">If Close > PrevClose: OBV = PrevOBV + Volume<br>If Close < PrevClose: OBV = PrevOBV - Volume<br>If Close = PrevClose: OBV = PrevOBV</div>
+                                    <em>Rising OBV with rising prices confirms uptrend, divergence may signal reversal</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section" style="border-left-color: #dc3545;">
+                            <h4>🎯 AI Decision Logic</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Multi-Indicator Confirmation:</strong> AI requires multiple signals to align
+                                    <div class="indicator-formula">BUY Conditions: RSI < 70 AND Price > SMA-20 AND MACD > Signal AND %K < 80<br>SELL Conditions: RSI > 30 AND Price < SMA-20 AND MACD < Signal AND %K > 20</div>
+                                    <em>Reduces false signals by requiring confirmation from multiple technical indicators</em>
+                                </li>
+                                <li><strong>Risk Assessment Scoring:</strong> Each position gets a risk score (1-10)
+                                    <div class="indicator-formula">Risk Score = f(Volatility, Technical Score, Position Size, Market Conditions)</div>
+                                    <em>Higher risk scores trigger tighter stop-losses and smaller position sizes</em>
+                                </li>
+                                <li><strong>Stop-Loss & Take-Profit Logic:</strong> Automated risk management
+                                    <div class="indicator-formula">Stop-Loss = Entry Price × (1 - 0.02) // 2% stop-loss<br>Take-Profit = Entry Price × (1 + 0.03) // 3% take-profit<br>Emergency Stop = Portfolio Value × (1 - 0.05) // 5% portfolio stop</div>
+                                    <em>Protects capital and locks in profits automatically</em>
+                                </li>
+                                <li><strong>Position Sizing Algorithm:</strong> Dynamic position sizing based on volatility
+                                    <div class="indicator-formula">Position Size = min(MAX_SHARES_PER_STOCK, Available_Cash / (Price × Risk_Multiplier))<br>Risk_Multiplier = 1 + (ATR / Price) // Adjust for volatility</div>
+                                    <em>Higher volatility stocks get smaller position sizes to manage risk</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="indicator-section" style="border-left-color: #ffc107;">
+                            <h4>⚙️ Trading Execution Rules</h4>
+                            <ul class="indicator-list">
+                                <li><strong>Priority System:</strong> Orders executed by priority level
+                                    <div class="indicator-formula">1. HIGH Priority: Stop-losses and emergency sells<br>2. MEDIUM Priority: Strong technical signals<br>3. LOW Priority: Weak signals or position adjustments</div>
+                                    <em>Ensures risk management takes precedence over profit-seeking</em>
+                                </li>
+                                <li><strong>Fee Optimization:</strong> Trade sizing to minimize fee impact
+                                    <div class="indicator-formula">Min Profitable Trade = (Fee × 2) / Share_Price<br>Trade Size = 5 shares (optimized for $1.09 fee structure)</div>
+                                    <em>Ensures each trade can overcome transaction costs</em>
+                                </li>
+                                <li><strong>Market Hours & Conditions:</strong> Trading only during optimal conditions
+                                    <div class="indicator-formula">Trading Hours: 9:30 AM - 4:00 PM EST<br>Skip Conditions: Low volume, high volatility, market gaps > 2%</div>
+                                    <em>Avoids trading during illiquid or highly volatile periods</em>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid #007bff;">
+                            <h4 style="color: #007bff; margin-bottom: 1rem;">💡 Key Algorithm Features</h4>
+                            <ul style="list-style-type: disc; padding-left: 1.5rem; color: #333;">
+                                <li><strong>Adaptive Learning:</strong> AI continuously learns from market patterns and adjusts weights</li>
+                                <li><strong>Regime Detection:</strong> Identifies bull/bear/sideways markets and adapts strategy accordingly</li>
+                                <li><strong>Correlation Analysis:</strong> Monitors stock correlations to avoid over-concentration</li>
+                                <li><strong>Sentiment Integration:</strong> Incorporates market sentiment from technical indicators</li>
+                                <li><strong>Backtesting Validation:</strong> All strategies tested on historical data before deployment</li>
+                                <li><strong>Real-time Monitoring:</strong> Continuous monitoring of positions and market conditions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentTab = '{{ active_tab }}';
+        
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Update active tab
+            currentTab = tabName;
+            
+            // Hide all tab panes
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab pane
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to selected button
+            event.target.classList.add('active');
+            
+            // Load content based on tab
+            if (tabName === 'market') {
+                loadMarketReports();
+            } else if (tabName !== 'ai_logic') {
+                loadReports(tabName);
+            }
+            
+            // Update URL without page reload
+            const url = new URL(window.location);
+            url.searchParams.set('tab', tabName);
+            history.pushState({}, '', url);
+        }
+        
+        // Load reports via AJAX
+        function loadReports(tab, filters = {}) {
+            const container = tab === 'performance' ? 
+                document.getElementById('performance-reports-container') : 
+                document.getElementById('reports-container');
+            
+            if (!container) return;
+            
+            container.innerHTML = '<div class="loading">Loading reports...</div>';
+            
+            // Build query parameters
+            const params = new URLSearchParams({
+                tab: tab,
+                report_date: filters.report_date || '',
+                report_type: filters.report_type || 'all'
+            });
+            
+            fetch(`/api/reports?${params}`)
+                .then(response => response.json())
+                .then(data => {
+                    container.innerHTML = generateReportsGrid(data.reports);
+                })
+                .catch(error => {
+                    console.error('Error loading reports:', error);
+                    container.innerHTML = '<div class="no-reports">Error loading reports. Please try again.</div>';
+                });
+        }
+
+        // Load market reports via AJAX
+        function loadMarketReports(filters = {}) {
+            const container = document.getElementById('market-reports-container');
+            
+            if (!container) return;
+            
+            container.innerHTML = '<div class="loading">Loading market analysis reports...</div>';
+            
+            // Build query parameters
+            const params = new URLSearchParams({
+                report_date: filters.report_date || ''
+            });
+            
+            fetch(`/api/market-reports?${params}`)
+                .then(response => response.json())
+                .then(data => {
+                    container.innerHTML = generateMarketReportsGrid(data.reports);
+                })
+                .catch(error => {
+                    console.error('Error loading market reports:', error);
+                    container.innerHTML = '<div class="market-error">Error loading market reports. Please try again.</div>';
+                });
+        }
+        
+        // Generate reports grid HTML
+        function generateReportsGrid(reports) {
+            if (!reports || reports.length === 0) {
+                return `
+                    <div class="no-reports">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ddd;">📊</div>
+                        <h3>No reports found</h3>
+                        <p>Try adjusting your filters or check back later.</p>
+                    </div>
+                `;
+            }
+            
+            const reportsHtml = reports.map(report => `
+                <div class="report-card">
+                    <h3>${report.display_name}</h3>
+                    <div class="report-meta">
+                        <span class="report-type">${report.type}</span>
+                        <span>${report.date}</span>
+                    </div>
+                    <div class="report-meta">
+                        <span>Updated: ${report.updated}</span>
+                        <span>Size: ${formatFileSize(report.size)}</span>
+                    </div>
+                    <a href="${report.url}" target="_blank">View Report</a>
+                </div>
+            `).join('');
+            
+            return `<div class="reports-grid">${reportsHtml}</div>`;
+        }
+
+        // Generate market reports grid HTML
+        function generateMarketReportsGrid(reports) {
+            if (!reports || reports.length === 0) {
+                return `
+                    <div class="no-reports">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; color: #ddd;">🌍</div>
+                        <h3>No market analysis reports found</h3>
+                        <p>Market analysis reports are generated daily at midnight EST.</p>
+                        <p>Try generating today's report manually or check back tomorrow.</p>
+                    </div>
+                `;
+            }
+            
+            const reportsHtml = reports.map(report => `
+                <div class="report-card">
+                    <h3>${report.display_name}</h3>
+                    <div class="report-meta">
+                        <span class="report-type">${report.type}</span>
+                        <span>${report.date}</span>
+                    </div>
+                    <div class="report-meta">
+                        <span>Updated: ${report.updated}</span>
+                        <span>Size: ${formatFileSize(report.size)}</span>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <a href="${report.url}" target="_blank">View Analysis</a>
+                    </div>
+                </div>
+            `).join('');
+            
+            return `<div class="reports-grid">${reportsHtml}</div>`;
+        }
+        
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+        
+        // Apply filters for portfolio tab
+        function applyFilters() {
+            const filters = {
+                report_date: document.getElementById('report_date').value,
+                report_type: document.getElementById('report_type').value
+            };
+            loadReports('portfolio', filters);
+        }
+        
+        // Clear filters for portfolio tab
+        function clearFilters() {
+            document.getElementById('report_date').value = '';
+            document.getElementById('report_type').value = 'all';
+            loadReports('portfolio');
+        }
+        
+        // Apply filters for performance tab
+        function applyPerformanceFilters() {
+            const filters = {
+                report_date: document.getElementById('perf_report_date').value,
+                report_type: 'performance'
+            };
+            loadReports('performance', filters);
+        }
+        
+        // Clear filters for performance tab
+        function clearPerformanceFilters() {
+            document.getElementById('perf_report_date').value = '';
+            loadReports('performance');
+        }
+
+        // Apply filters for market tab
+        function applyMarketFilters() {
+            const filters = {
+                report_date: document.getElementById('market_report_date').value
+            };
+            loadMarketReports(filters);
+        }
+        
+        // Clear filters for market tab
+        function clearMarketFilters() {
+            document.getElementById('market_report_date').value = '';
+            loadMarketReports();
+        }
+
+        // Generate market report manually
+        function generateMarketReport() {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = '⏳ Generating...';
+            button.disabled = true;
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            fetch(`/admin/generate-market-report?date=${today}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Market report generated successfully! Refreshing reports...');
+                        loadMarketReports();
+                    } else {
+                        alert(`Failed to generate report: ${data.error || 'Unknown error'}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error generating report:', error);
+                    alert('Error generating report. Please try again.');
+                })
+                .finally(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                });
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial reports based on current tab
+            if (currentTab === 'market') {
+                loadMarketReports();
+            } else if (currentTab !== 'ai_logic') {
+                loadReports(currentTab);
+            }
+            
+            // Add enter key listeners to filter inputs
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (currentTab === 'portfolio') {
+                        applyFilters();
+                    } else if (currentTab === 'performance') {
+                        applyPerformanceFilters();
+                    } else if (currentTab === 'market') {
+                        applyMarketFilters();
+                    }
+                }
+            });
+        });
+        
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab') || 'portfolio';
+            
+            // Update tab without triggering switchTab
+            currentTab = tab;
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tab + '-tab').classList.add('active');
+            document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+            
+            if (tab === 'market') {
+                loadMarketReports();
+            } else if (tab !== 'ai_logic') {
+                loadReports(tab);
+            }
+        });
+    </script>
+</body>
+</html>

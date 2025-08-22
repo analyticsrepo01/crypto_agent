@@ -1,0 +1,2 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250821_115719_3235,4,AGGRESSIVE,2025-08-21T12:19:41.992943,1,proceed,AI decisions are technically sound and consistent.

@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Trading bot specific
+logs/
+*.db
+*.sqlite
+trading_memory*.db
+trading_checkpoints.db
+trading_data.db
+
+# News data
+news_data/
+
+# Backtest data
+trading_backtest/
+
+# Unused code
+unusedcode/
+
+# Cloud deployment files with secrets
+cloud-run-app/Readme.md
+cloud-run-app/cloudbuild.yaml
+cloud-run-app/client_secrets.json
+cloud-run-app/service-account-key.json
+
+# Secrets directory (contains sensitive files)
+secrets/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Cache directories
+.cache/
+.pytest_cache/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# API keys and credentials
+*api_key*
+*secret*
+*credentials*
+*.pem
+*.key

@@ -1,0 +1,33 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/portfolio-reports-app', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/portfolio-reports-app']
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'portfolio-reports-app'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/portfolio-reports-app'
+      - '--region'
+      - 'YOUR_REGION'
+      - '--platform'
+      - 'managed'
+      - '--set-env-vars'
+      - 'GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GCS_BUCKET_NAME=YOUR_BUCKET_NAME,FLASK_SECRET_KEY=YOUR_FLASK_SECRET_KEY'
+
+substitutions:
+  _PROJECT_ID: 'YOUR_PROJECT_ID'
+  _REGION: 'YOUR_REGION'  
+  _BUCKET_NAME: 'YOUR_BUCKET_NAME'
+  _FLASK_SECRET_KEY: 'YOUR_FLASK_SECRET_KEY'
+
+images:
+  - 'gcr.io/$PROJECT_ID/portfolio-reports-app'
