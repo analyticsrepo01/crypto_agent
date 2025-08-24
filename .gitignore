@@ -42,12 +42,14 @@ logs/
 trading_memory*.db
 trading_checkpoints.db
 trading_data.db
+config.py
 
 # News data
 news_data/
 
 # Backtest data
 trading_backtest/
+simple_bot/
 
 # Unused code
 unusedcode/

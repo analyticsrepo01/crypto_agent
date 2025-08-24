@@ -932,4 +932,4 @@ async def run_trading_session(cycles=5, interval_minutes=5, aggressive=False):
         # END SESSION TIMING AND SHOW REPORT
         trading_timer.end_session()
 
-asyncio.run(run_trading_session(cycles=50, interval_minutes=10, aggressive=True))
+asyncio.run(run_trading_session(cycles=50, interval_minutes=10, aggressive=False))
