@@ -1,3 +1,0 @@
-timestamp,symbol,action,quantity,priority,reasoning,risk,price,estimated_cost
-2025-08-11T13:39:55.939162,AAPL,BUY,10,HIGH,Cover short position against strong bullish trend.,N/A,225.45,2254.5
-2025-08-11T13:39:55.939162,CRM,BUY,10,HIGH,"Cover part of short position due to significantly oversold RSI, prioritizing capital preservation.",N/A,240.43,2404.3

@@ -1,0 +1,898 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-08-23T21:56:22.536780",
+    "session_id": "session_20250823_215252_7081",
+    "cycle_number": 1,
+    "strategy_mode": "AGGRESSIVE",
+    "report_version": "2.0_enhanced"
+  },
+  "portfolio_summary": {
+    "total_portfolio_value": 0.0,
+    "total_unrealized_pnl": 0.1998,
+    "cash_available": 1000.0,
+    "total_trades": 0,
+    "validation_attempts": 5
+  },
+  "positions": {
+    "BTCUSD": 1.8600000000000127e-06,
+    "ETHUSD": 0.060413999999999995,
+    "LTCUSD": 2.079799999999999,
+    "BCHUSD": 0.259668
+  },
+  "stock_prices": {
+    "BTCUSD": 107700.02,
+    "ETHUSD": 2482.92,
+    "LTCUSD": 120.42,
+    "BCHUSD": 577.66
+  },
+  "stock_pnls": {
+    "BTCUSD": -0.0,
+    "ETHUSD": 0.0,
+    "LTCUSD": 0.1998,
+    "BCHUSD": 0.0
+  },
+  "portfolio_allocation": {
+    "BTCUSD": 0.0,
+    "ETHUSD": 0.0,
+    "LTCUSD": 0.0,
+    "BCHUSD": 0.0
+  },
+  "ai_recommendations": {
+    "BTCUSD": {
+      "action": "HOLD",
+      "priority": "MEDIUM",
+      "reasoning": "The existing BTCUSD position is currently unprofitable to sell (Net P&L: $-0.01), triggering the mandatory rule to HOLD unless a 2%+ stop-loss is reached, which is not the case here. Therefore, the immediate action for the existing position must be HOLD. From a technical perspective, the 5-minute timeframe shows short-term bullish momentum with price above SMAs and a positive MACD crossover. However, this is heavily counterbalanced by extremely overbought conditions across all key momentum indicators: RSI is 90.9, Williams %R is -0.0, and Stochastic K is 100.0. In crypto, RSI > 80 signals are particularly strong for an imminent bearish correction. The AI Trend analysis confirms a BEARISH outlook with MEDIUM confidence and HIGH risk, explicitly citing this overextension as a signal for significant downside risk. The extremely high current volume (21M x average) further indicates significant activity which often precedes corrections at extreme levels. While these underlying technicals would strongly indicate a SELL for a new position due to the high probability of a bearish correction, the existing unprofitable position dictates a HOLD to avoid crystallizing losses and incurring fees, awaiting either a price recovery or a stop-loss trigger. No news data is available to influence the decision.",
+      "technical_score": 2.0,
+      "confidence": "HIGH"
+    },
+    "ETHUSD": {
+      "action": "BUY",
+      "priority": "HIGH",
+      "reasoning": "ETHUSD exhibits strong short-term bullish momentum and exceptional volume, making it a high-priority BUY in this aggressive trading environment. The current price ($2482.92) is trading above both the 5-minute SMA 20 ($2482.18) and SMA 50 ($2481.88), indicating an uptrend. Momentum indicators Williams %R (-20.1) and Stochastic K (79.9) are in near overbought territory, signaling powerful buying pressure. Crucially, current volume (77,795,975) is orders of magnitude above its moving average (Volume Ratio 716987.99x), strongly confirming heightened interest and validating the bullish move. While the MACD histogram and line suggest a bearish crossover or continuation, the overwhelming strength from volume and momentum, coupled with the AI's BULLISH trend analysis (medium confidence), justifies a BUY. In aggressive mode, priority is given to momentum and volume. The existing position of 0.060413999999999995 shares, currently unprofitable to sell (Net P&L $-0.01 after fees), will be held as per mandatory fee-aware sell rules; this BUY action is for adding new shares to capitalize on the strong upward momentum. No news sentiment is available.",
+      "technical_score": 7.5,
+      "confidence": "MEDIUM"
+    },
+    "LTCUSD": {
+      "action": "SELL",
+      "priority": "HIGH",
+      "reasoning": "The current LTCUSD position is profitable ($+0.19 net P&L after fees), making it eligible for a sell. Despite an underlying bullish trend and high volume, key short-term momentum indicators (Stochastic K and Williams %R) are at 100, signaling extreme overbought conditions. The AI trend analysis explicitly warns of a \"consolidation phase with potential for a pullback\" due to these overbought indicators and current price flatness. In aggressive trading mode, it is crucial to maximize profit and accept higher risk, which includes taking decisive action to lock in gains when reversal signals are strong, especially when an explicit pullback warning is present. Selling now capitalizes on existing profits and avoids potential downside from a correction. The aggregated technical score of 3 also falls within the \"actionable for SELL\" range (6 or less).",
+      "technical_score": 3.0,
+      "confidence": "HIGH"
+    },
+    "BCHUSD": {
+      "action": "HOLD",
+      "priority": "MEDIUM",
+      "reasoning": "The existing position for BCHUSD is currently unprofitable to sell, showing a Net P&L of $-0.01 after accounting for the $0.01 round-trip trading fee. As per the mandatory fee-aware sell rules, I MUST recommend HOLD unless a stop-loss is triggered, which is not the case here (Gross P&L is $0.00). While the AI trend analysis indicates a BULLISH trend with MEDIUM confidence due to positive momentum and high current volume, it also critically warns that the asset is \"currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.\" This overbought condition, combined with a neutral RSI (50.0) and flat MACD (0.000), presents conflicting signals that do not support an aggressive new BUY entry at this moment. The price is above SMA 20 and SMA 50, which is positive, but the warning of an impending correction outweighs the immediate bullish momentum for new entries. Therefore, the primary action is to hold the existing unprofitable position and wait for either a clear price recovery to achieve profitability for a potential sell or a stronger, less ambiguous BUY signal for further accumulation.",
+      "technical_score": 2.0,
+      "confidence": "MEDIUM"
+    }
+  },
+  "ai_trend_analysis": {
+    "BTCUSD": {
+      "trend": "BEARISH",
+      "confidence": "MEDIUM",
+      "reasoning": "Despite current bullish price action supported by moving averages and MACD, BTCUSD is in an extremely overbought state across all key momentum indicators (RSI, Williams %R, Stochastic), strongly signaling an imminent bearish correction. This overextension, combined with detected high volatility, implies significant downside risk.",
+      "risk_level": "HIGH",
+      "technical_score": 4.0,
+      "technical_strength": "WEAK_BEARISH",
+      "signal_count": 7
+    },
+    "ETHUSD": {
+      "trend": "BULLISH",
+      "confidence": "MEDIUM",
+      "reasoning": "Price is trading above key moving averages and the Bollinger Band middle line, supported by high volume and positive short-term momentum indicators, despite a bearish MACD crossover and negative OBV which suggest caution.",
+      "risk_level": "MEDIUM",
+      "technical_score": 6.5,
+      "technical_strength": "WEAK_BULLISH",
+      "signal_count": 5
+    },
+    "LTCUSD": {
+      "trend": "BULLISH",
+      "confidence": "MEDIUM",
+      "reasoning": "The market displays a bullish underlying structure with price above key moving averages, positive MACD, and a high technical score. However, current price flatness, zero ADX, and overbought momentum indicators suggest a consolidation phase with potential for a pullback.",
+      "risk_level": "HIGH",
+      "technical_score": 9.5,
+      "technical_strength": "STRONG_BULLISH",
+      "signal_count": 6
+    },
+    "BCHUSD": {
+      "trend": "BULLISH",
+      "confidence": "MEDIUM",
+      "reasoning": "The price shows positive momentum with bullish MACD and high volume; however, the asset is currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.",
+      "risk_level": "HIGH",
+      "technical_score": 7,
+      "technical_strength": "WEAK_BULLISH",
+      "signal_count": 4
+    }
+  },
+  "executed_trades_detailed": [],
+  "validation_process": {
+    "validation_history": [
+      {
+        "timestamp": "2025-08-23T21:53:56.385407",
+        "attempt": 1,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:54:28.584083",
+        "attempt": 2,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:54:53.084505",
+        "attempt": 3,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:55:19.489945",
+        "attempt": 4,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:55:45.451011",
+        "attempt": 5,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "decision": "abort",
+        "reason": "Max validation attempts exceeded - validation consistently failed."
+      }
+    ],
+    "final_decision_logic": "Trade execution aborted after max validation retries.",
+    "validation_feedback": "Trade execution aborted due to persistent validation failures",
+    "total_attempts": 5
+  },
+  "technical_analysis_summary": {
+    "BTCUSD": {
+      "current_price": 107700.02,
+      "rsi": 90.87955577460937,
+      "sma_20": 105229.80249999999,
+      "sma_50": 106205.38160000001,
+      "macd_histogram": 427.77454040280645,
+      "volume_ratio": 21012084.16840237,
+      "daily_change_pct": 0.0,
+      "volatility_20": 2487.088014403561
+    },
+    "ETHUSD": {
+      "current_price": 2482.92,
+      "rsi": 54.542124542124625,
+      "sma_20": 2482.177,
+      "sma_50": 2481.8796,
+      "macd_histogram": -0.04676598678175684,
+      "volume_ratio": 716987.9946057348,
+      "daily_change_pct": 0.09998226121172124,
+      "volatility_20": 1.6313123551309774
+    },
+    "LTCUSD": {
+      "current_price": 120.42,
+      "rsi": 50.0,
+      "sma_20": 120.36599999999999,
+      "sma_50": 120.36,
+      "macd_histogram": 0.005608205729547142,
+      "volume_ratio": 34006.67041253199,
+      "daily_change_pct": 0.0,
+      "volatility_20": 0.06125013426408066
+    },
+    "BCHUSD": {
+      "current_price": 577.66,
+      "rsi": 50.0,
+      "sma_20": 575.53,
+      "sma_50": 575.53,
+      "macd_histogram": 1.0047790624754929e-11,
+      "volume_ratio": 5000000.0,
+      "daily_change_pct": 0.37009365280697715,
+      "volatility_20": 0.0
+    }
+  },
+  "execution_performance": {
+    "total_execution_time": 0,
+    "successful_trades": 0,
+    "failed_trades": 0,
+    "avg_execution_time": 0
+  },
+  "raw_state_data": {
+    "timestamp": "2025-08-23T21:53:12.523896",
+    "cycle_number": 1,
+    "portfolio_stocks": [
+      "BTCUSD",
+      "ETHUSD",
+      "LTCUSD",
+      "BCHUSD"
+    ],
+    "stock_data": {
+      "BTCUSD": {
+        "symbol": "BTCUSD",
+        "current_price": 107700.02,
+        "previous_close": 107700.02,
+        "open": 107700.02,
+        "high": 107915.66,
+        "low": 107376.6,
+        "volume": 78308779.3412376,
+        "sma_20": 105229.80249999999,
+        "sma_50": 106205.38160000001,
+        "ema_12": 106892.48235116623,
+        "ema_26": 106152.05928863223,
+        "daily_change_pct": 0.0,
+        "volatility_20": 2487.088014403561,
+        "rsi": 90.87955577460937,
+        "williams_r": -0.00015293045348946353,
+        "atr": 1400.19071428571,
+        "macd": 740.4230625339987,
+        "macd_signal": 312.6485221311923,
+        "macd_histogram": 427.77454040280645,
+        "bb_upper": 110203.97852880711,
+        "bb_middle": 105229.80249999999,
+        "bb_lower": 100255.62647119287,
+        "stoch_k": 99.9998470695465,
+        "stoch_d": 97.8014208258652,
+        "volume_ma": 3.7268449295000003,
+        "obv": -30.667129509999985,
+        "current_volume": 78308779.3412376,
+        "valid": true
+      },
+      "ETHUSD": {
+        "symbol": "ETHUSD",
+        "current_price": 2482.92,
+        "previous_close": 2480.44,
+        "open": 2482.92,
+        "high": 2485.42,
+        "low": 2472.99,
+        "volume": 77795974.63186993,
+        "sma_20": 2482.177,
+        "sma_50": 2481.8796,
+        "ema_12": 2482.1299697620734,
+        "ema_26": 2482.143873485066,
+        "daily_change_pct": 0.09998226121172124,
+        "volatility_20": 1.6313123551309774,
+        "rsi": 54.542124542124625,
+        "williams_r": -20.112630732099287,
+        "atr": 6.036428571428457,
+        "macd": -0.013903722992381518,
+        "macd_signal": 0.032862263789375325,
+        "macd_histogram": -0.04676598678175684,
+        "bb_upper": 2485.4396247102623,
+        "bb_middle": 2482.177,
+        "bb_lower": 2478.914375289738,
+        "stoch_k": 79.88736926790071,
+        "stoch_d": 73.23679270581981,
+        "volume_ma": 108.50387344999999,
+        "obv": -2067.5224820000044,
+        "current_volume": 77795974.63186993,
+        "valid": true
+      },
+      "LTCUSD": {
+        "symbol": "LTCUSD",
+        "current_price": 120.42,
+        "previous_close": 120.42,
+        "open": 120.42,
+        "high": 120.78,
+        "low": 120.3,
+        "volume": 32498878.9700574,
+        "sma_20": 120.36599999999999,
+        "sma_50": 120.36,
+        "ema_12": 120.3719797998211,
+        "ema_26": 120.36550420135933,
+        "daily_change_pct": 0.0,
+        "volatility_20": 0.06125013426408066,
+        "rsi": 50.0,
+        "williams_r": -0.0,
+        "atr": 0.12000000000000455,
+        "macd": 0.006475598461776144,
+        "macd_signal": 0.0008673927322290022,
+        "macd_histogram": 0.005608205729547142,
+        "bb_upper": 120.48850026852814,
+        "bb_middle": 120.36599999999999,
+        "bb_lower": 120.24349973147183,
+        "stoch_k": 100.0,
+        "stoch_d": 66.66666666666667,
+        "volume_ma": 955.6618914999999,
+        "obv": 38463.66091999988,
+        "current_volume": 32498878.9700574,
+        "valid": true
+      },
+      "BCHUSD": {
+        "symbol": "BCHUSD",
+        "current_price": 577.66,
+        "previous_close": 575.53,
+        "open": 577.66,
+        "high": 577.66,
+        "low": 577.66,
+        "volume": 5000000,
+        "sma_20": 575.53,
+        "sma_50": 575.53,
+        "ema_12": 575.5300000000007,
+        "ema_26": 575.5300000000213,
+        "daily_change_pct": 0.37009365280697715,
+        "volatility_20": 0.0,
+        "rsi": 50.0,
+        "williams_r": NaN,
+        "atr": 0.0,
+        "macd": -2.0691004465334117e-11,
+        "macd_signal": -3.0738795090089046e-11,
+        "macd_histogram": 1.0047790624754929e-11,
+        "bb_upper": 575.53,
+        "bb_middle": 575.53,
+        "bb_lower": 575.53,
+        "stoch_k": NaN,
+        "stoch_d": NaN,
+        "volume_ma": 0.0,
+        "obv": 0.0,
+        "current_volume": 5000000,
+        "valid": true
+      }
+    },
+    "stock_prices": {
+      "BTCUSD": 107700.02,
+      "ETHUSD": 2482.92,
+      "LTCUSD": 120.42,
+      "BCHUSD": 577.66
+    },
+    "stock_smas": {
+      "BTCUSD": 105229.80249999999,
+      "ETHUSD": 2482.177,
+      "LTCUSD": 120.36599999999999,
+      "BCHUSD": 575.53
+    },
+    "ai_trend_analysis": {
+      "BTCUSD": {
+        "trend": "BEARISH",
+        "confidence": "MEDIUM",
+        "reasoning": "Despite current bullish price action supported by moving averages and MACD, BTCUSD is in an extremely overbought state across all key momentum indicators (RSI, Williams %R, Stochastic), strongly signaling an imminent bearish correction. This overextension, combined with detected high volatility, implies significant downside risk.",
+        "risk_level": "HIGH",
+        "technical_score": 4.0,
+        "technical_strength": "WEAK_BEARISH",
+        "signal_count": 7
+      },
+      "ETHUSD": {
+        "trend": "BULLISH",
+        "confidence": "MEDIUM",
+        "reasoning": "Price is trading above key moving averages and the Bollinger Band middle line, supported by high volume and positive short-term momentum indicators, despite a bearish MACD crossover and negative OBV which suggest caution.",
+        "risk_level": "MEDIUM",
+        "technical_score": 6.5,
+        "technical_strength": "WEAK_BULLISH",
+        "signal_count": 5
+      },
+      "LTCUSD": {
+        "trend": "BULLISH",
+        "confidence": "MEDIUM",
+        "reasoning": "The market displays a bullish underlying structure with price above key moving averages, positive MACD, and a high technical score. However, current price flatness, zero ADX, and overbought momentum indicators suggest a consolidation phase with potential for a pullback.",
+        "risk_level": "HIGH",
+        "technical_score": 9.5,
+        "technical_strength": "STRONG_BULLISH",
+        "signal_count": 6
+      },
+      "BCHUSD": {
+        "trend": "BULLISH",
+        "confidence": "MEDIUM",
+        "reasoning": "The price shows positive momentum with bullish MACD and high volume; however, the asset is currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.",
+        "risk_level": "HIGH",
+        "technical_score": 7,
+        "technical_strength": "WEAK_BULLISH",
+        "signal_count": 4
+      }
+    },
+    "positions": {
+      "BTCUSD": 1.8600000000000127e-06,
+      "ETHUSD": 0.060413999999999995,
+      "LTCUSD": 2.079799999999999,
+      "BCHUSD": 0.259668
+    },
+    "stock_pnls": {
+      "BTCUSD": -0.0,
+      "ETHUSD": 0.0,
+      "LTCUSD": 0.1998,
+      "BCHUSD": 0.0
+    },
+    "purchase_prices": {
+      "BTCUSD": 107700.02000000086,
+      "ETHUSD": 2482.92,
+      "LTCUSD": 120.32395689970191,
+      "BCHUSD": 577.6599999999999
+    },
+    "total_portfolio_value": 0.0,
+    "total_unrealized_pnl": 0.1998,
+    "total_trades": 0,
+    "total_fees_paid": 0.0,
+    "cash_available": 1000.0,
+    "ai_recommendations": {
+      "BTCUSD": {
+        "action": "HOLD",
+        "priority": "MEDIUM",
+        "reasoning": "The existing BTCUSD position is currently unprofitable to sell (Net P&L: $-0.01), triggering the mandatory rule to HOLD unless a 2%+ stop-loss is reached, which is not the case here. Therefore, the immediate action for the existing position must be HOLD. From a technical perspective, the 5-minute timeframe shows short-term bullish momentum with price above SMAs and a positive MACD crossover. However, this is heavily counterbalanced by extremely overbought conditions across all key momentum indicators: RSI is 90.9, Williams %R is -0.0, and Stochastic K is 100.0. In crypto, RSI > 80 signals are particularly strong for an imminent bearish correction. The AI Trend analysis confirms a BEARISH outlook with MEDIUM confidence and HIGH risk, explicitly citing this overextension as a signal for significant downside risk. The extremely high current volume (21M x average) further indicates significant activity which often precedes corrections at extreme levels. While these underlying technicals would strongly indicate a SELL for a new position due to the high probability of a bearish correction, the existing unprofitable position dictates a HOLD to avoid crystallizing losses and incurring fees, awaiting either a price recovery or a stop-loss trigger. No news data is available to influence the decision.",
+        "technical_score": 2.0,
+        "confidence": "HIGH"
+      },
+      "ETHUSD": {
+        "action": "BUY",
+        "priority": "HIGH",
+        "reasoning": "ETHUSD exhibits strong short-term bullish momentum and exceptional volume, making it a high-priority BUY in this aggressive trading environment. The current price ($2482.92) is trading above both the 5-minute SMA 20 ($2482.18) and SMA 50 ($2481.88), indicating an uptrend. Momentum indicators Williams %R (-20.1) and Stochastic K (79.9) are in near overbought territory, signaling powerful buying pressure. Crucially, current volume (77,795,975) is orders of magnitude above its moving average (Volume Ratio 716987.99x), strongly confirming heightened interest and validating the bullish move. While the MACD histogram and line suggest a bearish crossover or continuation, the overwhelming strength from volume and momentum, coupled with the AI's BULLISH trend analysis (medium confidence), justifies a BUY. In aggressive mode, priority is given to momentum and volume. The existing position of 0.060413999999999995 shares, currently unprofitable to sell (Net P&L $-0.01 after fees), will be held as per mandatory fee-aware sell rules; this BUY action is for adding new shares to capitalize on the strong upward momentum. No news sentiment is available.",
+        "technical_score": 7.5,
+        "confidence": "MEDIUM"
+      },
+      "LTCUSD": {
+        "action": "SELL",
+        "priority": "HIGH",
+        "reasoning": "The current LTCUSD position is profitable ($+0.19 net P&L after fees), making it eligible for a sell. Despite an underlying bullish trend and high volume, key short-term momentum indicators (Stochastic K and Williams %R) are at 100, signaling extreme overbought conditions. The AI trend analysis explicitly warns of a \"consolidation phase with potential for a pullback\" due to these overbought indicators and current price flatness. In aggressive trading mode, it is crucial to maximize profit and accept higher risk, which includes taking decisive action to lock in gains when reversal signals are strong, especially when an explicit pullback warning is present. Selling now capitalizes on existing profits and avoids potential downside from a correction. The aggregated technical score of 3 also falls within the \"actionable for SELL\" range (6 or less).",
+        "technical_score": 3.0,
+        "confidence": "HIGH"
+      },
+      "BCHUSD": {
+        "action": "HOLD",
+        "priority": "MEDIUM",
+        "reasoning": "The existing position for BCHUSD is currently unprofitable to sell, showing a Net P&L of $-0.01 after accounting for the $0.01 round-trip trading fee. As per the mandatory fee-aware sell rules, I MUST recommend HOLD unless a stop-loss is triggered, which is not the case here (Gross P&L is $0.00). While the AI trend analysis indicates a BULLISH trend with MEDIUM confidence due to positive momentum and high current volume, it also critically warns that the asset is \"currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.\" This overbought condition, combined with a neutral RSI (50.0) and flat MACD (0.000), presents conflicting signals that do not support an aggressive new BUY entry at this moment. The price is above SMA 20 and SMA 50, which is positive, but the warning of an impending correction outweighs the immediate bullish momentum for new entries. Therefore, the primary action is to hold the existing unprofitable position and wait for either a clear price recovery to achieve profitability for a potential sell or a stronger, less ambiguous BUY signal for further accumulation.",
+        "technical_score": 2.0,
+        "confidence": "MEDIUM"
+      }
+    },
+    "executed_trades": [],
+    "portfolio_allocation": {
+      "BTCUSD": 0.0,
+      "ETHUSD": 0.0,
+      "LTCUSD": 0.0,
+      "BCHUSD": 0.0
+    },
+    "session_start_time": "2025-08-23T21:52:52.616621",
+    "session_id": "session_20250823_215252_7081",
+    "cycle_history": [
+      {
+        "timestamp": "2025-08-23T21:53:12.523896",
+        "cycle_number": 1,
+        "portfolio_stocks": [
+          "BTCUSD",
+          "ETHUSD",
+          "LTCUSD",
+          "BCHUSD"
+        ],
+        "stock_data": {
+          "BTCUSD": {
+            "symbol": "BTCUSD",
+            "current_price": 107700.02,
+            "previous_close": 107700.02,
+            "open": 107700.02,
+            "high": 107915.66,
+            "low": 107376.6,
+            "volume": 78308779.3412376,
+            "sma_20": 105229.80249999999,
+            "sma_50": 106205.38160000001,
+            "ema_12": 106892.48235116623,
+            "ema_26": 106152.05928863223,
+            "daily_change_pct": 0.0,
+            "volatility_20": 2487.088014403561,
+            "rsi": 90.87955577460937,
+            "williams_r": -0.00015293045348946353,
+            "atr": 1400.19071428571,
+            "macd": 740.4230625339987,
+            "macd_signal": 312.6485221311923,
+            "macd_histogram": 427.77454040280645,
+            "bb_upper": 110203.97852880711,
+            "bb_middle": 105229.80249999999,
+            "bb_lower": 100255.62647119287,
+            "stoch_k": 99.9998470695465,
+            "stoch_d": 97.8014208258652,
+            "volume_ma": 3.7268449295000003,
+            "obv": -30.667129509999985,
+            "current_volume": 78308779.3412376,
+            "valid": true
+          },
+          "ETHUSD": {
+            "symbol": "ETHUSD",
+            "current_price": 2482.92,
+            "previous_close": 2480.44,
+            "open": 2482.92,
+            "high": 2485.42,
+            "low": 2472.99,
+            "volume": 77795974.63186993,
+            "sma_20": 2482.177,
+            "sma_50": 2481.8796,
+            "ema_12": 2482.1299697620734,
+            "ema_26": 2482.143873485066,
+            "daily_change_pct": 0.09998226121172124,
+            "volatility_20": 1.6313123551309774,
+            "rsi": 54.542124542124625,
+            "williams_r": -20.112630732099287,
+            "atr": 6.036428571428457,
+            "macd": -0.013903722992381518,
+            "macd_signal": 0.032862263789375325,
+            "macd_histogram": -0.04676598678175684,
+            "bb_upper": 2485.4396247102623,
+            "bb_middle": 2482.177,
+            "bb_lower": 2478.914375289738,
+            "stoch_k": 79.88736926790071,
+            "stoch_d": 73.23679270581981,
+            "volume_ma": 108.50387344999999,
+            "obv": -2067.5224820000044,
+            "current_volume": 77795974.63186993,
+            "valid": true
+          },
+          "LTCUSD": {
+            "symbol": "LTCUSD",
+            "current_price": 120.42,
+            "previous_close": 120.42,
+            "open": 120.42,
+            "high": 120.78,
+            "low": 120.3,
+            "volume": 32498878.9700574,
+            "sma_20": 120.36599999999999,
+            "sma_50": 120.36,
+            "ema_12": 120.3719797998211,
+            "ema_26": 120.36550420135933,
+            "daily_change_pct": 0.0,
+            "volatility_20": 0.06125013426408066,
+            "rsi": 50.0,
+            "williams_r": -0.0,
+            "atr": 0.12000000000000455,
+            "macd": 0.006475598461776144,
+            "macd_signal": 0.0008673927322290022,
+            "macd_histogram": 0.005608205729547142,
+            "bb_upper": 120.48850026852814,
+            "bb_middle": 120.36599999999999,
+            "bb_lower": 120.24349973147183,
+            "stoch_k": 100.0,
+            "stoch_d": 66.66666666666667,
+            "volume_ma": 955.6618914999999,
+            "obv": 38463.66091999988,
+            "current_volume": 32498878.9700574,
+            "valid": true
+          },
+          "BCHUSD": {
+            "symbol": "BCHUSD",
+            "current_price": 577.66,
+            "previous_close": 575.53,
+            "open": 577.66,
+            "high": 577.66,
+            "low": 577.66,
+            "volume": 5000000,
+            "sma_20": 575.53,
+            "sma_50": 575.53,
+            "ema_12": 575.5300000000007,
+            "ema_26": 575.5300000000213,
+            "daily_change_pct": 0.37009365280697715,
+            "volatility_20": 0.0,
+            "rsi": 50.0,
+            "williams_r": NaN,
+            "atr": 0.0,
+            "macd": -2.0691004465334117e-11,
+            "macd_signal": -3.0738795090089046e-11,
+            "macd_histogram": 1.0047790624754929e-11,
+            "bb_upper": 575.53,
+            "bb_middle": 575.53,
+            "bb_lower": 575.53,
+            "stoch_k": NaN,
+            "stoch_d": NaN,
+            "volume_ma": 0.0,
+            "obv": 0.0,
+            "current_volume": 5000000,
+            "valid": true
+          }
+        },
+        "stock_prices": {
+          "BTCUSD": 107700.02,
+          "ETHUSD": 2482.92,
+          "LTCUSD": 120.42,
+          "BCHUSD": 577.66
+        },
+        "stock_smas": {
+          "BTCUSD": 105229.80249999999,
+          "ETHUSD": 2482.177,
+          "LTCUSD": 120.36599999999999,
+          "BCHUSD": 575.53
+        },
+        "ai_trend_analysis": {
+          "BTCUSD": {
+            "trend": "BEARISH",
+            "confidence": "MEDIUM",
+            "reasoning": "Despite current bullish price action supported by moving averages and MACD, BTCUSD is in an extremely overbought state across all key momentum indicators (RSI, Williams %R, Stochastic), strongly signaling an imminent bearish correction. This overextension, combined with detected high volatility, implies significant downside risk.",
+            "risk_level": "HIGH",
+            "technical_score": 4.0,
+            "technical_strength": "WEAK_BEARISH",
+            "signal_count": 7
+          },
+          "ETHUSD": {
+            "trend": "BULLISH",
+            "confidence": "MEDIUM",
+            "reasoning": "Price is trading above key moving averages and the Bollinger Band middle line, supported by high volume and positive short-term momentum indicators, despite a bearish MACD crossover and negative OBV which suggest caution.",
+            "risk_level": "MEDIUM",
+            "technical_score": 6.5,
+            "technical_strength": "WEAK_BULLISH",
+            "signal_count": 5
+          },
+          "LTCUSD": {
+            "trend": "BULLISH",
+            "confidence": "MEDIUM",
+            "reasoning": "The market displays a bullish underlying structure with price above key moving averages, positive MACD, and a high technical score. However, current price flatness, zero ADX, and overbought momentum indicators suggest a consolidation phase with potential for a pullback.",
+            "risk_level": "HIGH",
+            "technical_score": 9.5,
+            "technical_strength": "STRONG_BULLISH",
+            "signal_count": 6
+          },
+          "BCHUSD": {
+            "trend": "BULLISH",
+            "confidence": "MEDIUM",
+            "reasoning": "The price shows positive momentum with bullish MACD and high volume; however, the asset is currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.",
+            "risk_level": "HIGH",
+            "technical_score": 7,
+            "technical_strength": "WEAK_BULLISH",
+            "signal_count": 4
+          }
+        },
+        "positions": {
+          "BTCUSD": 1.8600000000000127e-06,
+          "ETHUSD": 0.060413999999999995,
+          "LTCUSD": 2.079799999999999,
+          "BCHUSD": 0.259668
+        },
+        "stock_pnls": {
+          "BTCUSD": -0.0,
+          "ETHUSD": 0.0,
+          "LTCUSD": 0.1998,
+          "BCHUSD": 0.0
+        },
+        "purchase_prices": {
+          "BTCUSD": 107700.02000000086,
+          "ETHUSD": 2482.92,
+          "LTCUSD": 120.32395689970191,
+          "BCHUSD": 577.6599999999999
+        },
+        "total_portfolio_value": 0.0,
+        "total_unrealized_pnl": 0.1998,
+        "total_trades": 0,
+        "total_fees_paid": 0.0,
+        "cash_available": 1000.0,
+        "ai_recommendations": {
+          "BTCUSD": {
+            "action": "HOLD",
+            "priority": "MEDIUM",
+            "reasoning": "The existing BTCUSD position is currently unprofitable to sell (Net P&L: $-0.01), triggering the mandatory rule to HOLD unless a 2%+ stop-loss is reached, which is not the case here. Therefore, the immediate action for the existing position must be HOLD. From a technical perspective, the 5-minute timeframe shows short-term bullish momentum with price above SMAs and a positive MACD crossover. However, this is heavily counterbalanced by extremely overbought conditions across all key momentum indicators: RSI is 90.9, Williams %R is -0.0, and Stochastic K is 100.0. In crypto, RSI > 80 signals are particularly strong for an imminent bearish correction. The AI Trend analysis confirms a BEARISH outlook with MEDIUM confidence and HIGH risk, explicitly citing this overextension as a signal for significant downside risk. The extremely high current volume (21M x average) further indicates significant activity which often precedes corrections at extreme levels. While these underlying technicals would strongly indicate a SELL for a new position due to the high probability of a bearish correction, the existing unprofitable position dictates a HOLD to avoid crystallizing losses and incurring fees, awaiting either a price recovery or a stop-loss trigger. No news data is available to influence the decision.",
+            "technical_score": 2.0,
+            "confidence": "HIGH"
+          },
+          "ETHUSD": {
+            "action": "BUY",
+            "priority": "HIGH",
+            "reasoning": "ETHUSD exhibits strong short-term bullish momentum and exceptional volume, making it a high-priority BUY in this aggressive trading environment. The current price ($2482.92) is trading above both the 5-minute SMA 20 ($2482.18) and SMA 50 ($2481.88), indicating an uptrend. Momentum indicators Williams %R (-20.1) and Stochastic K (79.9) are in near overbought territory, signaling powerful buying pressure. Crucially, current volume (77,795,975) is orders of magnitude above its moving average (Volume Ratio 716987.99x), strongly confirming heightened interest and validating the bullish move. While the MACD histogram and line suggest a bearish crossover or continuation, the overwhelming strength from volume and momentum, coupled with the AI's BULLISH trend analysis (medium confidence), justifies a BUY. In aggressive mode, priority is given to momentum and volume. The existing position of 0.060413999999999995 shares, currently unprofitable to sell (Net P&L $-0.01 after fees), will be held as per mandatory fee-aware sell rules; this BUY action is for adding new shares to capitalize on the strong upward momentum. No news sentiment is available.",
+            "technical_score": 7.5,
+            "confidence": "MEDIUM"
+          },
+          "LTCUSD": {
+            "action": "SELL",
+            "priority": "HIGH",
+            "reasoning": "The current LTCUSD position is profitable ($+0.19 net P&L after fees), making it eligible for a sell. Despite an underlying bullish trend and high volume, key short-term momentum indicators (Stochastic K and Williams %R) are at 100, signaling extreme overbought conditions. The AI trend analysis explicitly warns of a \"consolidation phase with potential for a pullback\" due to these overbought indicators and current price flatness. In aggressive trading mode, it is crucial to maximize profit and accept higher risk, which includes taking decisive action to lock in gains when reversal signals are strong, especially when an explicit pullback warning is present. Selling now capitalizes on existing profits and avoids potential downside from a correction. The aggregated technical score of 3 also falls within the \"actionable for SELL\" range (6 or less).",
+            "technical_score": 3.0,
+            "confidence": "HIGH"
+          },
+          "BCHUSD": {
+            "action": "HOLD",
+            "priority": "MEDIUM",
+            "reasoning": "The existing position for BCHUSD is currently unprofitable to sell, showing a Net P&L of $-0.01 after accounting for the $0.01 round-trip trading fee. As per the mandatory fee-aware sell rules, I MUST recommend HOLD unless a stop-loss is triggered, which is not the case here (Gross P&L is $0.00). While the AI trend analysis indicates a BULLISH trend with MEDIUM confidence due to positive momentum and high current volume, it also critically warns that the asset is \"currently overbought as indicated by Bollinger Bands, suggesting a potential short-term correction.\" This overbought condition, combined with a neutral RSI (50.0) and flat MACD (0.000), presents conflicting signals that do not support an aggressive new BUY entry at this moment. The price is above SMA 20 and SMA 50, which is positive, but the warning of an impending correction outweighs the immediate bullish momentum for new entries. Therefore, the primary action is to hold the existing unprofitable position and wait for either a clear price recovery to achieve profitability for a potential sell or a stronger, less ambiguous BUY signal for further accumulation.",
+            "technical_score": 2.0,
+            "confidence": "MEDIUM"
+          }
+        },
+        "executed_trades": [],
+        "portfolio_allocation": {
+          "BTCUSD": 0.0,
+          "ETHUSD": 0.0,
+          "LTCUSD": 0.0,
+          "BCHUSD": 0.0
+        },
+        "session_start_time": "2025-08-23T21:52:52.616621",
+        "session_id": "session_20250823_215252_7081",
+        "validation_attempts": 5,
+        "validation_history": [
+          {
+            "timestamp": "2025-08-23T21:53:56.385407",
+            "attempt": 1,
+            "decision": "rerun",
+            "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+          },
+          {
+            "timestamp": "2025-08-23T21:54:28.584083",
+            "attempt": 2,
+            "decision": "rerun",
+            "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+          },
+          {
+            "timestamp": "2025-08-23T21:54:53.084505",
+            "attempt": 3,
+            "decision": "rerun",
+            "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+          },
+          {
+            "timestamp": "2025-08-23T21:55:19.489945",
+            "attempt": 4,
+            "decision": "rerun",
+            "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+          },
+          {
+            "timestamp": "2025-08-23T21:55:45.451011",
+            "attempt": 5,
+            "decision": "rerun",
+            "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+          },
+          {
+            "decision": "abort",
+            "reason": "Max validation attempts exceeded - validation consistently failed."
+          }
+        ],
+        "final_decision_logic": "Trade execution aborted after max validation retries.",
+        "validation_feedback": "Trade execution aborted due to persistent validation failures",
+        "aggressive_mode": true,
+        "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-23\n\ud83d\udd22 Today's Trades: 6\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 3, Sells: 3\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 0.020138 ETHUSD @ $2482.92\n  \u2022 BUY 2.656422 LINKUSD @ $18.82\n  \u2022 BUY 0.415213 LTCUSD @ $120.42\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 BTCUSD: 4 trades (last: SELL)\n  \u2022 ETHUSD: 3 trades (last: BUY)\n  \u2022 LTCUSD: 15 trades (last: BUY)",
+        "sp500_data": {
+          "success": false,
+          "crypto_mode": true
+        },
+        "benchmark_comparison": {
+          "crypto_mode": true,
+          "alpha": 0
+        },
+        "news_sentiment": {
+          "BTCUSD": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "ETHUSD": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "LTCUSD": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          },
+          "BCHUSD": {
+            "article_count": 0,
+            "sentiment_label": "DISABLED",
+            "sentiment_score": 0,
+            "sentiment_emoji": "\u2699\ufe0f",
+            "latest_headlines": [],
+            "has_news": false,
+            "summary": "All news sources disabled by configuration",
+            "confidence_level": "DISABLED",
+            "trading_impact": "News Disabled",
+            "key_themes": [],
+            "risk_factors": [],
+            "catalysts": [],
+            "sources_used": 0
+          }
+        },
+        "price_peaks": {
+          "LTCUSD": 120.42,
+          "BCHUSD": 577.66
+        }
+      }
+    ],
+    "validation_attempts": 5,
+    "validation_history": [
+      {
+        "timestamp": "2025-08-23T21:53:56.385407",
+        "attempt": 1,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:54:28.584083",
+        "attempt": 2,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:54:53.084505",
+        "attempt": 3,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:55:19.489945",
+        "attempt": 4,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "timestamp": "2025-08-23T21:55:45.451011",
+        "attempt": 5,
+        "decision": "rerun",
+        "reason": "Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1"
+      },
+      {
+        "decision": "abort",
+        "reason": "Max validation attempts exceeded - validation consistently failed."
+      }
+    ],
+    "final_decision_logic": "Trade execution aborted after max validation retries.",
+    "validation_feedback": "Trade execution aborted due to persistent validation failures",
+    "aggressive_mode": true,
+    "memory_context": "\ud83d\udcc5 Current Trading Day: 2025-08-23\n\ud83d\udd22 Today's Trades: 6\n\ud83d\udcca Today's Activity:\n  \u2022 Buys: 3, Sells: 3\n\ud83d\udcc8 Recent Trades:\n  \u2022 BUY 0.020138 ETHUSD @ $2482.92\n  \u2022 BUY 2.656422 LINKUSD @ $18.82\n  \u2022 BUY 0.415213 LTCUSD @ $120.42\n\ud83d\udcca Recent Symbol Activity (3 days):\n  \u2022 BTCUSD: 4 trades (last: SELL)\n  \u2022 ETHUSD: 3 trades (last: BUY)\n  \u2022 LTCUSD: 15 trades (last: BUY)",
+    "sp500_data": {
+      "success": false,
+      "crypto_mode": true
+    },
+    "benchmark_comparison": {
+      "crypto_mode": true,
+      "alpha": 0
+    },
+    "news_sentiment": {
+      "BTCUSD": {
+        "has_news": false,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_emoji": "\ud83d\udcf0",
+        "sentiment_score": 0.0,
+        "confidence_level": "LOW",
+        "sources_used": 0,
+        "key_themes": [],
+        "crypto_mode": true
+      },
+      "ETHUSD": {
+        "has_news": false,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_emoji": "\ud83d\udcf0",
+        "sentiment_score": 0.0,
+        "confidence_level": "LOW",
+        "sources_used": 0,
+        "key_themes": [],
+        "crypto_mode": true
+      },
+      "LTCUSD": {
+        "has_news": false,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_emoji": "\ud83d\udcf0",
+        "sentiment_score": 0.0,
+        "confidence_level": "LOW",
+        "sources_used": 0,
+        "key_themes": [],
+        "crypto_mode": true
+      },
+      "BCHUSD": {
+        "has_news": false,
+        "sentiment_label": "NEUTRAL",
+        "sentiment_emoji": "\ud83d\udcf0",
+        "sentiment_score": 0.0,
+        "confidence_level": "LOW",
+        "sources_used": 0,
+        "key_themes": [],
+        "crypto_mode": true
+      }
+    },
+    "price_peaks": {
+      "LTCUSD": 120.42,
+      "BCHUSD": 577.66
+    }
+  }
+}

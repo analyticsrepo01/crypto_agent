@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250823_215252_7081,4,AGGRESSIVE,2025-08-23T22:30:20.766253,1,rerun,Validation failed. Critical issues: Portfolio: Excessive trading activity - 4 actions suggested (limit: 3). 
+session_20250823_215252_7081,4,AGGRESSIVE,2025-08-23T22:30:44.136598,2,proceed,AI decisions are technically sound and consistent. Note: 1 minor warnings detected.

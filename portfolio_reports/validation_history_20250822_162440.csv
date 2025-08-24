@@ -1,0 +1,3 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250822_131922_2405,26,AGGRESSIVE,2025-08-22T16:23:53.333271,1,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. 
+session_20250822_131922_2405,26,AGGRESSIVE,2025-08-22T16:24:22.277895,2,proceed,AI decisions are technically sound and consistent.

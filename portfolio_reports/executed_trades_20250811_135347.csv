@@ -1,3 +1,0 @@
-timestamp,symbol,action,quantity,priority,reasoning,risk,price,estimated_cost,order_id,status,filled,remaining,avg_fill_price,execution_time
-2025-08-11T13:50:18.533566,NFLX,BUY,10,HIGH,Strong medium bullish AI trend with ample room to add to current low position.,N/A,1205.65,12056.5,24,Filled,10.0,0.0,1207.64,1.244116
-2025-08-11T13:50:18.533566,META,BUY,10,MEDIUM,Neutral AI trend and slightly oversold RSI; covering part of existing short position due to lack of bearish conviction.,N/A,767.44,7674.400000000001,26,Filled,10.0,0.0,767.01,1.246973

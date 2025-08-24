@@ -1,2 +1,0 @@
-timestamp,symbol,action,quantity,priority,reasoning,risk,price,estimated_cost
-2025-08-11T13:45:09.405543,META,BUY,10,MEDIUM,"Reduce risk by covering a portion of the short position (-14 shares) as the AI trend is now bullish (low confidence), contradicting current short exposure. Buying 10 shares will reduce short position to -4.",N/A,772.12,7721.2

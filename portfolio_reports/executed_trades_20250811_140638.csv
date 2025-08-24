@@ -1,2 +1,0 @@
-timestamp,symbol,action,quantity,priority,reasoning,risk,price,estimated_cost,order_id,status,filled,remaining,avg_fill_price,execution_time
-2025-08-11T14:04:14.578863,CRM,BUY,10,MEDIUM,Extremely oversold RSI (20.9) and a low-confidence bearish AI trend suggest a potential rebound and prudent risk management to cover short exposure.,N/A,239.55,2395.5,111,Filled,10.0,0.0,241.0,1.24214

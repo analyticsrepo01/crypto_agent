@@ -1,0 +1,7 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250823_215252_7081,1,AGGRESSIVE,2025-08-23T21:53:56.385407,1.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1
+session_20250823_215252_7081,1,AGGRESSIVE,2025-08-23T21:54:28.584083,2.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1
+session_20250823_215252_7081,1,AGGRESSIVE,2025-08-23T21:54:53.084505,3.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1
+session_20250823_215252_7081,1,AGGRESSIVE,2025-08-23T21:55:19.489945,4.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1
+session_20250823_215252_7081,1,AGGRESSIVE,2025-08-23T21:55:45.451011,5.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - SELL recommendation conflicts with bullish analysis. Warnings: 1
+session_20250823_215252_7081,1,AGGRESSIVE,,,abort,Max validation attempts exceeded - validation consistently failed.

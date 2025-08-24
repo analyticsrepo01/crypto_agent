@@ -1,7 +1,7 @@
 # /trading_bot/agent.py
 
 from typing import Dict, List
-from config import gemini_model, STOP_LOSS_PERCENTAGE, TAKE_PROFIT_PERCENTAGE, PORTFOLIO_STOP_LOSS, TRADE_SIZE, MIN_CASH_RESERVE, MAX_TOTAL_SHARES, MAX_SHARES_PER_STOCK, PORTFOLIO_STOCKS, TRADING_FEE_PER_TRADE
+from config import gemini_model, STOP_LOSS_PERCENTAGE, TAKE_PROFIT_PERCENTAGE, PORTFOLIO_STOP_LOSS, TRADE_SIZE, MIN_CASH_RESERVE, MAX_TOTAL_SHARES, MAX_SHARES_PER_STOCK, PORTFOLIO_STOCKS, TRADING_FEE_PER_TRADE, MIN_PROFIT_PERCENTAGE, MIN_PROFIT_DOLLARS, AGGRESSIVE_MODE_PROFIT_THRESHOLD
 from market_data import calculate_portfolio_profitability
 
 # Define a type alias for state for clarity
@@ -1151,6 +1151,8 @@ def should_rerun_or_proceed(state: PortfolioState) -> str:
     last_validation = state['validation_history'][-1]
     if last_validation['decision'] == 'rerun':
         return "rerun_decision"
+    elif last_validation['decision'] == 'abort':
+        return "abort_execution"
     return "proceed_to_execute"
 
 def check_stop_loss_conditions(state: PortfolioState) -> Dict:
@@ -1209,6 +1211,60 @@ def calculate_fee_adjusted_pnl(current_price: float, purchase_price: float, shar
         'sell_fees': sell_fees,
         'total_fees': total_fees,
         'net_pnl': net_pnl
+    }
+
+def meets_minimum_profit_requirements(current_price: float, purchase_price: float, shares: int, aggressive_mode: bool = False) -> Dict[str, any]:
+    """
+    Check if a position meets minimum profit requirements for selling.
+    Returns dict with eligibility status and detailed analysis.
+    """
+    if shares <= 0 or purchase_price <= 0:
+        return {
+            'eligible_to_sell': False,
+            'reason': 'Invalid position data',
+            'net_pnl': 0,
+            'profit_percentage': 0,
+            'min_required_percentage': 0,
+            'min_required_dollars': 0
+        }
+    
+    # Calculate P&L with fees
+    pnl_data = calculate_fee_adjusted_pnl(current_price, purchase_price, shares)
+    net_pnl = pnl_data['net_pnl']
+    
+    # Calculate profit percentage from purchase price
+    profit_percentage = ((current_price - purchase_price) / purchase_price) * 100
+    
+    # Determine minimum thresholds based on mode
+    min_required_percentage = AGGRESSIVE_MODE_PROFIT_THRESHOLD if aggressive_mode else MIN_PROFIT_PERCENTAGE
+    min_required_dollars = MIN_PROFIT_DOLLARS
+    
+    # Check both percentage and dollar requirements
+    meets_percentage_requirement = profit_percentage >= min_required_percentage
+    meets_dollar_requirement = net_pnl >= min_required_dollars
+    
+    # Position is eligible only if it meets BOTH requirements
+    eligible_to_sell = meets_percentage_requirement and meets_dollar_requirement
+    
+    # Determine reason if not eligible
+    reason = "Eligible for sale"
+    if not eligible_to_sell:
+        if not meets_percentage_requirement and not meets_dollar_requirement:
+            reason = f"Insufficient profit: {profit_percentage:.2f}% < {min_required_percentage}% AND ${net_pnl:.2f} < ${min_required_dollars:.2f}"
+        elif not meets_percentage_requirement:
+            reason = f"Percentage too low: {profit_percentage:.2f}% < {min_required_percentage}%"
+        elif not meets_dollar_requirement:
+            reason = f"Dollar profit too low: ${net_pnl:.2f} < ${min_required_dollars:.2f}"
+    
+    return {
+        'eligible_to_sell': eligible_to_sell,
+        'reason': reason,
+        'net_pnl': net_pnl,
+        'profit_percentage': profit_percentage,
+        'min_required_percentage': min_required_percentage,
+        'min_required_dollars': min_required_dollars,
+        'meets_percentage_req': meets_percentage_requirement,
+        'meets_dollar_req': meets_dollar_requirement
     }
 
 def is_profitable_to_sell(current_price: float, purchase_price: float, shares: int) -> bool:
@@ -1404,12 +1460,19 @@ async def get_ai_portfolio_recommendations_with_news(state: PortfolioState):
                 fee_info = calculate_fee_adjusted_pnl(current_price, purchase_price, position)
                 net_pnl = fee_info['net_pnl']
                 total_fees = fee_info['total_fees']
-                is_profitable = net_pnl > 0
+                
+                # Check enhanced profit requirements
+                profit_check = meets_minimum_profit_requirements(current_price, purchase_price, position)
+                eligible_to_sell = profit_check['eligible_to_sell']
+                profit_percentage = profit_check['profit_percentage']
+                min_required = profit_check['min_required_percentage']
+                
+                status_emoji = "✅ ELIGIBLE" if eligible_to_sell else "❌ HOLD"
                 
                 fee_analysis_summary.append(
                     f"   {symbol}: {position} shares @ ${purchase_price:.2f} → ${current_price:.2f} | "
                     f"Net P&L: ${net_pnl:+.2f} (after ${total_fees:.2f} fees) | "
-                    f"{'✅ PROFITABLE' if is_profitable else '❌ UNPROFITABLE'} to sell"
+                    f"Return: {profit_percentage:+.2f}% (min: {min_required:.1f}%) | {status_emoji} to sell"
                 )
     
     fee_analysis_text = "\n".join(fee_analysis_summary) if fee_analysis_summary else "   No current positions to analyze"
@@ -1471,12 +1534,16 @@ async def get_ai_portfolio_recommendations_with_news(state: PortfolioState):
     5. Strong Technical + No News = Proceed based on technical analysis
     6. Negative News + Any Technical = Seriously consider SELL or avoid BUY
     
-    CRITICAL FEE-AWARE SELL RULES:
-    1. NEVER sell a position at a loss unless it's a stop-loss trigger (2%+ loss from purchase price)
-    2. Only sell profitable positions (net P&L > $0 after accounting for ${TRADING_FEE_PER_TRADE * 2:.2f} round-trip fees)
-    3. Prefer HOLD over unprofitable SELL - wait for price recovery or stop-loss trigger
-    4. Trailing stop: Consider selling when price drops 3%+ from peak BUT only if still profitable after fees
-    5. Management fee consideration: Minimum profit threshold = ${TRADING_FEE_PER_TRADE * 2:.2f} + small buffer
+    CRITICAL ENHANCED PROFIT-AWARE SELL RULES:
+    1. NEVER sell a position at a loss unless it's a stop-loss trigger (3%+ loss from purchase price)
+    2. MINIMUM PROFIT REQUIREMENTS for selling:
+       - Regular mode: {MIN_PROFIT_PERCENTAGE}% profit minimum (${MIN_PROFIT_DOLLARS:.2f} minimum dollar profit)
+       - Aggressive mode: {AGGRESSIVE_MODE_PROFIT_THRESHOLD}% profit minimum
+    3. Only sell positions that meet BOTH conditions:
+       - Net P&L > ${MIN_PROFIT_DOLLARS:.2f} after accounting for ${TRADING_FEE_PER_TRADE * 2:.2f} round-trip fees
+       - Price appreciation > {MIN_PROFIT_PERCENTAGE}% from purchase price
+    4. Prefer HOLD over micro-profit SELL - avoid trades with <{MIN_PROFIT_PERCENTAGE}% returns
+    5. Trailing stop: Consider selling when price drops 3%+ from peak BUT only if still meets minimum profit requirements
     
     For each stock, provide recommendation in EXACT format:
     STOCK: [SYMBOL] | ACTION: [BUY/SELL/HOLD] | PRIORITY: [HIGH/MEDIUM/LOW] | REASONING: [Technical reasons + specific news sentiment impact] | TECHNICAL_SCORE: [1-10] | CONFIDENCE: [HIGH/MEDIUM/LOW]

@@ -1,0 +1,4 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250822_131922_2405,43,AGGRESSIVE,2025-08-22T18:21:59.587054,1,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_131922_2405,43,AGGRESSIVE,2025-08-22T18:22:40.188297,2,rerun,Validation failed. Critical issues: BTCUSD: SELL recommendation would result in loss after fees (Net P&L: $-0.01); LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. Warnings: 1
+session_20250822_131922_2405,43,AGGRESSIVE,2025-08-22T18:23:02.572014,3,proceed,AI decisions are technically sound and consistent.

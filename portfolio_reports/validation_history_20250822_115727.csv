@@ -1,0 +1,7 @@
+Session_ID,Cycle_Number,Strategy_Mode,timestamp,attempt,decision,reason
+session_20250822_103709_8422,11,AGGRESSIVE,2025-08-22T11:54:52.756953,1.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_103709_8422,11,AGGRESSIVE,2025-08-22T11:55:17.128867,2.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_103709_8422,11,AGGRESSIVE,2025-08-22T11:55:42.794527,3.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_103709_8422,11,AGGRESSIVE,2025-08-22T11:56:12.740643,4.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_103709_8422,11,AGGRESSIVE,2025-08-22T11:56:34.680705,5.0,rerun,Validation failed. Critical issues: LTCUSD: Major contradiction - BUY recommendation conflicts with bearish analysis. 
+session_20250822_103709_8422,11,AGGRESSIVE,,,abort,Max validation attempts exceeded - validation consistently failed.

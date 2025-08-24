@@ -17,15 +17,16 @@ gemini_model = genai.GenerativeModel(MODEL_GEMINI_2_0_FLASH)
 
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()
-GCS_BUCKET_NAME = "portfolio_reports_algo"
+GCS_BUCKET_NAME = 'cry_app' #"portfolio_reports_algo"
 
 
 # === CRYPTO TRADING PARAMETERS ===
 # Gemini Exchange Trading Configuration
 MAX_TOTAL_CRYPTO_UNITS = 10.0  # Total crypto units (BTC equivalent)
-MAX_UNITS_PER_CRYPTO = 2.0     # Max units per crypto pair
-TRADE_SIZE = 0.001  # Crypto units per trade (0.001 BTC = ~$60-100)
-MIN_USD_RESERVE = 1000  # Minimum USD to keep in account
+MAX_UNITS_PER_CRYPTO = 5.0     # Max units per crypto pair
+TRADE_SIZE_USD = 50.0  # USD amount per trade (consistent across all cryptos)
+TRADE_SIZE = 0.001  # Legacy: Crypto units per trade (deprecated - use TRADE_SIZE_USD)
+MIN_USD_RESERVE = 100  # Minimum USD to keep in account
 MIN_CASH_RESERVE = MIN_USD_RESERVE  # Legacy compatibility
 GEMINI_TRADING_FEE = 0.005  # 0.5% trading fee on Gemini
 
@@ -39,10 +40,17 @@ STOP_LOSS_PERCENTAGE = -3.0    # Crypto is more volatile, wider stops
 TAKE_PROFIT_PERCENTAGE = 5.0   # Higher profit targets for crypto
 PORTFOLIO_STOP_LOSS = -10.0    # Crypto portfolio emergency stop
 
+# Enhanced Profit Thresholds (to prevent micro-profit trades)
+MIN_PROFIT_PERCENTAGE = 2.0    # Minimum 2% profit required before selling
+MIN_PROFIT_DOLLARS = TRADE_SIZE_USD * (GEMINI_TRADING_FEE * 2) + 1.0  # Cover fees + $1 buffer
+AGGRESSIVE_MODE_PROFIT_THRESHOLD = 1.5  # In aggressive mode, minimum 1.5% profit required
+
 # Crypto Portfolio Configuration (Gemini supported pairs)
 PORTFOLIO_CRYPTOS = [
-    'BTCUSD', 'ETHUSD', 'LINKUSD', 'LTCUSD', 'BCHUSD',
-    'ZECUSD', 'XLMUSD', 'BATUSD', 'OXTUSD', '1INCHUSD'
+    'BTCUSD', 'ETHUSD', 'LTCUSD','BCHUSD',
+    #'LINKUSD',  'BCHUSD',
+    # 'ZECUSD', 'BATUSD',  'BUZZ35188-USD' #'OXTUSD'  # Removed XLMUSD and 1INCHUSD - not supported by Gemini
+    # 'BUZZ' , 'HIVEAI' , 'BUZZ35188'
 ]
 
 # Legacy stock config for backward compatibility

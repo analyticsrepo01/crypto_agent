@@ -11,9 +11,24 @@ def calculate_rsi(prices, period=14):
     losses = -deltas.where(deltas < 0, 0)
     avg_gains = gains.rolling(window=period).mean()
     avg_losses = losses.rolling(window=period).mean()
+    
+    # Handle division by zero and NaN cases
+    # Replace zero values with small values to avoid division by zero
+    avg_gains = avg_gains.replace(0, 0.0001)
+    avg_losses = avg_losses.replace(0, 0.0001)
     rs = avg_gains / avg_losses
+    
+    # Handle special cases
+    rs = rs.fillna(1)  # If no gains or losses, neutral RSI = 50
+    
     rsi = 100 - (100 / (1 + rs))
-    return rsi.iloc[-1] if not rsi.empty else None
+    
+    # Ensure RSI is within valid range and handle any remaining NaN
+    final_rsi = rsi.iloc[-1] if not rsi.empty else 50.0
+    if pd.isna(final_rsi) or not (0 <= final_rsi <= 100):
+        return 50.0  # Return neutral RSI for invalid values
+    
+    return final_rsi
 
 def calculate_macd(prices, fast=12, slow=26, signal=9):
     """Calculate MACD (Moving Average Convergence Divergence)"""

@@ -1,2 +1,0 @@
-timestamp,symbol,action,quantity,priority,reasoning,risk,price,estimated_cost,order_id,status,filled,remaining,avg_fill_price,execution_time
-2025-08-11T13:59:33.290573,ADBE,BUY,10,MEDIUM,"Neutral trend and RSI, covering a portion of existing short position to reduce exposure and manage risk.",N/A,343.22,3432.2000000000003,89,Filled,10.0,0.0,343.59,1.243337

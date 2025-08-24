@@ -12,10 +12,11 @@ from IPython.display import Image, display
 from config import *
 from utils import *
 from market_data import *
+from crypto_market_data import get_crypto_data_1h_batch, place_crypto_order, get_all_positions as get_crypto_positions, get_portfolio_summary as get_crypto_portfolio_summary
 from agent import *
 from reporting import *
 from diagnostics import *
-from sp500_tracker import *
+# from sp500_tracker import *  # Not needed for crypto trading
 
 import nest_asyncio
 nest_asyncio.apply()
@@ -88,46 +89,34 @@ async def analyze_portfolio_node(state: PortfolioState) -> PortfolioState:
     """Node to fetch market data and update the state."""
     print(f"\n--- Cycle {state['cycle_number']}: Analyzing Market ---")
     
-    # Time stock data fetching
-    with time_code_block("Stock Data Batch Fetch"):
+    # Time stock data fetching - get both 5-min and 1-hour data
+    with time_code_block("Stock Data Batch Fetch (5M + 1H)"):
         if BACKTEST_MODE:
             # Use the new backtesting data source
             stock_data = await get_backtest_data_batch(state['portfolio_stocks'])
+            stock_data_1h = {}  # No 1H backtesting data yet
         else:
-            # Use the existing live data source
-            stock_data = await get_stock_data_batch(state['portfolio_stocks'])
+            # Get both 5-minute and 1-hour data in parallel
+            stock_data, stock_data_1h = await asyncio.gather(
+                get_stock_data_batch(state['portfolio_stocks']),
+                get_crypto_data_1h_batch(state['portfolio_stocks'])
+            )
 
     
     state['timestamp'] = datetime.now().isoformat()
     state['stock_data'] = stock_data
+    state['stock_data_1h'] = stock_data_1h  # Add 1-hour data to state
     state['stock_prices'] = {s: d.get('current_price', 0) for s, d in stock_data.items()}
     state['stock_smas'] = {s: d.get('sma_20', 0) for s, d in stock_data.items()}
     
     valid_count = len([s for s, d in stock_data.items() if d.get('valid')])
     print(f"✅ Analysis complete. Fetched valid data for {valid_count}/{len(state['portfolio_stocks'])} stocks.")
     
-    # Time S&P 500 operations
-    with time_code_block("S&P 500 Data Fetch"):
-        print("📊 Fetching S&P 500 benchmark data...")
-        sp500_data = await sp500_tracker.get_sp500_data()
-        state['sp500_data'] = sp500_data
-        
-        if sp500_data.get('success'):
-            sp500_tracker.log_sp500_data(state, sp500_data)
-            print(f"📈 S&P 500: ${sp500_data['price']:.2f} ({sp500_data['change_pct']:+.2f}%)")
-            
-            # Calculate benchmark comparison
-            benchmark_comparison = sp500_tracker.calculate_benchmark_comparison(state)
-            state['benchmark_comparison'] = benchmark_comparison
-            
-            if 'error' not in benchmark_comparison:
-                alpha = benchmark_comparison.get('alpha', 0)
-                status = "🟢 OUTPERFORMING" if alpha > 0 else "🔴 UNDERPERFORMING"
-                print(f"⚖️ vs S&P 500: {status} by {alpha:+.2f}%")
-        else:
-            print("⚠️ Could not fetch S&P 500 data")
-            state['sp500_data'] = {'success': False}
-            state['benchmark_comparison'] = {}
+    # S&P 500 operations disabled for crypto trading
+    # Crypto markets don't need stock market benchmarks
+    print("📊 S&P 500 benchmarking disabled for crypto trading")
+    state['sp500_data'] = {'success': False, 'crypto_mode': True}
+    state['benchmark_comparison'] = {'crypto_mode': True, 'alpha': 0}
     
     return state
 
@@ -234,9 +223,10 @@ async def check_positions_node(state: PortfolioState) -> PortfolioState:
         print(f"   🚨 CRITICAL: news_sentiment key missing from state!")
         print(f"   📊 Available keys: {list(state.keys())}")
     
-    # 🔧 CRITICAL FIX: Get actual purchase prices from IB
-    positions, pnls, purchase_prices = await get_all_positions()
-    portfolio_value, cash = await get_portfolio_summary()
+    # 🔧 CRITICAL FIX: Get actual purchase prices from database (with current prices for P&L)
+    current_prices = state.get('stock_prices', {})
+    positions, pnls, purchase_prices = await get_crypto_positions(current_prices)
+    portfolio_value, cash = await get_crypto_portfolio_summary()
     
     # Calculate allocations
     allocations = {}
@@ -344,10 +334,10 @@ async def validate_decisions_node(state: PortfolioState) -> PortfolioState:
     print("🕵️  Validating AI Decisions...")
     
     if state.get('validation_attempts', 0) >= 5:
-        print("⚠️ Max validation attempts reached. Proceeding with last decision.")
-        state['final_decision_logic'] = "Forced proceed after max validation retries."
-        state['validation_history'].append({'decision': 'proceed', 'reason': 'Max retries.'})
-        state['validation_feedback'] = ""
+        print("🚫 Max validation attempts reached. ABORTING trade execution due to validation failures.")
+        state['final_decision_logic'] = "Trade execution aborted after max validation retries."
+        state['validation_history'].append({'decision': 'abort', 'reason': 'Max validation attempts exceeded - validation consistently failed.'})
+        state['validation_feedback'] = "Trade execution aborted due to persistent validation failures"
         return state
 
     validation_result = validate_ai_decisions(state)
@@ -370,6 +360,23 @@ async def validate_decisions_node(state: PortfolioState) -> PortfolioState:
         state['final_decision_logic'] = f"Rerun after attempt {state['validation_attempts']}"
         state['validation_feedback'] = validation_result['reason']
 
+    return state
+
+@time_function("Abort Execution")
+async def abort_execution_node(state: PortfolioState) -> PortfolioState:
+    """Node that handles aborted trades due to validation failures."""
+    print("🚫 TRADE EXECUTION ABORTED - Validation consistently failed")
+    print(f"   Reason: {state.get('validation_feedback', 'Unknown validation failure')}")
+    
+    # Log the abort decision
+    state['execution_status'] = 'ABORTED'
+    state['execution_reason'] = 'Validation failed after maximum attempts'
+    state['recommendations'] = {}  # Clear any recommendations to prevent accidental execution
+    
+    # Set final decision for reporting
+    state['final_decision_logic'] = state.get('final_decision_logic', 'Trade execution aborted due to validation failures')
+    
+    print("✅ Abort handling completed. Proceeding to reporting.")
     return state
 
 @time_function("Report Generation")
@@ -395,87 +402,94 @@ async def reporting_node(state: PortfolioState) -> PortfolioState:
     return state
 
 
-# Add the enhanced place_smart_order function with detailed logging
-async def place_smart_order(symbol: str, action: str, quantity: int):
-    """Place order with enhanced error handling and detailed logging"""
+def calculate_crypto_quantity(symbol: str, current_price: float, usd_amount: float = None) -> float:
+    """Calculate crypto quantity based on USD amount"""
+    if usd_amount is None:
+        usd_amount = TRADE_SIZE_USD
+    
+    # Calculate quantity needed for the USD amount
+    quantity = usd_amount / current_price
+    
+    # Round to appropriate decimal places based on crypto type
+    if 'BTC' in symbol:
+        return round(quantity, 8)  # BTC typically 8 decimals
+    elif symbol in ['ETHUSD', 'LINKUSD', 'LTCUSD', 'BCHUSD', 'ZECUSD']:
+        return round(quantity, 6)  # Most altcoins 6 decimals
+    else:
+        return round(quantity, 6)  # Default 6 decimals
+
+# Add the enhanced place_smart_order function with Gemini crypto trading
+async def place_smart_order(symbol: str, action: str, quantity: float):
+    """Place crypto order with Gemini exchange - enhanced error handling and detailed logging"""
     order_start_time = datetime.now()
-    print(f"\n🔄 [{order_start_time.strftime('%H:%M:%S')}] INITIATING ORDER: {action} {quantity} {symbol}")
+    print(f"\n🔄 [{order_start_time.strftime('%H:%M:%S')}] INITIATING CRYPTO ORDER: {action} {quantity} {symbol}")
     
     try:
-        # Step 1: Establish connection
-        print(f"   📡 Establishing IB connection...")
-        ib = await ensure_connection()
-        if not ib:
-            error_msg = f"❌ Connection failed for {symbol}"
-            print(f"   {error_msg}")
-            return {"success": False, "error": error_msg, "symbol": symbol}
-        print(f"   ✅ IB connection established")
+        # Import the crypto order placement function
+        from crypto_market_data import place_crypto_order
         
-        # Step 2: Create and qualify contract
-        print(f"   📋 Creating contract for {symbol}...")
-        contract = Stock(symbol, 'SMART', 'USD')
-        print(f"   🔍 Qualifying contract...")
-        
-        qualified_contracts = await ib.qualifyContractsAsync(contract)
-        if not qualified_contracts:
-            error_msg = f"❌ Could not qualify contract for {symbol}"
+        # Step 1: Validate symbol and parameters
+        print(f"   📊 Validating crypto order parameters...")
+        if symbol not in PORTFOLIO_CRYPTOS:
+            error_msg = f"❌ Symbol {symbol} not in crypto portfolio"
             print(f"   {error_msg}")
             return {"success": False, "error": error_msg, "symbol": symbol}
         
-        qualified_contract = qualified_contracts[0]
-        print(f"   ✅ Contract qualified: {qualified_contract.symbol} @ {qualified_contract.exchange}")
+        if quantity <= 0:
+            error_msg = f"❌ Invalid quantity: {quantity}"
+            print(f"   {error_msg}")
+            return {"success": False, "error": error_msg, "symbol": symbol}
         
-        # Step 3: Create order
-        print(f"   📝 Creating {action} order for {quantity} shares...")
-        order = MarketOrder(action, quantity)
-        order.account = ""  # Will use default account
-        print(f"   📊 Order details: Type={order.orderType}, Action={order.action}, Quantity={order.totalQuantity}")
+        print(f"   ✅ Parameters validated: {action} {quantity} {symbol}")
         
-        # Step 4: Place order
-        print(f"   🚀 Placing order...")
-        trade = ib.placeOrder(qualified_contract, order)
+        # Step 2: Place crypto order via Gemini API
+        print(f"   🚀 Placing crypto order via Gemini API...")
+        order_result = await place_crypto_order(symbol, action, quantity)
         
-        # Step 5: Wait briefly for initial order status
-        await asyncio.sleep(1)
-        
-        # Step 6: Get order status and details
-        order_id = trade.order.orderId if trade.order else "N/A"
-        order_status = trade.orderStatus.status if trade.orderStatus else "Unknown"
-        filled_qty = trade.orderStatus.filled if trade.orderStatus else 0
-        remaining_qty = trade.orderStatus.remaining if trade.orderStatus else quantity
-        avg_fill_price = trade.orderStatus.avgFillPrice if trade.orderStatus else 0
-        
-        order_end_time = datetime.now()
-        duration = (order_end_time - order_start_time).total_seconds()
-        
-        print(f"   📈 ORDER SUBMITTED SUCCESSFULLY!")
-        print(f"   🆔 Order ID: {order_id}")
-        print(f"   📊 Status: {order_status}")
-        print(f"   📦 Filled: {filled_qty} / Remaining: {remaining_qty}")
-        if avg_fill_price > 0:
-            print(f"   💰 Average Fill Price: ${avg_fill_price:.2f}")
-        print(f"   ⏱️  Execution Time: {duration:.2f} seconds")
-        
-        # Return detailed response
-        return {
-            "success": True,
-            "symbol": symbol,
-            "action": action,
-            "quantity": quantity,
-            "order_id": order_id,
-            "status": order_status,
-            "filled": filled_qty,
-            "remaining": remaining_qty,
-            "avg_fill_price": avg_fill_price,
-            "execution_time": duration,
-            "trade_object": trade
-        }
+        # Step 3: Process response
+        if order_result.get("success"):
+            order_end_time = datetime.now()
+            duration = (order_end_time - order_start_time).total_seconds()
+            
+            print(f"   🎉 CRYPTO ORDER SUCCESSFUL!")
+            print(f"   🆔 Order ID: {order_result.get('order_id', 'N/A')}")
+            print(f"   📊 Status: {order_result.get('status', 'Unknown')}")
+            print(f"   💰 Quantity: {quantity} {symbol}")
+            print(f"   ⏱️  Execution Time: {duration:.2f} seconds")
+            
+            # Return success response in expected format
+            return {
+                "success": True,
+                "symbol": symbol,
+                "action": action,
+                "quantity": quantity,
+                "order_id": order_result.get('order_id'),
+                "status": order_result.get('status', 'Submitted'),
+                "filled": quantity,  # Assume filled for simulation
+                "remaining": 0,
+                "avg_fill_price": 0,  # Would need current price
+                "execution_time": duration,
+                "message": order_result.get('message', 'Crypto order placed')
+            }
+        else:
+            error_msg = order_result.get('error', 'Unknown crypto order error')
+            print(f"   ❌ CRYPTO ORDER FAILED!")
+            print(f"   🚫 Error: {error_msg}")
+            
+            return {
+                "success": False,
+                "symbol": symbol,
+                "action": action,
+                "quantity": quantity,
+                "error": error_msg,
+                "execution_time": (datetime.now() - order_start_time).total_seconds()
+            }
         
     except Exception as e:
         order_end_time = datetime.now()
         duration = (order_end_time - order_start_time).total_seconds()
-        error_msg = f"Order execution failed for {symbol}: {str(e)}"
-        print(f"   ❌ ORDER FAILED!")
+        error_msg = f"Crypto order execution failed for {symbol}: {str(e)}"
+        print(f"   ❌ CRYPTO ORDER FAILED!")
         print(f"   🚫 Error: {str(e)}")
         print(f"   ⏱️  Time to failure: {duration:.2f} seconds")
         
@@ -594,31 +608,37 @@ async def execute_trades_node(state: PortfolioState) -> PortfolioState:
             if constraints_passed:
                 print(f"   ✅ ALL CONSTRAINTS PASSED - PROCEEDING WITH BUY ORDER")
                 
+                # Calculate USD-based quantity
+                current_price = state['stock_data'][symbol]['current_price']
+                trade_quantity = calculate_crypto_quantity(symbol, current_price, TRADE_SIZE_USD)
+                print(f"   💰 USD-based quantity: ${TRADE_SIZE_USD} = {trade_quantity} {symbol} @ ${current_price:.2f}")
+                
                 # Execute the trade
-                trade_result = await place_smart_order(symbol, 'BUY', TRADE_SIZE)
+                trade_result = await place_smart_order(symbol, 'BUY', trade_quantity)
                 
                 if trade_result.get('success'):
                     print(f"   🎉 BUY ORDER SUCCESSFUL!")
                     trade_executed = True
-                    total_shares += TRADE_SIZE
-                    positions[symbol] += TRADE_SIZE
-                    available_cash -= estimated_cost
+                    total_shares += trade_quantity
+                    positions[symbol] += trade_quantity
+                    available_cash -= TRADE_SIZE_USD  # Use actual USD amount spent
                     trades_executed += 1
 
                     executed_trades.append({
                         'timestamp': state['timestamp'],
                         'symbol': symbol,
                         'action': 'BUY',
-                        'quantity': TRADE_SIZE,
+                        'quantity': trade_quantity,
+                        'usd_amount': TRADE_SIZE_USD,
                         'priority': priority,
                         'reasoning': reasoning,
                         'risk': rec.get('risk', 'N/A'),
                         'price': current_price,
-                        'estimated_cost': estimated_cost,
+                        'estimated_cost': TRADE_SIZE_USD,
                         'order_id': trade_result.get('order_id'),
                         'status': trade_result.get('status'),
                         'filled': trade_result.get('filled', 0),
-                        'remaining': trade_result.get('remaining', TRADE_SIZE),
+                        'remaining': trade_result.get('remaining', trade_quantity),
                         'avg_fill_price': trade_result.get('avg_fill_price', 0),
                         'execution_time': trade_result.get('execution_time', 0)
                     })
@@ -645,25 +665,34 @@ async def execute_trades_node(state: PortfolioState) -> PortfolioState:
 
         # Execute SELL orders
         elif action == 'SELL':
-            estimated_proceeds = current_price * TRADE_SIZE
+            # Calculate USD-based sell quantity (sell equivalent USD amount or available position)
+            current_price = state['stock_data'][symbol]['current_price']
+            trade_quantity = calculate_crypto_quantity(symbol, current_price, TRADE_SIZE_USD)
+            
+            # Don't sell more than we have
+            if trade_quantity > current_position:
+                trade_quantity = current_position
+                
+            estimated_proceeds = current_price * trade_quantity
             
             print(f"\n💰 SELL ORDER ANALYSIS:")
+            print(f"   💰 USD-based quantity: ${TRADE_SIZE_USD} = {trade_quantity} {symbol} @ ${current_price:.2f}")
             print(f"   💵 Estimated Proceeds: ${estimated_proceeds:,.2f}")
             print(f"   📦 Current Position: {current_position}")
-            print(f"   📉 Target Position: {current_position - TRADE_SIZE}")
+            print(f"   📉 Target Position: {current_position - trade_quantity}")
             print(f"   🏦 Cash After Trade: ${available_cash + estimated_proceeds:,.2f}")
 
-            if current_position >= TRADE_SIZE:
+            if current_position >= trade_quantity and trade_quantity > 0:
                 print(f"   ✅ SUFFICIENT SHARES AVAILABLE - PROCEEDING WITH SELL ORDER")
                 
                 # Execute the trade
-                trade_result = await place_smart_order(symbol, 'SELL', TRADE_SIZE)
+                trade_result = await place_smart_order(symbol, 'SELL', trade_quantity)
                 
                 if trade_result.get('success'):
                     print(f"   🎉 SELL ORDER SUCCESSFUL!")
                     trade_executed = True
-                    total_shares -= TRADE_SIZE
-                    positions[symbol] -= TRADE_SIZE
+                    total_shares -= trade_quantity
+                    positions[symbol] -= trade_quantity
                     available_cash += estimated_proceeds
                     trades_executed += 1
 
@@ -671,7 +700,8 @@ async def execute_trades_node(state: PortfolioState) -> PortfolioState:
                         'timestamp': state['timestamp'],
                         'symbol': symbol,
                         'action': 'SELL',
-                        'quantity': TRADE_SIZE,
+                        'quantity': trade_quantity,
+                        'usd_amount': estimated_proceeds,
                         'priority': priority,
                         'reasoning': reasoning,
                         'risk': rec.get('risk', 'N/A'),
@@ -680,7 +710,7 @@ async def execute_trades_node(state: PortfolioState) -> PortfolioState:
                         'order_id': trade_result.get('order_id'),
                         'status': trade_result.get('status'),
                         'filled': trade_result.get('filled', 0),
-                        'remaining': trade_result.get('remaining', TRADE_SIZE),
+                        'remaining': trade_result.get('remaining', trade_quantity),
                         'avg_fill_price': trade_result.get('avg_fill_price', 0),
                         'execution_time': trade_result.get('execution_time', 0)
                     })
@@ -766,6 +796,7 @@ def create_trading_graph():
     workflow.add_node("ai_decision", ai_decision_node)
     workflow.add_node("validator", validate_decisions_node)
     workflow.add_node("execute", execute_trades_node)
+    workflow.add_node("abort_execution", abort_execution_node)
     workflow.add_node("reporting", reporting_node)
     workflow.set_entry_point("analyze")
     workflow.add_edge("analyze", "ai_trend")
@@ -775,9 +806,14 @@ def create_trading_graph():
     workflow.add_conditional_edges(
         "validator",
         should_rerun_or_proceed,
-        {"rerun_decision": "ai_decision", "proceed_to_execute": "execute"}
+        {
+            "rerun_decision": "ai_decision", 
+            "proceed_to_execute": "execute",
+            "abort_execution": "abort_execution"
+        }
     )
     workflow.add_edge("execute", "reporting")
+    workflow.add_edge("abort_execution", "reporting")
     workflow.add_edge("reporting", END)
 
     from memory_store import trading_memory
@@ -859,8 +895,13 @@ async def run_trading_session(cycles=5, interval_minutes=5, aggressive=False):
             print(f"📊 Total trades stored: {stats['total_memories']}")
             
             # Check today's activity
-            daily_context = trading_memory.get_daily_context()
-            print(f"📅 Today's trades: {daily_context['total_trades']}")            
+            try:
+                from memory_store import get_memory_store
+                daily_context = get_memory_store().get_daily_context()
+                print(f"📅 Today's trades: {daily_context['total_trades']}")
+            except Exception as e:
+                print(f"⚠️ Could not get daily context: {e}")
+                print("📅 Today's trades: N/A (memory not available)")            
 
             # ADD THIS: Show memory stats after each cycle
             if cycle % 2 == 0:  # Every 2 cycles
@@ -891,4 +932,4 @@ async def run_trading_session(cycles=5, interval_minutes=5, aggressive=False):
         # END SESSION TIMING AND SHOW REPORT
         trading_timer.end_session()
 
-asyncio.run(run_trading_session(cycles=10, interval_minutes=5, aggressive=False))
+asyncio.run(run_trading_session(cycles=50, interval_minutes=10, aggressive=True))

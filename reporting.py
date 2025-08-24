@@ -2,9 +2,15 @@
 
 import json
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Any
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy as np
+import yfinance as yf
+import base64
+import io
 
 from utils import setup_reporting_directory, upload_to_gcs,  ensure_connection, log_portfolio_activity
 from config import PORTFOLIO_STOCKS
@@ -12,6 +18,468 @@ from market_data import calculate_portfolio_profitability
 
 # Define a type alias for state for clarity
 PortfolioState = Dict[str, Any]
+
+def calculate_technical_indicators(data):
+    """Calculate technical indicators similar to backtest notebook"""
+    df = data.copy()
+    
+    # Calculate RSI
+    delta = df['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+    rs = gain / loss
+    df['RSI'] = 100 - (100 / (1 + rs))
+    
+    # Calculate Moving Averages
+    df['SMA_20'] = df['Close'].rolling(window=20).mean()
+    df['SMA_50'] = df['Close'].rolling(window=50).mean()
+    
+    # Calculate Bollinger Bands
+    df['BB_middle'] = df['SMA_20']
+    bb_std = df['Close'].rolling(window=20).std()
+    df['BB_upper'] = df['BB_middle'] + (bb_std * 2)
+    df['BB_lower'] = df['BB_middle'] - (bb_std * 2)
+    
+    return df
+
+def get_crypto_data(symbol, days=60, interval='1h'):
+    """Get crypto data for technical analysis"""
+    try:
+        # Convert crypto symbol format for yfinance (e.g., BTCUSD -> BTC-USD)
+        if symbol.endswith('USD'):
+            yf_symbol = symbol.replace('USD', '-USD')
+        else:
+            yf_symbol = symbol
+            
+        ticker = yf.Ticker(yf_symbol)
+        # Get more granular data for crypto
+        data = ticker.history(period=f'{days}d', interval=interval)
+        
+        if data.empty:
+            print(f"No data found for {symbol}, trying alternative format...")
+            # Try alternative format
+            alt_symbol = symbol[:3] + '-USD' if len(symbol) > 3 else symbol + '-USD'
+            ticker = yf.Ticker(alt_symbol)
+            data = ticker.history(period=f'{days}d', interval=interval)
+        
+        return data
+    except Exception as e:
+        print(f"Error fetching data for {symbol}: {e}")
+        return pd.DataFrame()
+
+def get_short_term_crypto_data(symbol, hours=72, interval='5m'):
+    """Get short-term crypto data for intraday trading analysis"""
+    try:
+        # Convert crypto symbol format for yfinance (e.g., BTCUSD -> BTC-USD)
+        if symbol.endswith('USD'):
+            yf_symbol = symbol.replace('USD', '-USD')
+        else:
+            yf_symbol = symbol
+            
+        ticker = yf.Ticker(yf_symbol)
+        # Get high-frequency data for short-term trading (up to 60 days for 5m interval)
+        days = min(60, max(1, hours // 24 + 1))
+        data = ticker.history(period=f'{days}d', interval=interval)
+        
+        # Filter to requested time range
+        if not data.empty and hours < days * 24:
+            cutoff_time = data.index[-1] - pd.Timedelta(hours=hours)
+            data = data[data.index >= cutoff_time]
+        
+        if data.empty:
+            print(f"No short-term data found for {symbol}, trying alternative format...")
+            # Try alternative format
+            alt_symbol = symbol[:3] + '-USD' if len(symbol) > 3 else symbol + '-USD'
+            ticker = yf.Ticker(alt_symbol)
+            data = ticker.history(period=f'{days}d', interval=interval)
+            if not data.empty and hours < days * 24:
+                cutoff_time = data.index[-1] - pd.Timedelta(hours=hours)
+                data = data[data.index >= cutoff_time]
+        
+        return data
+    except Exception as e:
+        print(f"Error fetching short-term data for {symbol}: {e}")
+        return pd.DataFrame()
+
+def generate_technical_analysis_chart(symbol, state):
+    """Generate technical analysis chart for a single symbol"""
+    try:
+        # Get historical data
+        data = get_crypto_data(symbol, days=30)
+        if data.empty:
+            return None
+            
+        # Calculate technical indicators
+        data = calculate_technical_indicators(data)
+        
+        # Create the chart
+        plt.style.use('seaborn-v0_8-darkgrid')
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), height_ratios=[3, 1])
+        
+        # --- Price Chart with Technical Indicators ---
+        ax1.plot(data.index, data['Close'], color='#2E86AB', linewidth=1.5, label='Price', alpha=0.8)
+        ax1.plot(data.index, data['SMA_20'], color='#F18F01', linewidth=1, label='SMA 20', alpha=0.7)
+        ax1.plot(data.index, data['SMA_50'], color='#C73E1D', linewidth=1, label='SMA 50', alpha=0.7)
+        
+        # Bollinger Bands
+        ax1.fill_between(data.index, data['BB_upper'], data['BB_lower'], 
+                        color='gray', alpha=0.1, label='Bollinger Bands')
+        ax1.plot(data.index, data['BB_upper'], color='gray', linewidth=0.5, alpha=0.5)
+        ax1.plot(data.index, data['BB_lower'], color='gray', linewidth=0.5, alpha=0.5)
+        
+        # Get current position and P&L for overlay
+        current_position = state.get('positions', {}).get(symbol, 0)
+        current_pnl = state.get('stock_pnls', {}).get(symbol, 0)
+        current_price = state.get('stock_prices', {}).get(symbol, 0)
+        
+        # Add position indicator
+        if current_position != 0:
+            ax1.axhline(y=current_price, color='green' if current_pnl > 0 else 'red', 
+                       linestyle='--', alpha=0.7, linewidth=1)
+            position_text = f"Position: {current_position} | P&L: ${current_pnl:+.2f}"
+            ax1.text(0.02, 0.98, position_text, transform=ax1.transAxes, 
+                    bbox=dict(boxstyle="round,pad=0.3", facecolor='lightblue', alpha=0.8),
+                    verticalalignment='top', fontsize=10)
+        
+        ax1.set_title(f'{symbol} Technical Analysis', fontsize=14, fontweight='bold')
+        ax1.set_ylabel('Price ($)', fontsize=12)
+        ax1.legend(loc='upper left', fontsize=10)
+        ax1.grid(True, alpha=0.3)
+        
+        # Format x-axis
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
+        ax1.xaxis.set_major_locator(mdates.DayLocator(interval=5))
+        
+        # --- RSI Chart ---
+        ax2.plot(data.index, data['RSI'], color='purple', linewidth=1.5, label='RSI')
+        ax2.axhline(y=70, color='red', linestyle='--', alpha=0.7, label='Overbought (70)')
+        ax2.axhline(y=30, color='green', linestyle='--', alpha=0.7, label='Oversold (30)')
+        ax2.fill_between(data.index, 70, 100, alpha=0.1, color='red')
+        ax2.fill_between(data.index, 0, 30, alpha=0.1, color='green')
+        
+        ax2.set_ylabel('RSI', fontsize=12)
+        ax2.set_xlabel('Date', fontsize=12)
+        ax2.set_ylim(0, 100)
+        ax2.legend(loc='upper right', fontsize=9)
+        ax2.grid(True, alpha=0.3)
+        
+        # Format x-axis for RSI chart
+        ax2.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
+        ax2.xaxis.set_major_locator(mdates.DayLocator(interval=5))
+        
+        plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45)
+        plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45)
+        
+        plt.tight_layout()
+        
+        # Convert to base64 string for HTML embedding
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', facecolor='white')
+        buffer.seek(0)
+        image_base64 = base64.b64encode(buffer.getvalue()).decode()
+        plt.close()
+        
+        return image_base64
+        
+    except Exception as e:
+        print(f"Error generating technical analysis chart for {symbol}: {e}")
+        return None
+
+def generate_short_term_trading_chart(symbol, state):
+    """Generate short-term trading chart for 3-day trading strategy"""
+    try:
+        # Get 3-day data with 1-hour intervals for trading decisions
+        data = get_crypto_data(symbol, days=3, interval='1h')
+        if data.empty:
+            return None
+            
+        # Calculate technical indicators optimized for short-term trading
+        data = calculate_short_term_indicators(data)
+        
+        # Create the chart
+        plt.style.use('seaborn-v0_8-darkgrid')
+        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(14, 12), height_ratios=[3, 1, 1])
+        
+        # --- Price Chart with Short-term Indicators ---
+        ax1.plot(data.index, data['Close'], color='#2E86AB', linewidth=2, label='Price', alpha=0.9)
+        ax1.plot(data.index, data['SMA_12'], color='#F18F01', linewidth=1.5, label='SMA 12h', alpha=0.8)
+        ax1.plot(data.index, data['SMA_24'], color='#C73E1D', linewidth=1.5, label='SMA 24h', alpha=0.8)
+        
+        # Bollinger Bands (12-hour period for short-term)
+        ax1.fill_between(data.index, data['BB_upper'], data['BB_lower'], 
+                        color='gray', alpha=0.15, label='BB 12h')
+        ax1.plot(data.index, data['BB_upper'], color='gray', linewidth=0.7, alpha=0.6)
+        ax1.plot(data.index, data['BB_lower'], color='gray', linewidth=0.7, alpha=0.6)
+        
+        # Trading position overlay
+        current_position = state.get('positions', {}).get(symbol, 0)
+        current_pnl = state.get('stock_pnls', {}).get(symbol, 0)
+        current_price = state.get('stock_prices', {}).get(symbol, 0)
+        
+        if current_position != 0:
+            ax1.axhline(y=current_price, color='green' if current_pnl > 0 else 'red', 
+                       linestyle='--', alpha=0.8, linewidth=2)
+            position_text = f"Position: {current_position} | P&L: ${current_pnl:+.2f} | Entry: ${current_price:.2f}"
+            ax1.text(0.02, 0.98, position_text, transform=ax1.transAxes, 
+                    bbox=dict(boxstyle="round,pad=0.4", facecolor='lightgreen' if current_pnl > 0 else 'lightcoral', alpha=0.9),
+                    verticalalignment='top', fontsize=11, fontweight='bold')
+        
+        ax1.set_title(f'{symbol} - 3-Day Trading Analysis (1h intervals)', fontsize=16, fontweight='bold')
+        ax1.set_ylabel('Price ($)', fontsize=12)
+        ax1.legend(loc='upper left', fontsize=10)
+        ax1.grid(True, alpha=0.3)
+        
+        # Format x-axis for hourly data
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
+        ax1.xaxis.set_major_locator(mdates.HourLocator(interval=12))
+        plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45)
+        
+        # --- RSI Chart (optimized for short-term) ---
+        ax2.plot(data.index, data['RSI'], color='purple', linewidth=2, label='RSI')
+        ax2.axhline(y=70, color='red', linestyle='--', alpha=0.7, label='Overbought (70)')
+        ax2.axhline(y=30, color='green', linestyle='--', alpha=0.7, label='Oversold (30)')
+        ax2.fill_between(data.index, 30, 70, color='yellow', alpha=0.1)
+        ax2.set_ylabel('RSI', fontsize=12)
+        ax2.set_ylim(0, 100)
+        ax2.legend(loc='upper right', fontsize=9)
+        ax2.grid(True, alpha=0.3)
+        ax2.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
+        ax2.xaxis.set_major_locator(mdates.HourLocator(interval=12))
+        plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45)
+        
+        # --- Volume Chart ---
+        ax3.bar(data.index, data['Volume'], color='lightblue', alpha=0.7, width=0.02, label='Volume')
+        ax3.set_ylabel('Volume', fontsize=12)
+        ax3.set_xlabel('Time', fontsize=12)
+        ax3.legend(loc='upper right', fontsize=9)
+        ax3.grid(True, alpha=0.3)
+        ax3.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
+        ax3.xaxis.set_major_locator(mdates.HourLocator(interval=12))
+        plt.setp(ax3.xaxis.get_majorticklabels(), rotation=45)
+        
+        plt.tight_layout()
+        
+        # Convert to base64 string for HTML embedding
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', facecolor='white')
+        buffer.seek(0)
+        image_base64 = base64.b64encode(buffer.getvalue()).decode()
+        plt.close()
+        
+        return image_base64
+        
+    except Exception as e:
+        print(f"Error generating short-term trading chart for {symbol}: {e}")
+        return None
+
+def calculate_short_term_indicators(df):
+    """Calculate technical indicators optimized for short-term trading"""
+    # Short-term moving averages (12h and 24h)
+    df['SMA_12'] = df['Close'].rolling(window=12).mean()
+    df['SMA_24'] = df['Close'].rolling(window=24).mean()
+    
+    # RSI with shorter period for more responsive signals
+    delta = df['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+    rs = gain / loss
+    df['RSI'] = 100 - (100 / (1 + rs))
+    
+    # Bollinger Bands with 12-hour period
+    df['BB_middle'] = df['SMA_12']
+    bb_std = df['Close'].rolling(window=12).std()
+    df['BB_upper'] = df['BB_middle'] + (bb_std * 2)
+    df['BB_lower'] = df['BB_middle'] - (bb_std * 2)
+    
+    return df
+
+def generate_precision_trading_chart(symbol, state, hours=6):
+    """Generate high-precision 5-minute chart for entry/exit timing"""
+    try:
+        # Get short-term data with 5-minute intervals
+        data = get_short_term_crypto_data(symbol, hours=hours, interval='5m')
+        if data.empty:
+            return None
+            
+        # Calculate micro-trend indicators
+        data = calculate_precision_indicators(data)
+        
+        # Create the chart
+        plt.style.use('seaborn-v0_8-darkgrid')
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 10), height_ratios=[3, 1])
+        
+        # --- Candlestick-style Price Chart ---
+        # Create OHLC bars for better precision visualization
+        for i in range(len(data)):
+            color = 'green' if data['Close'].iloc[i] >= data['Open'].iloc[i] else 'red'
+            alpha = 0.8
+            
+            # Draw the high-low line
+            ax1.plot([data.index[i], data.index[i]], 
+                    [data['Low'].iloc[i], data['High'].iloc[i]], 
+                    color=color, alpha=alpha, linewidth=0.8)
+            
+            # Draw the open-close rectangle
+            height = abs(data['Close'].iloc[i] - data['Open'].iloc[i])
+            bottom = min(data['Open'].iloc[i], data['Close'].iloc[i])
+            ax1.bar(data.index[i], height, bottom=bottom, 
+                   color=color, alpha=0.6, width=pd.Timedelta(minutes=3))
+        
+        # Overlay moving averages
+        ax1.plot(data.index, data['EMA_20'], color='#FF6B35', linewidth=1.5, label='EMA 20 (100min)', alpha=0.9)
+        ax1.plot(data.index, data['EMA_50'], color='#004E89', linewidth=1.5, label='EMA 50 (250min)', alpha=0.9)
+        
+        # Trading signals
+        current_position = state.get('positions', {}).get(symbol, 0)
+        current_pnl = state.get('stock_pnls', {}).get(symbol, 0)
+        current_price = state.get('stock_prices', {}).get(symbol, 0)
+        
+        if current_position != 0:
+            ax1.axhline(y=current_price, color='gold', linestyle='-', alpha=0.9, linewidth=3, label='Entry Price')
+            
+            # Calculate unrealized P&L based on latest price
+            latest_price = data['Close'].iloc[-1] if not data.empty else current_price
+            unrealized_pnl = (latest_price - current_price) * current_position
+            
+            position_text = f"Live Position: {current_position} | Entry: ${current_price:.2f} | Current: ${latest_price:.2f} | P&L: ${unrealized_pnl:+.2f}"
+            ax1.text(0.02, 0.98, position_text, transform=ax1.transAxes, 
+                    bbox=dict(boxstyle="round,pad=0.4", facecolor='gold', alpha=0.9),
+                    verticalalignment='top', fontsize=11, fontweight='bold')
+        
+        ax1.set_title(f'{symbol} - Precision Trading ({hours}h @ 5min intervals)', fontsize=16, fontweight='bold')
+        ax1.set_ylabel('Price ($)', fontsize=12)
+        ax1.legend(loc='upper left', fontsize=10)
+        ax1.grid(True, alpha=0.3)
+        
+        # Format x-axis for 5-minute data
+        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+        ax1.xaxis.set_major_locator(mdates.HourLocator(interval=1))
+        ax1.xaxis.set_minor_locator(mdates.MinuteLocator(interval=30))
+        plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45)
+        
+        # --- MACD for precise timing ---
+        ax2.plot(data.index, data['MACD'], color='blue', linewidth=1.5, label='MACD', alpha=0.8)
+        ax2.plot(data.index, data['MACD_signal'], color='red', linewidth=1.5, label='Signal', alpha=0.8)
+        ax2.bar(data.index, data['MACD_histogram'], color='gray', alpha=0.4, width=pd.Timedelta(minutes=3), label='Histogram')
+        ax2.axhline(y=0, color='black', linestyle='-', alpha=0.5, linewidth=0.8)
+        ax2.set_ylabel('MACD', fontsize=12)
+        ax2.set_xlabel('Time', fontsize=12)
+        ax2.legend(loc='upper right', fontsize=9)
+        ax2.grid(True, alpha=0.3)
+        ax2.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+        ax2.xaxis.set_major_locator(mdates.HourLocator(interval=1))
+        plt.setp(ax2.xaxis.get_majorticklabels(), rotation=45)
+        
+        plt.tight_layout()
+        
+        # Convert to base64 string for HTML embedding
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png', dpi=150, bbox_inches='tight', facecolor='white')
+        buffer.seek(0)
+        image_base64 = base64.b64encode(buffer.getvalue()).decode()
+        plt.close()
+        
+        return image_base64
+        
+    except Exception as e:
+        print(f"Error generating precision trading chart for {symbol}: {e}")
+        return None
+
+def calculate_precision_indicators(df):
+    """Calculate indicators for high-precision trading"""
+    # Exponential moving averages (more responsive than SMA)
+    df['EMA_20'] = df['Close'].ewm(span=20, adjust=False).mean()  # ~100 minutes
+    df['EMA_50'] = df['Close'].ewm(span=50, adjust=False).mean()  # ~250 minutes
+    
+    # MACD for momentum and timing signals
+    ema_12 = df['Close'].ewm(span=12, adjust=False).mean()
+    ema_26 = df['Close'].ewm(span=26, adjust=False).mean()
+    df['MACD'] = ema_12 - ema_26
+    df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
+    df['MACD_histogram'] = df['MACD'] - df['MACD_signal']
+    
+    return df
+
+def generate_technical_analysis_section_html(state):
+    """Generate HTML section with technical analysis charts for all portfolio stocks"""
+    html = """
+    <div class="section technical-analysis-section">
+        <h2>📊 Technical Analysis Dashboard</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 20px;">
+            Real-time technical analysis with RSI, moving averages, and Bollinger Bands for portfolio positions
+        </p>
+        <div class="charts-grid">
+    """
+    
+    # Generate charts for each portfolio stock
+    for symbol in PORTFOLIO_STOCKS[:6]:  # Limit to first 6 to avoid too large reports
+        print(f"Generating technical analysis charts for {symbol}...")
+        
+        # Generate 30-day overview chart
+        overview_chart = generate_technical_analysis_chart(symbol, state)
+        
+        # Generate 3-day trading chart
+        trading_chart = generate_short_term_trading_chart(symbol, state)
+        
+        # Generate 6-hour precision chart
+        precision_chart = generate_precision_trading_chart(symbol, state)
+        
+        html += f"""
+        <div class="multi-chart-container" style="margin-bottom: 40px; border: 2px solid #ddd; border-radius: 10px; padding: 20px; background: #fafafa;">
+            <h3 style="text-align: center; color: #333; margin-bottom: 20px; font-size: 20px; font-weight: bold;">{symbol} - Complete Trading Analysis</h3>
+            
+            <div class="chart-grid" style="display: grid; gap: 20px;">
+        """
+        
+        # 30-day overview chart
+        if overview_chart:
+            html += f"""
+                <div class="chart-section">
+                    <h4 style="color: #555; margin-bottom: 10px;">📈 30-Day Market Overview</h4>
+                    <img src="data:image/png;base64,{overview_chart}" alt="{symbol} 30-Day Overview" 
+                         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            """
+        
+        # 3-day trading chart
+        if trading_chart:
+            html += f"""
+                <div class="chart-section">
+                    <h4 style="color: #555; margin-bottom: 10px;">⚡ 3-Day Trading Focus (1h intervals)</h4>
+                    <img src="data:image/png;base64,{trading_chart}" alt="{symbol} 3-Day Trading" 
+                         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            """
+        
+        # 6-hour precision chart
+        if precision_chart:
+            html += f"""
+                <div class="chart-section">
+                    <h4 style="color: #555; margin-bottom: 10px;">🎯 Precision Entry/Exit (5min intervals)</h4>
+                    <img src="data:image/png;base64,{precision_chart}" alt="{symbol} Precision Trading" 
+                         style="width: 100%; max-width: 800px; height: auto; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            """
+        
+        # If no charts available
+        if not any([overview_chart, trading_chart, precision_chart]):
+            html += f"""
+                <div class="chart-section">
+                    <p style="text-align: center; color: #999; padding: 50px;">Charts unavailable for {symbol}</p>
+                </div>
+            """
+        
+        html += """
+            </div>
+        </div>
+        """
+    
+    html += """
+        </div>
+    </div>
+    """
+    
+    return html
 
 # Add these helper functions to your existing reporting.py file
 
@@ -24,20 +492,53 @@ def generate_trading_history_section_html(state: PortfolioState) -> str:
     """Generate comprehensive trading history HTML section"""
     
     try:
-        # Get memory statistics
-        memory_stats = get_memory_stats()
+        # Get executed trades from current state as fallback
+        executed_trades = state.get('executed_trades', [])
         
-        # Get recent trading history (last 7 days)
+        # Try to get historical data from memory system
         historical_trades = []
-        for days_back in range(7):  # Last 7 days
-            from datetime import datetime, timedelta
-            target_date = (datetime.now() - timedelta(days=days_back)).strftime('%Y-%m-%d')
-            daily_context = trading_memory.get_daily_context(target_date)
-            
-            if daily_context.get('trades'):
-                for trade in daily_context['trades']:
-                    trade['trading_date'] = target_date  # Ensure date is set
-                    historical_trades.append(trade)
+        memory_stats = {}
+        
+        if trading_memory is not None:
+            try:
+                # Get memory statistics
+                memory_stats = get_memory_stats()
+                
+                # Get recent trading history (last 7 days)
+                for days_back in range(7):  # Last 7 days
+                    from datetime import datetime, timedelta
+                    target_date = (datetime.now() - timedelta(days=days_back)).strftime('%Y-%m-%d')
+                    daily_context = trading_memory.get_daily_context(target_date)
+                    
+                    if daily_context and daily_context.get('trades'):
+                        for trade in daily_context['trades']:
+                            trade['trading_date'] = target_date  # Ensure date is set
+                            historical_trades.append(trade)
+            except Exception as e:
+                print(f"⚠️ Error accessing trading memory: {e}")
+        
+        # If no historical trades but we have current executed trades, use those
+        if not historical_trades and executed_trades:
+            historical_trades = executed_trades.copy()
+            # Add current date to trades
+            from datetime import datetime
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            for trade in historical_trades:
+                trade['trading_date'] = current_date
+        
+        # If still no trades, return empty state message
+        if not historical_trades:
+            return """
+            <div class="section">
+                <h2>📊 Trading History</h2>
+                <p style="text-align: center; color: #666; padding: 30px;">
+                    📈 No trading history available yet
+                </p>
+                <p style="text-align: center; color: #666;">
+                    Trading history will appear here once you execute trades through the system.
+                </p>
+            </div>
+            """
         
         # Sort by timestamp (most recent first)
         historical_trades.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
@@ -543,7 +1044,17 @@ def generate_profitability_section_html(state: PortfolioState) -> str:
     """Generate HTML for the portfolio profitability analysis section"""
     
     # Get current stock data for profitability calculation
-    stock_data = state.get('stock_data', {})
+    # Convert stock_prices to the expected format for calculate_portfolio_profitability
+    stock_prices = state.get('stock_prices', {})
+    stock_data = {}
+    
+    # Convert flat price structure to nested structure expected by profitability function
+    for symbol, price in stock_prices.items():
+        stock_data[symbol] = {'current_price': price}
+    
+    # If no stock_prices available, try to get from stock_data directly
+    if not stock_data:
+        stock_data = state.get('stock_data', {})
     
     # Calculate profitability data
     try:
@@ -631,7 +1142,12 @@ def generate_profitability_section_html(state: PortfolioState) -> str:
         stock_profit = individual_stocks.get(symbol, {})
         position = stock_profit.get('position', 0)
         avg_cost = stock_profit.get('avg_cost', 0)
-        current_price = stock_profit.get('current_price', 0)
+        
+        # FIX: Get current price from state data if profitability calc failed
+        profitability_price = stock_profit.get('current_price', 0)
+        state_price = state.get('stock_prices', {}).get(symbol, 0)
+        current_price = profitability_price if profitability_price > 0 else state_price
+        
         total_invested = stock_profit.get('total_invested', 0)
         current_value = stock_profit.get('current_value', 0)
         unrealized_pnl = stock_profit.get('unrealized_pnl', 0)
@@ -763,6 +1279,13 @@ def generate_html_report(state: PortfolioState):
             .position-size {{ font-weight: bold; color: #34495e; }}
             .avg-cost {{ color: #5d6d7e; }}
             .current-price {{ color: #2c3e50; font-weight: bold; }}
+            
+            /* TECHNICAL ANALYSIS SECTION STYLES */
+            .technical-analysis-section {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }}
+            .charts-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-top: 20px; }}
+            .chart-container {{ background: rgba(255,255,255,0.95); color: #333; padding: 15px; border-radius: 8px; text-align: center; }}
+            .chart-container h3 {{ margin-top: 0; color: #2c3e50; font-weight: bold; }}
+            .chart-container img {{ border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }}
         </style>
     </head>
     <body>
@@ -990,6 +1513,9 @@ def generate_html_report(state: PortfolioState):
     
     # NEW: ADD PROFITABILITY SECTION BEFORE NEWS
     html += generate_profitability_section_html(state)
+    
+    # NEW: ADD TECHNICAL ANALYSIS SECTION
+    html += generate_technical_analysis_section_html(state)
     
     # NEW: ADD NEWS SECTION AT THE BOTTOM
     html += generate_news_section_html(state)
@@ -1577,13 +2103,33 @@ def generate_portfolio_status_report(state: PortfolioState):
 ### ------------->>>>> <<<<<------------------------
 from utils import ensure_connection, setup_reporting_directory, upload_to_gcs
 from config import PORTFOLIO_STOCKS
-from ib_async import Stock
+# Legacy import - make optional for crypto trading
+try:
+    from ib_async import Stock
+    IBKR_AVAILABLE = True
+except ImportError:
+    print("⚠️ IBKR not available, using crypto-only reporting")
+    IBKR_AVAILABLE = False
+    # Create dummy Stock class for compatibility
+    class Stock:
+        def __init__(self, *args, **kwargs):
+            pass
 
 # === ENHANCED COMBINED PERFORMANCE AND PORTFOLIO STATUS REPORT ===
 # === ENHANCED COMBINED PERFORMANCE AND PORTFOLIO STATUS REPORT ===
 # Import required utilities at the top of your file
 from utils import ensure_connection, setup_reporting_directory, upload_to_gcs
-from ib_async import Stock
+# Legacy import - make optional for crypto trading
+try:
+    from ib_async import Stock
+    IBKR_AVAILABLE = True
+except ImportError:
+    print("⚠️ IBKR not available, using crypto-only reporting")
+    IBKR_AVAILABLE = False
+    # Create dummy Stock class for compatibility
+    class Stock:
+        def __init__(self, *args, **kwargs):
+            pass
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
@@ -1979,15 +2525,32 @@ async def generate_enhanced_performance_and_status_report(state: PortfolioState)
 
 # Helper function to get current portfolio status from IBKR
 async def get_current_portfolio_status():
-    """Get current portfolio status from Interactive Brokers"""
+    """Get current portfolio status - adapted for crypto trading"""
     try:
         ib = await ensure_connection()
-        if not ib:
+        
+        # Check if we're in crypto mode (ensure_connection returns True instead of IB object)
+        if ib is True:
+            print("📊 Fetching portfolio status from crypto exchange...")
+            # Use crypto portfolio functions instead of IBKR
+            from crypto_market_data import get_crypto_portfolio_summary
+            portfolio_value, usd_available, positions = await get_crypto_portfolio_summary()
+            
+            return {
+                'net_liquidation': portfolio_value,
+                'total_cash': usd_available,
+                'total_market_value': portfolio_value - usd_available,
+                'positions': positions,
+                'crypto_mode': True,
+                'timestamp': datetime.now().isoformat()
+            }
+        
+        elif not ib:
             return None
         
         print("📊 Fetching portfolio status from IBKR...")
         
-        # Get account values
+        # Get account values (IBKR mode)
         account_values = ib.accountValues()
         account_summary = ib.accountSummary()
         positions = ib.positions()

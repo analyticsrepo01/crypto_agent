@@ -2,7 +2,88 @@
 
 import asyncio
 from typing import Dict, List
+import os
+import json
+from datetime import datetime
 from config import gemini_model, PORTFOLIO_STOCKS, TRADE_SIZE, MIN_CASH_RESERVE, MAX_SHARES_PER_STOCK, MAX_TOTAL_SHARES, TRADING_FEE_PER_TRADE
+
+def save_ai_prompt_log(symbol: str, prompt: str, response: str, recommendation: Dict, state: Dict):
+    """Save AI prompt, response, and context to timestamped log file"""
+    try:
+        # Ensure logs directory exists
+        os.makedirs("logs", exist_ok=True)
+        
+        # Create timestamp for filename and content
+        timestamp = datetime.now()
+        filename = f"logs/ai_analysis_{timestamp.strftime('%Y%m%d_%H%M%S')}_{symbol}.txt"
+        
+        # Extract key state information for context
+        portfolio_summary = {
+            'total_value': state.get('total_portfolio_value', 0),
+            'cash_available': state.get('cash_available', 0),
+            'total_pnl': state.get('total_unrealized_pnl', 0),
+            'cycle_number': state.get('cycle_number', 0),
+            'session_id': state.get('session_id', 'unknown'),
+            'aggressive_mode': state.get('aggressive_mode', False)
+        }
+        
+        # Get market data for this symbol
+        stock_data = state.get('stock_data', {}).get(symbol, {})
+        news_data = state.get('news_sentiment', {}).get(symbol, {})
+        position = state.get('positions', {}).get(symbol, 0)
+        
+        # Create comprehensive log content
+        log_content = f"""{'='*80}
+AI TRADING ANALYSIS LOG
+{'='*80}
+Timestamp: {timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+Symbol: {symbol}
+Cycle: {state.get('cycle_number', 'N/A')}
+Session: {state.get('session_id', 'N/A')}
+Strategy Mode: {'AGGRESSIVE' if state.get('aggressive_mode', False) else 'BALANCED'}
+
+{'='*80}
+PORTFOLIO CONTEXT
+{'='*80}
+{json.dumps(portfolio_summary, indent=2)}
+
+{'='*80}
+CURRENT POSITION & MARKET DATA
+{'='*80}
+Position: {position} shares
+Current Price: ${stock_data.get('current_price', 0):.2f}
+Daily Change: {stock_data.get('daily_change_pct', 0):+.2f}%
+RSI: {stock_data.get('rsi', 0):.1f}
+News Sentiment: {news_data.get('sentiment_label', 'N/A')} ({news_data.get('sentiment_score', 0):+.2f})
+
+{'='*80}
+FULL AI PROMPT SENT
+{'='*80}
+{prompt}
+
+{'='*80}
+AI RESPONSE RECEIVED
+{'='*80}
+{response}
+
+{'='*80}
+PARSED RECOMMENDATION
+{'='*80}
+{json.dumps(recommendation, indent=2)}
+
+{'='*80}
+END OF LOG
+{'='*80}
+"""
+        
+        # Write to file
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(log_content)
+        
+        print(f"📝 AI analysis logged: {filename}")
+        
+    except Exception as e:
+        print(f"⚠️ Failed to save AI log for {symbol}: {e}")
 
 async def analyze_single_symbol(state: Dict, symbol: str) -> Dict:
     """
@@ -45,17 +126,18 @@ async def analyze_single_symbol(state: Dict, symbol: str) -> Dict:
         - News sentiment score -0.5 or lower = immediate SELL consideration"""
     else:
         strategy_instruction = """
-        BALANCED TRADING MODE ACTIVE:
-        - Prioritize capital preservation with steady growth
-        - Require technical scores 6+ for high-priority BUY
-        - Require technical scores 4- for high-priority SELL  
-        - Demand multiple confirming indicators
-        - Avoid trades during high volatility periods
-        - Focus on strong technical alignment
+        BALANCED CRYPTO TRADING MODE ACTIVE:
+        - Adapted for crypto's higher volatility (normal daily swings: 5-15%)
+        - Require technical scores 5+ for high-priority BUY (lowered from 6+)
+        - Require technical scores 5- for high-priority SELL (adjusted from 4-)
+        - Accept 2-3 confirming indicators (reduced from multiple)
+        - Allow trades during moderate volatility (crypto norm)
+        - Only avoid trades during EXTREME volatility (>20% daily moves)
+        - Focus on strong technical alignment with crypto-adjusted thresholds
         - Use news sentiment as critical risk assessment factor
         - Avoid BUY on negative news (sentiment < -0.2)
         - Avoid SELL on strongly positive news (sentiment > +0.5)
-        - Require news alignment with technical signals for high-priority trades"""
+        - Allow trades with moderate technical+news alignment for crypto opportunities"""
 
     # Get memory context for this symbol specifically
     memory_context = state.get('memory_context', 'No trading history available')
@@ -179,9 +261,14 @@ async def analyze_single_symbol(state: Dict, symbol: str) -> Dict:
     2. Technical strength from multiple indicators across BOTH timeframes
     3. News sentiment impact (if available)
     4. Current position and portfolio constraints
-    5. Risk management in context of strategy mode
+    5. CRYPTO-ADJUSTED RISK MANAGEMENT:
+       - Daily moves 5-15% are NORMAL for crypto (not high volatility)
+       - Only moves >20% daily are considered EXTREME volatility
+       - Volume of 0 is concerning but common in crypto sandbox/testing
+       - RSI >80 or <20 are stronger signals in crypto than stocks
+       - MACD crossovers are more reliable in crypto's trending markets
     6. Historical trading pattern for this symbol
-    7. TIMEFRAME ALIGNMENT: High confidence only when both timeframes agree
+    7. TIMEFRAME ALIGNMENT: Medium confidence acceptable if 1H data supports direction
     8. Use 5-minute data for precise entry/exit timing, 1-hour for trend confirmation
     
     DECISION INTEGRATION MATRIX:
@@ -209,6 +296,9 @@ async def analyze_single_symbol(state: Dict, symbol: str) -> Dict:
         # Parse the response
         recommendation = parse_single_symbol_response(response.text, symbol)
         print(f"✅ {symbol}: {recommendation['action']} ({recommendation['priority']}) - Score: {recommendation['technical_score']}")
+        
+        # Log the full AI analysis details
+        save_ai_prompt_log(symbol, prompt, response.text, recommendation, state)
         
         return recommendation
         
