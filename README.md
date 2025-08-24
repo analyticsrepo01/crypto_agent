@@ -1,8 +1,8 @@
 # 🤖 Autonomous Crypto AI Trading Agent with Real-Time P&L Intelligence
 ## *Revolutionizing Cryptocurrency Trading Through Advanced AI and 24/7 Market Analysis*
 
-![System Architecture](Charts.png)
-![AI Decision Engine](Agentic_AI.png)
+![System Architecture](Charts.jpg)
+![AI Decision Engine](Agentic_AI.jpg)
 
 ---
 
